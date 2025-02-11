@@ -12,6 +12,7 @@ public class Caballo extends Pieza {
         ArrayList<Casilla> casillas = new ArrayList<>();
         int difX = Math.abs(x-casilla.x);
         int difY = Math.abs(y-casilla.y);
+        System.out.println(difX+" "+difY);
         if(difX!=0 && difY!=0 && difX+difY==3){
             return casillas;
         }

@@ -8,12 +8,15 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import modelo.Casilla;
+import modelo.Tablero;
 
 public class ControladorTablero {
 
     @FXML
     private GridPane gridPanel;
 
+    private Tablero tablero;
     private ImageView piezaSeleccionada;
     private Ficha fichaSeleccionada;
 
@@ -23,6 +26,7 @@ public class ControladorTablero {
     public void initialize() {
         asignarEventosAPiezas();
         asignarEventosACasillas();
+        tablero = new Tablero();
     }
 
     private void asignarEventosAPiezas() {
@@ -63,13 +67,15 @@ public class ControladorTablero {
                         if (filaDestino == null) filaDestino = 0;
                         if (columnaDestino == null) columnaDestino = 0;
 
-                       /*
-                        if (!ValidadorMovimientos.esMovimientoValido(fichaSeleccionada, filaDestino, columnaDestino)) {
+
+                        if (!tablero.mover(new Casilla(fichaSeleccionada.getColumna()+1,fichaSeleccionada.getFila()+1), new Casilla(columnaDestino+1,filaDestino+1))) {
+                            System.out.println(fichaSeleccionada);
+                            System.out.println(columnaDestino+" "+filaDestino);
                             System.out.println("Movimiento inválido para " + fichaSeleccionada.getNombre());
                             return;
                         }
 
-                        */
+
 
                         // Crear un String del movimiento
                         String movimiento = fichaSeleccionada.getNombre() + ": "

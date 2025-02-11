@@ -55,15 +55,27 @@ public class Tablero {
 
     public boolean mover(Casilla origen, Casilla destino) {
         if(tablero.get(origen)!=null) {
-            List<Casilla> obstaculos = tablero.get(origen).validar(destino);
+            try {
+                List<Casilla> obstaculos = tablero.get(origen).validar(destino);
+
             for (Casilla casilla : obstaculos) {
                 if (tablero.get(casilla) != null) {
                     return false;
                 }
             }
-            if (tablero.get(origen).color==tablero.get(destino).color) {
+            } catch (Exception e) {
                 return false;
             }
+            if(tablero.get(destino)!=null) {
+                if (tablero.get(origen).color == tablero.get(destino).color) {
+                    return false;
+                }
+            }
+            //Traslado
+            tablero.get(origen).x=destino.x;
+            tablero.get(origen).y=destino.y;
+            tablero.put(destino, tablero.get(origen));
+            tablero.put(origen, null);
             return true;
         }else{
             return false;
