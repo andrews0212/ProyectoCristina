@@ -31,6 +31,8 @@ public class HelloController {
                     if (child instanceof ImageView) {
                         ImageView pieza = (ImageView) child;
                         pieza.setOnMouseClicked(event -> {
+                            //Considera esto para gestionar turnos
+                            //if(turno==pieza.getColor()){
                             piezaSeleccionada = pieza;
                             fichaSeleccionada = Ficha.crearFichaDesdePanel((Pane) pieza.getParent());
                             System.out.println("Ficha seleccionada: " + fichaSeleccionada);
