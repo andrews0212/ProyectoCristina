@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Tablero {
-    public static Map<Casilla,Pieza> tablero= new HashMap<Casilla,Pieza>();
+    public static Map<Casilla, Pieza> tablero = new HashMap<Casilla, Pieza>();
+
     public Tablero() {
         for (int y = 1; y < 9; y++) {
             for (int x = 1; x < 9; x++) {
@@ -54,30 +55,28 @@ public class Tablero {
     }
 
     public boolean mover(Casilla origen, Casilla destino) {
-        if(tablero.get(origen)!=null) {
-            try {
-                List<Casilla> obstaculos = tablero.get(origen).validar(destino);
-
+        if (tablero.get(origen) != null) {
+            List<Casilla> obstaculos = tablero.get(origen).validar(destino);
+            if (obstaculos == null) {
+                return false;
+            }
             for (Casilla casilla : obstaculos) {
                 if (tablero.get(casilla) != null) {
                     return false;
                 }
             }
-            } catch (Exception e) {
-                return false;
-            }
-            if(tablero.get(destino)!=null) {
+            if (tablero.get(destino) != null) {
                 if (tablero.get(origen).color == tablero.get(destino).color) {
                     return false;
                 }
             }
             //Traslado
-            tablero.get(origen).x=destino.x;
-            tablero.get(origen).y=destino.y;
+            tablero.get(origen).x = destino.x;
+            tablero.get(origen).y = destino.y;
             tablero.put(destino, tablero.get(origen));
             tablero.put(origen, null);
             return true;
-        }else{
+        } else {
             return false;
         }
     }

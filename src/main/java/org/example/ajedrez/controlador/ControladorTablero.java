@@ -1,5 +1,6 @@
 package org.example.ajedrez.controlador;
 
+import org.example.ajedrez.modelo.Casilla;
 import org.example.ajedrez.modelo.Ficha;
 
 import javafx.fxml.FXML;
@@ -8,8 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import modelo.Casilla;
-import modelo.Tablero;
+import org.example.ajedrez.modelo.Tablero;
+
 
 public class ControladorTablero {
 
@@ -68,9 +69,9 @@ public class ControladorTablero {
                         if (columnaDestino == null) columnaDestino = 0;
 
 
-                        if (!tablero.mover(new Casilla(fichaSeleccionada.getColumna()+1,fichaSeleccionada.getFila()+1), new Casilla(columnaDestino+1,filaDestino+1))) {
-                            System.out.println(fichaSeleccionada);
-                            System.out.println(columnaDestino+" "+filaDestino);
+                        if (!tablero.mover(new Casilla(fichaSeleccionada.getColumna()+1,9-fichaSeleccionada.getFila()), new Casilla(columnaDestino+1,9-filaDestino))) {
+                            System.out.println((fichaSeleccionada.getColumna()+1)+" "+(9-fichaSeleccionada.getFila()));
+                            System.out.println((columnaDestino+1)+" "+(9-filaDestino));
                             System.out.println("Movimiento inválido para " + fichaSeleccionada.getNombre());
                             return;
                         }
