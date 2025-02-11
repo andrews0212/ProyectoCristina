@@ -4,6 +4,6 @@ module org.example.ajedrez {
 
     requires com.almasb.fxgl.all;
 
-    opens org.example.ajedrez to javafx.fxml;
+    opens org.example.ajedrez.controlador to javafx.fxml;
     exports org.example.ajedrez;
 }
