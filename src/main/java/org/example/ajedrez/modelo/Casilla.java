@@ -1,4 +1,4 @@
-package modelo;
+package org.example.ajedrez.modelo;
 
 public class Casilla {
     public int x;

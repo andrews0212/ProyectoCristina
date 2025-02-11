@@ -1,4 +1,4 @@
-package modelo;
+package org.example.ajedrez.modelo;
 
 import java.util.HashMap;
 import java.util.List;

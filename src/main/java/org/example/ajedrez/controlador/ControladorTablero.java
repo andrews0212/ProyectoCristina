@@ -1,4 +1,6 @@
-package org.example.ajedrez;
+package org.example.ajedrez.controlador;
+
+import org.example.ajedrez.modelo.Ficha;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -7,7 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
-public class HelloController {
+public class ControladorTablero {
 
     @FXML
     private GridPane gridPanel;

@@ -1,7 +1,6 @@
-package modelo;
+package org.example.ajedrez.modelo;
 
 import javafx.scene.image.ImageView;
-import org.example.ajedrez.Ficha;
 
 import java.util.List;
 

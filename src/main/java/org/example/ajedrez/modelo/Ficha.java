@@ -1,4 +1,4 @@
-package org.example.ajedrez;
+package org.example.ajedrez.modelo;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
