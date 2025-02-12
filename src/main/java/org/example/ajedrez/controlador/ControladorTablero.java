@@ -37,14 +37,19 @@ public class ControladorTablero {
                     if (child instanceof ImageView) {
                         ImageView pieza = (ImageView) child;
                         pieza.setOnMouseClicked(event -> {
-                            //Considera esto para gestionar turnos
-                            //if(turno==pieza.getColor()){
+                            // Quitar el efecto de la pieza previamente seleccionada
+                            if (piezaSeleccionada != null) {
+                                piezaSeleccionada.setStyle(null);
+                            }
+
+                            // Asignar la nueva pieza seleccionada
                             piezaSeleccionada = pieza;
                             fichaSeleccionada = Ficha.crearFichaDesdePanel((Pane) pieza.getParent());
                             System.out.println("Ficha seleccionada: " + fichaSeleccionada);
 
-                            // Efecto visual para indicar selección
-                            pieza.setStyle("-fx-effect: dropshadow(gaussian, red, 10, 0.5, 0, 0);");
+                            // Aplicar efecto visual solo a la nueva pieza
+                            piezaSeleccionada.setStyle("-fx-effect: dropshadow(gaussian, red, 10, 0.5, 0, 0);");
+
                             event.consume();
                         });
                     }
@@ -67,13 +72,20 @@ public class ControladorTablero {
                         if (filaDestino == null) filaDestino = 0;
                         if (columnaDestino == null) columnaDestino = 0;
 
-                        //Validación de movimiento con conversión de coordenadas
-                        if (!tablero.mover(new Casilla(fichaSeleccionada.getColumna()+1,9-fichaSeleccionada.getFila()), new Casilla(columnaDestino+1,9-filaDestino))) {
+                        // Validar movimiento con lógica del tablero
+                        if (!tablero.mover(new Casilla(fichaSeleccionada.getColumna() + 1, 9 - fichaSeleccionada.getFila()),
+                                new Casilla(columnaDestino + 1, 9 - filaDestino))) {
                             System.out.println("Movimiento inválido para " + fichaSeleccionada.getNombre());
                             return;
                         }
 
-
+                        // Comprobar si hay una pieza en la casilla de destino (comer pieza)
+                        if (!casilla.getChildren().isEmpty()) {
+                            Node piezaEnCasilla = casilla.getChildren().get(0);
+                            if (piezaEnCasilla instanceof ImageView) {
+                                casilla.getChildren().remove(piezaEnCasilla); // Comer la pieza
+                            }
+                        }
 
                         // Crear un String del movimiento
                         String movimiento = fichaSeleccionada.getNombre() + ": "
@@ -81,7 +93,7 @@ public class ControladorTablero {
                                 + convertirAjedrez(filaDestino, columnaDestino);
 
                         // Imprimir y actualizar el Label
-                         System.out.println(movimiento);
+                        System.out.println(movimiento);
                         if (labelMovimiento != null) {
                             labelMovimiento.setText(movimiento);
                         }
@@ -106,6 +118,7 @@ public class ControladorTablero {
             }
         }
     }
+
 
     private String convertirAjedrez(int fila, int columna) {
         char columnaLetra = (char) ('a' + columna);
