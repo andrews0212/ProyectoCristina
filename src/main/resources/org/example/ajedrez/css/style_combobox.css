@@ -1,0 +1,20 @@
+.combo-box, .combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.combo-box .arrow-button .arrow {
+    -fx-background-color: #B58863;
+}
+
+.combo-box .text-field {
+    -fx-prompt-text: #B58863;
+    -fx-text: #B58863;
+}
+
+.combo-box .list-cell:selected:filled .text {
+    -fx-fill: #B58863;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #B58863;
+}

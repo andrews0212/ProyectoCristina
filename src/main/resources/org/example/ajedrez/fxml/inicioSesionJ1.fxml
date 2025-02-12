@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="rootVBox" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ajedrez.controlador.ControladorInicioSesionJ1">
+   <children>
+      <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
+         <children>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <ImageView fitHeight="602.0" fitWidth="330.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2147483647" GridPane.vgrow="ALWAYS">
+                     <image>
+                        <Image url="@../images/bannerLogin.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </GridPane>
+            <GridPane style="-fx-background-color: #ffffff;">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="97.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="97.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="97.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="67.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="97.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <ComboBox fx:id="idioma" editable="false" onAction="#seleccionarIdioma" prefHeight="30.0" prefWidth="110.0" stylesheets="@../css/style_combobox.css" GridPane.columnIndex="4" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <tooltip>
+                        <Tooltip fx:id="ttComboBox" text="tt.comboBox" />
+                     </tooltip>
+                  </ComboBox>
+                  <Label fx:id="lblTitulo" alignment="CENTER" prefHeight="27.0" prefWidth="283.0" text="" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="Poppins Regular" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtUsuario" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="180.0" promptText="" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+                     <tooltip>
+                        <Tooltip fx:id="ttTxtUsuario" text="" />
+                     </tooltip>
+                     <font>
+                        <Font name="Poppins Regular" size="13.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets top="-18.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <PasswordField fx:id="txtContrasenha" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="180.0" promptText="" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                     <tooltip>
+                        <Tooltip fx:id="ttTxtContrasenha" text="tt.login.txt.contrasenha" />
+                     </tooltip>
+                     <font>
+                        <Font name="Poppins Regular" size="13.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" />
+                     </GridPane.margin>
+                  </PasswordField>
+                  <HBox fx:id="hbValidacionUsuario" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="197.0" visible="false" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                     <children>
+                        <SVGPath content="M-196-222.1c-13.2,0-23.9-10.7-23.9-23.9c0-13.2,10.7-23.9,23.9-23.9s23.9,10.7,23.9,23.9C-172.1-232.8-182.8-222.1-196-222.1L-196-222.1z M-196-267.3c-11.7,0-21.3,9.6-21.3,21.3s9.6,21.3,21.3,21.3s21.3-9.6,21.3-21.3S-184.3-267.3-196-267.3L-196-267.3z M-197.4-236.1L-194.6-236.1L-194.6-233.3L-197.4-233.3z M-195.2-238.9L-196.8-238.9L-197.4-250.2L-197.4-258.7L-194.6-258.7L-194.6-250.2L-195.2-238.9z" fill="#f50000" scaleX="0.13" scaleY="0.13" translateY="-1.0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </SVGPath>
+                        <Label fx:id="lblValidacionUsuario" contentDisplay="CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="159.0" textFill="#f50000" translateX="-10.0" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets top="7.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </HBox>
+                  <Hyperlink fx:id="hlRecuperarContrasenha" alignment="CENTER" onAction="#recuperarContrasenha" prefHeight="19.0" prefWidth="143.0" textFill="#b58863" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="3" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="Poppins Regular" size="9.0" />
+                     </font>
+                     <tooltip>
+                        <Tooltip fx:id="ttHlRecuperarContrasenha" text="" />
+                     </tooltip>
+                     <GridPane.margin>
+                        <Insets left="41.0" top="28.0" />
+                     </GridPane.margin>
+                  </Hyperlink>
+                  <Button fx:id="btnIniciarSesion" alignment="CENTER" maxHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="194.0" style="-fx-background-radius: 20; -fx-background-color: #b58863;" text="" textFill="WHITE" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="Poppins Regular" size="13.0" />
+                     </font>
+                     <tooltip>
+                        <Tooltip fx:id="ttBtnIniciarSesion" text="" />
+                     </tooltip>
+                  </Button>
+                  <Hyperlink fx:id="hlRegistro" alignment="CENTER" contentDisplay="TOP" onAction="#registro" prefHeight="25.0" prefWidth="193.0" text="" textFill="#b58863" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP">
+                     <font>
+                        <Font name="Poppins Regular" size="13.0" />
+                     </font>
+                     <tooltip>
+                        <Tooltip fx:id="ttHlRegistro" text="" />
+                     </tooltip>
+                  </Hyperlink>
+                  <TextField fx:id="txtEmail" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="180.0" promptText="" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                     <tooltip>
+                        <Tooltip fx:id="ttTxtEmail" text="" />
+                     </tooltip>
+                     <font>
+                        <Font name="Poppins Regular" size="13.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </GridPane>
+         </children>
+      </HBox>
+   </children>
+</VBox>
