@@ -17,4 +17,13 @@ public class Pieza {
     public List<Casilla> validar(Casilla casilla) {
         return null;
     }
+
+    public Casilla getCasilla() {
+        return new Casilla(x, y);
+    }
+
+    @Override
+    public String toString() {
+        return "Pieza{" + "x=" + x + ", y=" + y + ", color=" + color + '}';
+    }
 }

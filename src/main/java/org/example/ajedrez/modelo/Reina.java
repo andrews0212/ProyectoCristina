@@ -25,7 +25,23 @@ public class Reina extends Pieza {
                 lista.add(new Casilla(i, casilla.y));
             }
             return lista;
-        } else if (Math.abs(y - casilla.y) == Math.abs(x - casilla.x)) {
+        }else if(Math.abs(y-casilla.y)==Math.abs(x-casilla.x)) {
+            int xi = x;
+            int yi = y;
+
+            while (xi != casilla.x) {
+                if (xi < casilla.x) {
+                    xi++;
+                } else {
+                    xi--;
+                }
+                if (yi < casilla.y) {
+                    yi++;
+                } else {
+                    yi--;
+                }
+                lista.add(new Casilla(xi, yi));
+            }
             return lista;
         } else {
             return null;

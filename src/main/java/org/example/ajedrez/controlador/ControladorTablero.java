@@ -1,7 +1,6 @@
 package org.example.ajedrez.controlador;
 
 import org.example.ajedrez.modelo.Casilla;
-import org.example.ajedrez.modelo.Ficha;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -68,10 +67,8 @@ public class ControladorTablero {
                         if (filaDestino == null) filaDestino = 0;
                         if (columnaDestino == null) columnaDestino = 0;
 
-
+                        //Validación de movimiento con conversión de coordenadas
                         if (!tablero.mover(new Casilla(fichaSeleccionada.getColumna()+1,9-fichaSeleccionada.getFila()), new Casilla(columnaDestino+1,9-filaDestino))) {
-                            System.out.println((fichaSeleccionada.getColumna()+1)+" "+(9-fichaSeleccionada.getFila()));
-                            System.out.println((columnaDestino+1)+" "+(9-filaDestino));
                             System.out.println("Movimiento inválido para " + fichaSeleccionada.getNombre());
                             return;
                         }

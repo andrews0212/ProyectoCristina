@@ -6,6 +6,8 @@ import java.util.Map;
 
 public class Tablero {
     public static Map<Casilla, Pieza> tablero = new HashMap<Casilla, Pieza>();
+    public static Rey reyB;
+    public static Rey reyN;
 
     public Tablero() {
         for (int y = 1; y < 9; y++) {
@@ -21,7 +23,8 @@ public class Tablero {
                     } else if (x == 4) {
                         tablero.put(new Casilla(x, y), new Reina(x, y, false));  // La reina en su color (blanca en d1)
                     } else if (x == 5) {
-                        tablero.put(new Casilla(x, y), new Rey(x, y, false));
+                        reyB = new Rey(x, y, false);
+                        tablero.put(new Casilla(x, y), reyB);
                     }
                 }
                 // Fila 2: peones blancos
@@ -43,7 +46,8 @@ public class Tablero {
                     } else if (x == 4) {
                         tablero.put(new Casilla(x, y), new Reina(x, y, true));  // La reina en su color (negra en d8)
                     } else if (x == 5) {
-                        tablero.put(new Casilla(x, y), new Rey(x, y, true));
+                        reyN = new Rey(x, y, true);
+                        tablero.put(new Casilla(x, y), reyN);
                     }
                 }
                 // Resto del tablero: casillas vacías
@@ -51,6 +55,48 @@ public class Tablero {
                     tablero.put(new Casilla(x, y), null);
                 }
             }
+        }
+    }
+
+    public boolean asedio(boolean color, Casilla objetivo) {
+        boolean factible = false;
+        for (Pieza p : tablero.values()) {
+            if(p!=null) {
+                if (p.color == color && mover(p.getCasilla(), objetivo, false)) {
+                    System.out.println(p);
+                    factible = true;
+                }
+            }
+        }
+        return factible;
+    }
+
+    public boolean mover(Casilla origen, Casilla destino, boolean mover) {
+        if (tablero.get(origen) != null) {
+            List<Casilla> obstaculos = tablero.get(origen).validar(destino);
+            if (obstaculos == null) {
+                return false;
+            }
+            for (Casilla casilla : obstaculos) {
+                if (tablero.get(casilla) != null) {
+                    return false;
+                }
+            }
+            if (tablero.get(destino) != null) {
+                if (tablero.get(origen).color == tablero.get(destino).color) {
+                    return false;
+                }
+            }
+            //Traslado
+            if (mover) {
+                tablero.get(origen).x = destino.x;
+                tablero.get(origen).y = destino.y;
+                tablero.put(destino, tablero.get(origen));
+                tablero.put(origen, null);
+            }
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -70,14 +116,26 @@ public class Tablero {
                     return false;
                 }
             }
-            //Traslado
-            tablero.get(origen).x = destino.x;
-            tablero.get(origen).y = destino.y;
-            tablero.put(destino, tablero.get(origen));
-            tablero.put(origen, null);
-            return true;
-        } else {
-            return false;
+
+            if (!asedio(!tablero.get(origen).color, obtenerRey(tablero.get(origen).color).getCasilla())) {
+                //Traslado
+                tablero.get(origen).x = destino.x;
+                tablero.get(origen).y = destino.y;
+                tablero.put(destino, tablero.get(origen));
+                tablero.put(origen, null);
+                return true;
+            } else {
+                System.out.println("Tu Rey quedaría en jaque.");
+                return false;
+            }
+        }
+        return false;
+    }
+        public Rey obtenerRey (boolean color){
+            if (color) {
+                return reyN;
+            } else {
+                return reyB;
+            }
         }
     }
-}

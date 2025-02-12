@@ -11,8 +11,8 @@ public class Rey extends Pieza {
     public List<Casilla> validar(Casilla casilla) {
         List<Casilla> lista = new ArrayList<Casilla>();
         if(Math.abs(x - casilla.x)<2 && Math.abs(y - casilla.y)<2){
-            return null;
+            return lista;
         }
-        return lista;
+        return null;
     }
 }
