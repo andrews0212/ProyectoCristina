@@ -25,6 +25,9 @@ public class Reina extends Pieza {
                     lista.add(new Casilla(casilla.x, i));
                 }
             }
+            if(!lista.isEmpty()) {
+                lista.remove(lista.size() - 1);
+            }
             return lista;
         } else if (y==casilla.y) {
             int i = x;
@@ -39,6 +42,9 @@ public class Reina extends Pieza {
                     i--;
                     lista.add(new Casilla(i, casilla.y));
                 }
+            }
+            if(!lista.isEmpty()) {
+                lista.remove(lista.size() - 1);
             }
             return lista;
         }else if(Math.abs(y-casilla.y)==Math.abs(x-casilla.x)) {

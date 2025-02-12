@@ -41,6 +41,9 @@ public class Torre extends Pieza{
                     lista.add(new Casilla(i, casilla.y));
                 }
             }
+            if(!lista.isEmpty()) {
+                lista.remove(lista.size() - 1);
+            }
             return lista;
         } else{
             return null;

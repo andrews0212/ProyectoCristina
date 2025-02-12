@@ -63,7 +63,6 @@ public class Tablero {
         for (Pieza p : tablero.values()) {
             if (p != null) {
                 if (p.color == color && mover(p.getCasilla(), objetivo, false)) {
-                    System.out.println("La pieza "+p+" amenaza "+objetivo);
                     factible = true;
                 }
             }
@@ -105,6 +104,7 @@ public class Tablero {
     }
 
     public boolean mover(Casilla origen, Casilla destino) {
+        System.out.println(tablero.get(origen));
         if(origen.equals(destino)) {
             return false;
         }
@@ -175,23 +175,23 @@ public class Tablero {
     }
 
     public boolean jaqueMate(Rey victima) {
+        boolean colorVictima = victima.color;
         boolean jaqueMate = true;
         for(Pieza p : tablero.values()) {
             if(p!=null) {
                 Casilla origen = p.getCasilla();
-                if (p.color == victima.color) {
-                    System.out.println(p.color+" "+victima.color);
+                if (p.color == colorVictima) {
                     for (Casilla casilla : tablero.keySet()) {
                         boolean objetivo = false;
                         Pieza pieza = null;
                         if(tablero.get(casilla)!=null) {
                             pieza = tablero.get(casilla);
-
                             objetivo=true;
                         }
                         if(mover(origen,casilla,false)) {
                             mover(origen, casilla);
                             if (!jaque(victima)) {
+                                System.out.println(p+" "+casilla);
                                 jaqueMate = false;
                             }
                             mover(casilla, origen, true);
@@ -202,8 +202,9 @@ public class Tablero {
                     }
                 }
             }
-            System.out.println(jaqueMate+" "+p);
         }
         return jaqueMate;
     }
+
 }
+
