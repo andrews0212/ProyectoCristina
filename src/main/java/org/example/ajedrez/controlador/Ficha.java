@@ -1,4 +1,4 @@
-package org.example.ajedrez.modelo;
+package org.example.ajedrez.controlador;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -101,6 +101,7 @@ public class Ficha {
      */
     public static Ficha crearFichaDesdePanel(Pane casilla) {
         ImageView imagen = null;
+
         // Buscar el ImageView entre los hijos del Pane
         for (var node : casilla.getChildren()) {
             if (node instanceof ImageView) {
@@ -165,9 +166,22 @@ public class Ficha {
             }
         }
 
+        // Obtener los índices de fila y columna con valores predeterminados si son null
+        Integer fila = GridPane.getRowIndex(casilla);
+        Integer columna = GridPane.getColumnIndex(casilla);
+
+        // Si los índices son null, asignamos un valor predeterminado
+        if (fila == null) {
+            fila = 0; // Valor predeterminado
+        }
+        if (columna == null) {
+            columna = 0; // Valor predeterminado
+        }
+
         // Crear una nueva ficha con la información de la casilla
-        return new Ficha(imagen, nombreFicha, paneColor, GridPane.getRowIndex(casilla), GridPane.getColumnIndex(casilla));
+        return new Ficha(imagen, nombreFicha, paneColor, fila, columna);
     }
+
 
     @Override
     public String toString() {

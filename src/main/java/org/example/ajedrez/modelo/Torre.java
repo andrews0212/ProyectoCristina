@@ -14,16 +14,35 @@ public class Torre extends Pieza{
         List<Casilla> lista = new ArrayList<Casilla>();
         if(x==casilla.x){
             int i = y;
-            while(i<casilla.y){
-                i++;
-                lista.add(new Casilla(casilla.x,i));
+            if(i<casilla.y) {
+                while (i < casilla.y) {
+                    i++;
+                    lista.add(new Casilla(casilla.x, i));
+                }
+            }
+            if(i>casilla.y){
+                while (i > casilla.y) {
+                    i--;
+                    lista.add(new Casilla(casilla.x, i));
+                }
             }
             return lista;
         } else if (y==casilla.y) {
             int i = x;
-            while(i<casilla.x){
-                i++;
-                lista.add(new Casilla(i,casilla.y));
+            if(i<casilla.x) {
+                while (i < casilla.x) {
+                    i++;
+                    lista.add(new Casilla(i, casilla.y));
+                }
+            }
+            if(i>casilla.x){
+                while (i > casilla.x) {
+                    i--;
+                    lista.add(new Casilla(i, casilla.y));
+                }
+            }
+            if(!lista.isEmpty()) {
+                lista.remove(lista.size() - 1);
             }
             return lista;
         } else{
