@@ -43,7 +43,7 @@
          <children>
             <ImageView fitHeight="65.0" fitWidth="88.0" layoutX="5.0" layoutY="1.0">
                <image>
-                  <Image url="@../../../../fichas/bB.png" />
+                  <Image url="@../../../../fichas/bN.png" />
                </image>
             </ImageView>
          </children></Pane>
@@ -51,7 +51,7 @@
          <children>
             <ImageView fitHeight="65.0" fitWidth="88.0" layoutX="5.0" layoutY="1.0">
                <image>
-                  <Image url="@../../../../fichas/bN.png" />
+                  <Image url="@../../../../fichas/bB.png" />
                </image>
             </ImageView>
          </children></Pane>
@@ -277,7 +277,7 @@
          <children>
             <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
                <image>
-                  <Image url="@../../../../fichas/wB.png" />
+                  <Image url="@../../../../fichas/wN.png" />
                </image>
             </ImageView>
          </children></Pane>
@@ -285,7 +285,7 @@
          <children>
             <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
                <image>
-                  <Image url="@../../../../fichas/wN.png" />
+                  <Image url="@../../../../fichas/wB.png" />
                </image>
             </ImageView>
          </children></Pane>

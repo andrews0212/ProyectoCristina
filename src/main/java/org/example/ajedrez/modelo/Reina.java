@@ -11,18 +11,34 @@ public class Reina extends Pieza {
     @Override
     public List<Casilla> validar(Casilla casilla) {
         List<Casilla> lista = new ArrayList<Casilla>();
-        if (x == casilla.x) {
+        if(x==casilla.x){
             int i = y;
-            while (i < casilla.y) {
-                i++;
-                lista.add(new Casilla(casilla.x, i));
+            if(i<casilla.y) {
+                while (i < casilla.y) {
+                    i++;
+                    lista.add(new Casilla(casilla.x, i));
+                }
+            }
+            if(i>casilla.y){
+                while (i > casilla.y) {
+                    i--;
+                    lista.add(new Casilla(casilla.x, i));
+                }
             }
             return lista;
-        } else if (y == casilla.y) {
+        } else if (y==casilla.y) {
             int i = x;
-            while (i < casilla.x) {
-                i++;
-                lista.add(new Casilla(i, casilla.y));
+            if(i<casilla.x) {
+                while (i < casilla.x) {
+                    i++;
+                    lista.add(new Casilla(i, casilla.y));
+                }
+            }
+            if(i>casilla.x){
+                while (i > casilla.x) {
+                    i--;
+                    lista.add(new Casilla(i, casilla.y));
+                }
             }
             return lista;
         }else if(Math.abs(y-casilla.y)==Math.abs(x-casilla.x)) {
@@ -41,6 +57,9 @@ public class Reina extends Pieza {
                     yi--;
                 }
                 lista.add(new Casilla(xi, yi));
+            }
+            if(!lista.isEmpty()) {
+                lista.remove(lista.size() - 1);
             }
             return lista;
         } else {

@@ -21,4 +21,9 @@ public class Casilla {
     public int hashCode() {
         return 31 * x + y;
     }
+
+    @Override
+    public String toString() {
+        return "Casilla{" + "x=" + x + ", y=" + y + '}';
+    }
 }

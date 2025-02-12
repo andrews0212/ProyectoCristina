@@ -61,9 +61,9 @@ public class Tablero {
     public boolean asedio(boolean color, Casilla objetivo) {
         boolean factible = false;
         for (Pieza p : tablero.values()) {
-            if(p!=null) {
+            if (p != null) {
                 if (p.color == color && mover(p.getCasilla(), objetivo, false)) {
-                    System.out.println(p);
+                    System.out.println("La pieza "+p+" amenaza "+objetivo);
                     factible = true;
                 }
             }
@@ -117,25 +117,76 @@ public class Tablero {
                 }
             }
 
-            if (!asedio(!tablero.get(origen).color, obtenerRey(tablero.get(origen).color).getCasilla())) {
-                //Traslado
-                tablero.get(origen).x = destino.x;
-                tablero.get(origen).y = destino.y;
-                tablero.put(destino, tablero.get(origen));
-                tablero.put(origen, null);
-                return true;
-            } else {
-                System.out.println("Tu Rey quedaría en jaque.");
+            //Traslado
+            tablero.get(origen).x = destino.x;
+            tablero.get(origen).y = destino.y;
+            tablero.put(destino, tablero.get(origen));
+            tablero.put(origen, null);
+            if (jaque(obtenerRey(tablero.get(destino).color))) {
+                System.out.println("Tu rey está en jaque (" + tablero.get(destino).color + "), movimiento no válido");
+                tablero.get(destino).x = origen.x;
+                tablero.get(destino).y = origen.y;
+                tablero.put(origen, tablero.get(destino));
+                tablero.put(destino, null);
                 return false;
             }
+            if(jaque(obtenerRey(!tablero.get(destino).color))) {
+                String color;
+                if(!tablero.get(destino).color){
+                    color= "negro";
+                }else{
+                    color= "blanco";
+                }
+                if(jaqueMate(obtenerRey(!tablero.get(destino).color))){
+                    System.out.println("Jaque Mate al rey "+color);
+                }else{
+                    System.out.println("Jaque al rey "+color);
+                }
+            }
+            return true;
         }
         return false;
     }
-        public Rey obtenerRey (boolean color){
-            if (color) {
-                return reyN;
-            } else {
-                return reyB;
-            }
+
+    public Rey obtenerRey(boolean color) {
+        if (color) {
+            return reyN;
+        } else {
+            return reyB;
         }
     }
+
+    //devuelve true si el rey por parametro esta en jaque
+    public boolean jaque(Rey victima) {
+        return asedio(!victima.color, victima.getCasilla());
+    }
+
+    public boolean jaqueMate(Rey victima) {
+        boolean jaqueMate = true;
+        for(Pieza p : tablero.values()) {
+            if(p!=null) {
+                Casilla origen = p.getCasilla();
+                if (p.color == victima.color) {
+                    for (Casilla casilla : tablero.keySet()) {
+                        boolean objetivo = false;
+                        Pieza pieza = null;
+                        if(tablero.get(casilla)!=null) {
+                            pieza = tablero.get(casilla);
+                            objetivo=true;
+                        }
+                        mover(origen, casilla);
+                        if (!jaque(victima)) {
+                            jaqueMate = false;
+                        }
+                        mover(casilla, origen, true);
+                        if(objetivo){
+                            tablero.put(casilla,pieza);
+                        }
+
+                    }
+                }
+            }
+        }
+        return jaqueMate;
+    }
+}

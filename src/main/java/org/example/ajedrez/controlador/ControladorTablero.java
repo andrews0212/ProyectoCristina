@@ -81,7 +81,7 @@ public class ControladorTablero {
                                 + convertirAjedrez(filaDestino, columnaDestino);
 
                         // Imprimir y actualizar el Label
-                        System.out.println(movimiento);
+                        //System.out.println(movimiento);
                         if (labelMovimiento != null) {
                             labelMovimiento.setText(movimiento);
                         }
