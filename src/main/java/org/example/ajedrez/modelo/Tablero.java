@@ -1,5 +1,6 @@
 package org.example.ajedrez.modelo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,8 +9,10 @@ public class Tablero {
     public static Map<Casilla, Pieza> tablero = new HashMap<Casilla, Pieza>();
     public static Rey reyB;
     public static Rey reyN;
+    public static ArrayList<Rey> reys = new ArrayList<Rey>();
 
     public Tablero() {
+
         for (int y = 1; y < 9; y++) {
             for (int x = 1; x < 9; x++) {
                 // Fila 1: piezas mayores blancas
@@ -54,6 +57,7 @@ public class Tablero {
                 else {
                     tablero.put(new Casilla(x, y), null);
                 }
+                tablero.put(new Casilla(0, 0), null);
             }
         }
     }
@@ -62,28 +66,65 @@ public class Tablero {
         boolean factible = false;
         for (Pieza p : tablero.values()) {
             if (p != null) {
-                if (p.color == color && mover(p.getCasilla(), objetivo, false)) {
+                if (p.color == color && moverAsedio(p.getCasilla(), objetivo, false)) {
                     factible = true;
                 }
             }
         }
         return factible;
     }
-    //Con este metodo podemos obtener el booleano sin mover o mover sin evaluar
-    public static boolean mover(Casilla origen, Casilla destino, boolean mover) {
-        if(origen.equals(destino)) {
-            return false;
-        }
-        if (tablero.get(origen) != null) {
-            List<Casilla> obstaculos = tablero.get(origen).validar(destino);
-            //Traslado
-            if (mover) {
+
+    public static boolean moverAsedio(Casilla origen, Casilla destino, boolean mover) {
+        if (mover && tablero.get(origen) != null) {
             tablero.get(origen).x = destino.x;
             tablero.get(origen).y = destino.y;
             tablero.put(destino, tablero.get(origen));
             tablero.put(origen, null);
             return true;
+        }
+        if (origen.equals(new Casilla(0, 0)) || destino.equals(new Casilla(0, 0))) {
+            return false;
+        }
+        if (origen.equals(destino)) {
+            return false;
+        }
+        if (tablero.get(origen) != null) {
+            List<Casilla> obstaculos = tablero.get(origen).validar(destino);
+            //Traslado
+
+            if (obstaculos == null) {
+                return false;
             }
+            for (Casilla casilla : obstaculos) {
+                if (tablero.get(casilla) != null) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //Con este metodo podemos obtener el booleano sin mover o mover sin evaluar
+    public static boolean mover(Casilla origen, Casilla destino, boolean mover) {
+        if (mover && tablero.get(origen) != null) {
+            tablero.get(origen).x = destino.x;
+            tablero.get(origen).y = destino.y;
+            tablero.put(destino, tablero.get(origen));
+            tablero.put(origen, null);
+            return true;
+        }
+        if (origen.equals(new Casilla(0, 0)) || destino.equals(new Casilla(0, 0))) {
+            return false;
+        }
+        if (origen.equals(destino)) {
+            return false;
+        }
+        if (tablero.get(origen) != null) {
+            List<Casilla> obstaculos = tablero.get(origen).validar(destino);
+            //Traslado
+
             if (obstaculos == null) {
                 return false;
             }
@@ -105,7 +146,10 @@ public class Tablero {
 
     public boolean mover(Casilla origen, Casilla destino) {
         System.out.println(tablero.get(origen));
-        if(origen.equals(destino)) {
+        if (origen.equals(destino)) {
+            return false;
+        }
+        if (origen.equals(new Casilla(0, 0)) || destino.equals(new Casilla(0, 0))) {
             return false;
         }
         if (tablero.get(origen) != null) {
@@ -131,9 +175,9 @@ public class Tablero {
             tablero.put(origen, null);
             if (jaque(obtenerRey(tablero.get(destino).color))) {
                 String color;
-                if(tablero.get(destino).color){
+                if (tablero.get(destino).color) {
                     color = "Negras";
-                }else{
+                } else {
                     color = "Blancas";
                 }
                 System.out.println("Tu rey está en jaque (" + color + ")");
@@ -143,17 +187,17 @@ public class Tablero {
                 tablero.put(destino, null);
                 return false;
             }
-            if(jaque(obtenerRey(!tablero.get(destino).color))) {
+            if (jaque(obtenerRey(!tablero.get(destino).color))) {
                 String color;
-                if(!tablero.get(destino).color){
-                    color= "negro";
-                }else{
-                    color= "blanco";
+                if (!tablero.get(destino).color) {
+                    color = "negro";
+                } else {
+                    color = "blanco";
                 }
-                if(jaqueMate(obtenerRey(!tablero.get(destino).color))){
-                    System.out.println("Jaque Mate al rey "+color);
-                }else{
-                    System.out.println("Jaque al rey "+color);
+                if (jaqueMate(obtenerRey(!tablero.get(destino).color))) {
+                    System.out.println("Jaque Mate al rey " + color);
+                } else {
+                    System.out.println("Jaque al rey " + color);
                 }
             }
             return true;
@@ -177,26 +221,28 @@ public class Tablero {
     public boolean jaqueMate(Rey victima) {
         boolean colorVictima = victima.color;
         boolean jaqueMate = true;
-        for(Pieza p : tablero.values()) {
-            if(p!=null) {
-                Casilla origen = p.getCasilla();
-                if (p.color == colorVictima) {
+        for (Pieza pieza : tablero.values()) {
+            if (pieza != null) {
+                Casilla origen = pieza.getCasilla();
+                if (pieza.color == colorVictima) {
                     for (Casilla casilla : tablero.keySet()) {
                         boolean objetivo = false;
-                        Pieza pieza = null;
-                        if(tablero.get(casilla)!=null) {
-                            pieza = tablero.get(casilla);
-                            objetivo=true;
-                        }
-                        if(mover(origen,casilla,false)) {
-                            mover(origen, casilla);
-                            if (!jaque(victima)) {
-                                System.out.println(p+" "+casilla);
-                                jaqueMate = false;
-                            }
-                            mover(casilla, origen, true);
-                            if (objetivo) {
-                                tablero.put(casilla, pieza);
+                        if (!casilla.equals(new Casilla(0, 0))) {
+                            if (mover(origen, casilla, false)) {
+                                if (tablero.get(casilla) != null) {
+                                    tablero.put(new Casilla(0, 0), tablero.get(casilla));
+                                    objetivo = true;
+                                }
+                                mover(origen, casilla);
+                                if (!jaque(victima)) {
+                                    System.out.println(pieza + " " + casilla);
+                                    jaqueMate = false;
+                                }
+                                mover(casilla, origen, true);
+                                if (objetivo) {
+                                    tablero.put(casilla, tablero.get(new Casilla(0, 0)));
+                                    tablero.put(new Casilla(0, 0), null);
+                                }
                             }
                         }
                     }
