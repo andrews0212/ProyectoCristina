@@ -66,7 +66,7 @@ public class ControladorTablero {
                         // Si los valores son null, significa que están en la posición 0
                         if (filaDestino == null) filaDestino = 0;
                         if (columnaDestino == null) columnaDestino = 0;
-
+                        
                         //Validación de movimiento con conversión de coordenadas
                         if (!tablero.mover(new Casilla(fichaSeleccionada.getColumna()+1,9-fichaSeleccionada.getFila()), new Casilla(columnaDestino+1,9-filaDestino))) {
                             System.out.println("Movimiento inválido para " + fichaSeleccionada.getNombre());
@@ -81,7 +81,7 @@ public class ControladorTablero {
                                 + convertirAjedrez(filaDestino, columnaDestino);
 
                         // Imprimir y actualizar el Label
-                        //System.out.println(movimiento);
+                        // System.out.println(movimiento);
                         if (labelMovimiento != null) {
                             labelMovimiento.setText(movimiento);
                         }
