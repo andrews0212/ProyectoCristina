@@ -75,7 +75,6 @@ public class ControladorInicioSesionJ1 {
     private void setLocale(String localeStr) {
         // Cambiar el idioma de la aplicación.
         Locale locale = Locale.forLanguageTag(localeStr);
-        System.out.println(locale);
         Locale.setDefault(locale);
         // // Cargar un nuevo bundle de recursos.
         bundle = ResourceBundle.getBundle("org.example.ajedrez.i18n.LB", locale);
@@ -204,6 +203,18 @@ public class ControladorInicioSesionJ1 {
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
 
+
+    /**
+     * Vuelve al menú anterior.
+     * 
+     * @throws IOException Excepción lanzada si no se puede mostrar el formulario.
+     * @since 1.0
+     */
+    @FXML
+    public void volverMenuPrincipal() throws IOException {
+        App.setRoot("fxml/inicioSesionJ1");
+    }
+
     /**
      * Añade los atajos de teclado.
      *
@@ -231,6 +242,18 @@ public class ControladorInicioSesionJ1 {
             if (kcRecuperacionContrasenha.match(event)) {
                 try {
                     recuperarContrasenha();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        // Añadir evento de teclado para volver al menú principal.
+        KeyCombination kcVolverMenuPrincipal = new KeyCodeCombination(KeyCode.ESCAPE);
+        rootVBox.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (kcVolverMenuPrincipal.match(event)) {
+                try {
+                    volverMenuPrincipal();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -31,10 +31,10 @@ public class ControladorInicioSesionJ2 {
     @FXML private ComboBox<String> idioma;
     @FXML private Label lblTitulo, lblValidacionUsuario;
     @FXML private Button btnIniciarSesion;
-    @FXML private Hyperlink hlRecuperarContrasenha, hlRegistro;
+    @FXML private Hyperlink hlRecuperarContrasenha, hlRegistro, hlMenuPrincipal;
     @FXML private TextField txtUsuario, txtEmail;
     @FXML private PasswordField txtContrasenha;
-    @FXML private Tooltip ttComboBox, ttBtnIniciarSesion, ttHlRecuperarContrasenha, ttHlRegistro, ttTxtContrasenha, ttTxtUsuario, ttTxtEmail;
+    @FXML private Tooltip ttComboBox, ttBtnIniciarSesion, ttHlRecuperarContrasenha, ttHlRegistro, ttTxtContrasenha, ttTxtUsuario, ttTxtEmail, ttHlMenuPrincipal;
     @FXML HBox hbValidacionUsuario;
 
     @FXML private VBox rootVBox;
@@ -75,7 +75,6 @@ public class ControladorInicioSesionJ2 {
     private void setLocale(String localeStr) {
         // Cambiar el idioma de la aplicación.
         Locale locale = Locale.forLanguageTag(localeStr);
-        System.out.println(locale);
         Locale.setDefault(locale);
         // // Cargar un nuevo bundle de recursos.
         bundle = ResourceBundle.getBundle("org.example.ajedrez.i18n.LB", locale);
@@ -99,6 +98,7 @@ public class ControladorInicioSesionJ2 {
         btnIniciarSesion.setText(bundle.getString("login.btn.iniciarSesion"));
         hlRecuperarContrasenha.setText(bundle.getString("login.hl.recuperarContrasenha"));
         lblValidacionUsuario.setText(bundle.getString("login.usuarioInvalido"));
+        hlMenuPrincipal.setText(bundle.getString("login.hl.menuPrincipal"));
     }
 
     /**
@@ -115,6 +115,7 @@ public class ControladorInicioSesionJ2 {
         ttBtnIniciarSesion.setText(bundle.getString("tt.login.btn.iniciarSesion"));
         ttHlRegistro.setText(bundle.getString("tt.login.hl.registro"));
         ttHlRecuperarContrasenha.setText(bundle.getString("tt.login.hl.recuperarContrasenha"));
+        ttHlMenuPrincipal.setText(bundle.getString("tt.login.hl.menuPrincipal"));
     }
 
     /**
@@ -204,6 +205,18 @@ public class ControladorInicioSesionJ2 {
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
 
+
+    /**
+     * Vuelve al menú anterior.
+     * 
+     * @throws IOException Excepción lanzada si no se puede mostrar el formulario.
+     * @since 1.0
+     */
+    @FXML
+    public void volverMenuPrincipal() throws IOException {
+        App.setRoot("fxml/inicioSesionJ1");
+    }
+
     /**
      * Añade los atajos de teclado.
      *
@@ -231,6 +244,18 @@ public class ControladorInicioSesionJ2 {
             if (kcRecuperacionContrasenha.match(event)) {
                 try {
                     recuperarContrasenha();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        // Añadir evento de teclado para volver al menú principal.
+        KeyCombination kcVolverMenuPrincipal = new KeyCodeCombination(KeyCode.ESCAPE);
+        rootVBox.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (kcVolverMenuPrincipal.match(event)) {
+                try {
+                    volverMenuPrincipal();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
