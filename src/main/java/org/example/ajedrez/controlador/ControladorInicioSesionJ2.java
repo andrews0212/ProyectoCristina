@@ -176,7 +176,7 @@ public class ControladorInicioSesionJ2 {
     private void login() throws IOException {
         // TODO: añadir lógica para comprobación del jugador.
         // if (gestionDB.verificarUsuario(txtUsuario.getText(), txtContrasenha.getText())) {
-            App.setRoot("fxml/juego");
+            App.setRoot("fxml/tablero");
         // } else {
         //     hbValidacionUsuario.setVisible(true);
         // }
