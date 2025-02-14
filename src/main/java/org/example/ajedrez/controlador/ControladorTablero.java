@@ -1,6 +1,17 @@
+/*
+ * File: ControladorTablero.java
+ * Project: controlador
+ * File Created: Friday, 14th February 2025 8:39:38 PM
+ * Author: Lucas Villa (k4ts0v@protonmail.com)
+ * -----
+ * Last Modified: Friday, 14th February 2025 8:39:40 PM
+ * Modified By: Lucas Villa (k4ts0v@protonmail.com)
+ */
+
 package org.example.ajedrez.controlador;
 
 import org.example.ajedrez.modelo.Casilla;
+import org.example.ajedrez.modelo.Tablero;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -8,8 +19,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import org.example.ajedrez.modelo.Tablero;
-
 
 public class ControladorTablero {
 
@@ -22,6 +31,10 @@ public class ControladorTablero {
 
     @FXML
     private Label labelMovimiento;
+    @FXML
+    private GridPane cementerioNegras;
+    @FXML
+    private GridPane cementerioBlancas;
 
     public void initialize() {
         asignarEventosAPiezas();
@@ -69,11 +82,14 @@ public class ControladorTablero {
                         Integer columnaDestino = GridPane.getColumnIndex(casilla);
 
                         // Si los valores son null, significa que están en la posición 0
-                        if (filaDestino == null) filaDestino = 0;
-                        if (columnaDestino == null) columnaDestino = 0;
+                        if (filaDestino == null)
+                            filaDestino = 0;
+                        if (columnaDestino == null)
+                            columnaDestino = 0;
 
                         // Validar movimiento con lógica del tablero
-                        if (!tablero.mover(new Casilla(fichaSeleccionada.getColumna() + 1, 9 - fichaSeleccionada.getFila()),
+                        if (!tablero.mover(
+                                new Casilla(fichaSeleccionada.getColumna() + 1, 9 - fichaSeleccionada.getFila()),
                                 new Casilla(columnaDestino + 1, 9 - filaDestino))) {
                             System.out.println("Movimiento inválido para " + fichaSeleccionada.getNombre());
                             return;
@@ -119,12 +135,9 @@ public class ControladorTablero {
         }
     }
 
-
     private String convertirAjedrez(int fila, int columna) {
         char columnaLetra = (char) ('a' + columna);
         int filaNumero = 8 - fila;
         return "" + columnaLetra + filaNumero;
     }
 }
-
-

@@ -2,332 +2,429 @@
 
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="gridPanel" prefHeight="523.0" prefWidth="786.0" stylesheets="@../css/style_tablero.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ajedrez.controlador.ControladorTablero">
-    <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    </rowConstraints>
-    <children>
-        <!-- Columnas -->
-        <Pane fx:id="C8A" prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.rowIndex="1">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="88.0" layoutX="5.0" layoutY="1.0">
-               <image>
-                  <Image url="@../../../../fichas/bR.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="1" GridPane.rowIndex="1">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="88.0" layoutX="5.0" layoutY="1.0">
-               <image>
-                  <Image url="@../../../../fichas/bN.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="2" GridPane.rowIndex="1">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="88.0" layoutX="5.0" layoutY="1.0">
-               <image>
-                  <Image url="@../../../../fichas/bB.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="3" GridPane.rowIndex="1">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="88.0" layoutX="5.0" layoutY="1.0">
-               <image>
-                  <Image url="@../../../../fichas/bQ.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="4" GridPane.rowIndex="1">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="100.0" layoutY="1.0">
-               <image>
-                  <Image url="@../../../../fichas/bK.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="5" GridPane.rowIndex="1">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="100.0" layoutX="-1.0" layoutY="1.0">
-               <image>
-                  <Image url="@../../../../fichas/bB.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="6" GridPane.rowIndex="1">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="88.0" layoutX="6.0" layoutY="1.0">
-               <image>
-                  <Image url="@../../../../fichas/bN.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="7" GridPane.rowIndex="1">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="88.0" layoutX="6.0" layoutY="1.0">
-               <image>
-                  <Image url="@../../../../fichas/bR.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-
-        <!-- Filas -->
-        <Pane fx:id="C7A" prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.rowIndex="2">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0" layoutY="1.0">
-               <image>
-                  <Image url="@../../../../fichas/bP.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="1" GridPane.rowIndex="2">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0" layoutY="1.0">
-               <image>
-                  <Image url="@../../../../fichas/bP.png" />
-               </image>
-            </ImageView>
-         </children>
-      </Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="2" GridPane.rowIndex="2">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0" layoutY="1.0">
-               <image>
-                  <Image url="@../../../../fichas/bP.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="3" GridPane.rowIndex="2">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0" layoutY="1.0">
-               <image>
-                  <Image url="@../../../../fichas/bP.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="4" GridPane.rowIndex="2">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0" layoutY="1.0">
-               <image>
-                  <Image url="@../../../../fichas/bP.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="5" GridPane.rowIndex="2">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0" layoutY="1.0">
-               <image>
-                  <Image url="@../../../../fichas/bP.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="6" GridPane.rowIndex="2">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="10.0" layoutY="1.0">
-               <image>
-                  <Image url="@../../../../fichas/bP.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="7" GridPane.rowIndex="2">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="10.0" layoutY="1.0">
-               <image>
-                  <Image url="@../../../../fichas/bP.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-
-        <!-- Puedes continuar agregando más paneles para completar todas las filas y columnas -->
-        <Pane fx:id="C6A" prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.rowIndex="3" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="7" GridPane.rowIndex="3" />
-
-        <Pane fx:id="C5A" prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.rowIndex="4" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="5" GridPane.rowIndex="4" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="6" GridPane.rowIndex="4" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="7" GridPane.rowIndex="4" />
-
-        <Pane fx:id="C4A" prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.rowIndex="5" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="4" GridPane.rowIndex="5" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="5" GridPane.rowIndex="5" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="6" GridPane.rowIndex="5" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="7" GridPane.rowIndex="5" />
-
-        <Pane fx:id="C3A" prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.rowIndex="6" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="4" GridPane.rowIndex="6" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="5" GridPane.rowIndex="6" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="6" GridPane.rowIndex="6" />
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="7" GridPane.rowIndex="6" />
-
-        <Pane fx:id="C2A" prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.rowIndex="7">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
-               <image>
-                  <Image url="@../../../../fichas/wP.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="1" GridPane.rowIndex="7">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="13.0" layoutY="1.0">
-               <image>
-                  <Image url="@../../../../fichas/wP.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="2" GridPane.rowIndex="7">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
-               <image>
-                  <Image url="@../../../../fichas/wP.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="3" GridPane.rowIndex="7">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
-               <image>
-                  <Image url="@../../../../fichas/wP.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="4" GridPane.rowIndex="7">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
-               <image>
-                  <Image url="@../../../../fichas/wP.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="5" GridPane.rowIndex="7">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
-               <image>
-                  <Image url="@../../../../fichas/wP.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="6" GridPane.rowIndex="7">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="10.0">
-               <image>
-                  <Image url="@../../../../fichas/wP.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="7" GridPane.rowIndex="7">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="10.0">
-               <image>
-                  <Image url="@../../../../fichas/wP.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-
-        <Pane fx:id="C1A" prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.rowIndex="8">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
-               <image>
-                  <Image url="@../../../../fichas/wR.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="1" GridPane.rowIndex="8">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
-               <image>
-                  <Image url="@../../../../fichas/wN.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="2" GridPane.rowIndex="8">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
-               <image>
-                  <Image url="@../../../../fichas/wB.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="3" GridPane.rowIndex="8">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
-               <image>
-                  <Image url="@../../../../fichas/wQ.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="4" GridPane.rowIndex="8">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
-               <image>
-                  <Image url="@../../../../fichas/wK.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="5" GridPane.rowIndex="8">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
-               <image>
-                  <Image url="@../../../../fichas/wB.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="6" GridPane.rowIndex="8">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="10.0">
-               <image>
-                  <Image url="@../../../../fichas/wN.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="7" GridPane.rowIndex="8">
-         <children>
-            <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="10.0">
-               <image>
-                  <Image url="@../../../../fichas/wR.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-    </children>
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ajedrez.controlador.ControladorTablero">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="800.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="87.0" vgrow="NEVER" />
+      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+      <BorderPane style="-fx-border-width: 10px; -fx-border-color: #8c6f5a;" GridPane.columnIndex="2" GridPane.rowSpan="2147483647">
+         <center>
+            <GridPane fx:id="gridPanel" prefHeight="600.0" prefWidth="800.0" stylesheets="@../css/style_tablero.css">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <children>
+                    <!-- Columnas -->
+                    <Pane fx:id="C8A" prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.rowIndex="1">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="88.0" layoutX="5.0" layoutY="1.0">
+                           <image>
+                              <Image url="@../../../../fichas/bR.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="88.0" layoutX="5.0" layoutY="1.0">
+                           <image>
+                              <Image url="@../../../../fichas/bN.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="88.0" layoutX="5.0" layoutY="1.0">
+                           <image>
+                              <Image url="@../../../../fichas/bB.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="88.0" layoutX="5.0" layoutY="1.0">
+                           <image>
+                              <Image url="@../../../../fichas/bQ.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="100.0" layoutY="1.0">
+                           <image>
+                              <Image url="@../../../../fichas/bK.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="100.0" layoutX="-1.0" layoutY="1.0">
+                           <image>
+                              <Image url="@../../../../fichas/bB.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="88.0" layoutX="6.0" layoutY="1.0">
+                           <image>
+                              <Image url="@../../../../fichas/bN.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="7" GridPane.rowIndex="1">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="88.0" layoutX="6.0" layoutY="1.0">
+                           <image>
+                              <Image url="@../../../../fichas/bR.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+            
+                    <!-- Filas -->
+                    <Pane fx:id="C7A" prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.rowIndex="2">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0" layoutY="1.0">
+                           <image>
+                              <Image url="@../../../../fichas/bP.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0" layoutY="1.0">
+                           <image>
+                              <Image url="@../../../../fichas/bP.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0" layoutY="1.0">
+                           <image>
+                              <Image url="@../../../../fichas/bP.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0" layoutY="1.0">
+                           <image>
+                              <Image url="@../../../../fichas/bP.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0" layoutY="1.0">
+                           <image>
+                              <Image url="@../../../../fichas/bP.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0" layoutY="1.0">
+                           <image>
+                              <Image url="@../../../../fichas/bP.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="10.0" layoutY="1.0">
+                           <image>
+                              <Image url="@../../../../fichas/bP.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="7" GridPane.rowIndex="2">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="10.0" layoutY="1.0">
+                           <image>
+                              <Image url="@../../../../fichas/bP.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+            
+                    <!-- Puedes continuar agregando más paneles para completar todas las filas y columnas -->
+                    <Pane fx:id="C6A" prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.rowIndex="3" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="7" GridPane.rowIndex="3" />
+            
+                    <Pane fx:id="C5A" prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.rowIndex="4" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="7" GridPane.rowIndex="4" />
+            
+                    <Pane fx:id="C4A" prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.rowIndex="5" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="7" GridPane.rowIndex="5" />
+            
+                    <Pane fx:id="C3A" prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.rowIndex="6" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="7" GridPane.rowIndex="6" />
+            
+                    <Pane fx:id="C2A" prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.rowIndex="7">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
+                           <image>
+                              <Image url="@../../../../fichas/wP.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="13.0" layoutY="1.0">
+                           <image>
+                              <Image url="@../../../../fichas/wP.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
+                           <image>
+                              <Image url="@../../../../fichas/wP.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="3" GridPane.rowIndex="7">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
+                           <image>
+                              <Image url="@../../../../fichas/wP.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="4" GridPane.rowIndex="7">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
+                           <image>
+                              <Image url="@../../../../fichas/wP.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="5" GridPane.rowIndex="7">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
+                           <image>
+                              <Image url="@../../../../fichas/wP.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="6" GridPane.rowIndex="7">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="10.0">
+                           <image>
+                              <Image url="@../../../../fichas/wP.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="7" GridPane.rowIndex="7">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="10.0">
+                           <image>
+                              <Image url="@../../../../fichas/wP.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+            
+                    <Pane fx:id="C1A" prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.rowIndex="8">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
+                           <image>
+                              <Image url="@../../../../fichas/wR.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
+                           <image>
+                              <Image url="@../../../../fichas/wN.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="2" GridPane.rowIndex="8">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
+                           <image>
+                              <Image url="@../../../../fichas/wB.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="3" GridPane.rowIndex="8">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
+                           <image>
+                              <Image url="@../../../../fichas/wQ.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="4" GridPane.rowIndex="8">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
+                           <image>
+                              <Image url="@../../../../fichas/wK.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="5" GridPane.rowIndex="8">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="9.0">
+                           <image>
+                              <Image url="@../../../../fichas/wB.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="black" GridPane.columnIndex="6" GridPane.rowIndex="8">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="10.0">
+                           <image>
+                              <Image url="@../../../../fichas/wN.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                    <Pane prefHeight="200.0" prefWidth="200.0" styleClass="white" GridPane.columnIndex="7" GridPane.rowIndex="8">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="10.0">
+                           <image>
+                              <Image url="@../../../../fichas/wR.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                </children>
+            </GridPane>
+         </center>
+      </BorderPane>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="200.0" style="-fx-border-width: 10px; -fx-border-color: #8c6f5a;" GridPane.columnSpan="2" GridPane.rowSpan="8">
+         <center>
+            <GridPane fx:id="cementerioNegras" gridLinesVisible="true" style="-fx-background-color: #e6ceb2;" BorderPane.alignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+         </center>
+      </BorderPane>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="200.0" style="-fx-border-width: 10px; -fx-border-color: #8c6f5a;" GridPane.columnIndex="3" GridPane.columnSpan="2147483647" GridPane.rowSpan="2147483647">
+         <center>
+            <GridPane fx:id="cementerioBlancas11" gridLinesVisible="true" style="-fx-background-color: #e6ceb2;" BorderPane.alignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+         </center>
+      </BorderPane>
+   </children>
 </GridPane>
