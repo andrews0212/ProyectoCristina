@@ -13,6 +13,8 @@ import java.util.ResourceBundle;
 import org.example.ajedrez.App;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
@@ -26,6 +28,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class ControladorInicioSesionJ2 {
     @FXML private ComboBox<String> idioma;
@@ -167,22 +170,32 @@ public class ControladorInicioSesionJ2 {
     }
 
     /**
-     * Inicia sesión como el jugador 1.
+     * Inicia sesión como el jugador 2, y después, lanza el stage del tablero.
      *
      * @throws IOException Excepción lanzada si no se puede mostrar el formulario.
      * @since 1.0
      */
-    @FXML
+        @FXML
     private void login() throws IOException {
         // TODO: añadir lógica para comprobación del jugador.
         // if (gestionDB.verificarUsuario(txtUsuario.getText(), txtContrasenha.getText())) {
-            App.setRoot("fxml/tablero");
+        
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("fxml/tablero.fxml"));
+        Scene scene = new Scene(loader.load(), 1200, 703);
+        
+        // Obtener el stage actual
+        Stage stage = (Stage) btnIniciarSesion.getScene().getWindow();
+        
+        // Configurar el nuevo tamaño
+        stage.setScene(scene);
+        stage.setWidth(1200);
+        stage.setHeight(703);
+        stage.centerOnScreen();
+        
         // } else {
         //     hbValidacionUsuario.setVisible(true);
         // }
-        
     }
-
     /**
      * Muestra el formulario de recuperación de contraseña.
      *
