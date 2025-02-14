@@ -42,6 +42,8 @@ public class ControladorTablero {
         tablero = new Tablero();
     }
 
+
+
     private void asignarEventosAPiezas() {
         for (Node nodo : gridPanel.getChildren()) {
             if (nodo instanceof Pane) {
@@ -99,6 +101,7 @@ public class ControladorTablero {
                         if (!casilla.getChildren().isEmpty()) {
                             Node piezaEnCasilla = casilla.getChildren().get(0);
                             if (piezaEnCasilla instanceof ImageView) {
+                                moverFichaCementerio((ImageView) piezaEnCasilla);
                                 casilla.getChildren().remove(piezaEnCasilla); // Comer la pieza
                             }
                         }
@@ -131,6 +134,27 @@ public class ControladorTablero {
                         piezaSeleccionada = null;
                     }
                 });
+            }
+        }
+    }
+
+    private void moverFichaCementerio(ImageView piezaEnCasilla) {
+        // Determinar si la pieza es blanca o negra basándose en la URL de la imagen
+        String url = piezaEnCasilla.getImage().getUrl();
+        boolean esBlanca = url.contains("w");
+
+        // Obtener el GridPane correspondiente al cementerio
+        GridPane cementerio = esBlanca ? cementerioBlancas : cementerioNegras;
+
+        // Encontrar la primera casilla vacía en el cementerio
+        for (Node nodo : cementerio.getChildren()) {
+            if (nodo instanceof Pane) {
+                Pane casilla = (Pane) nodo;
+                if (casilla.getChildren().isEmpty()) {
+                    // Mover la pieza al cementerio
+                    casilla.getChildren().add(piezaEnCasilla);
+                    break;
+                }
             }
         }
     }
