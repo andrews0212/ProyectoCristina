@@ -15,6 +15,9 @@ public class Peon extends Pieza {
         if (!color && (casilla.y == y + 2) && y == filaInicial) {
             return casillas;
         }
+        if (color && (casilla.y == y - 2) && y == filaInicial) {
+            return casillas;
+        }
         if (!color && casilla.y == y + 1) {
             if (Math.abs(casilla.x - x) == 1 && Tablero.tablero.get(casilla)!=null) {
                 return casillas;
