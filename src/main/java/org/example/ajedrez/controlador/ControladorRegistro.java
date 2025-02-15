@@ -1,8 +1,4 @@
-/*
- * @author: Lucas Villa (k4ts0v@protonmail.com)
- * @version 1.0
- * @since 1.0
- */
+
 
 package org.example.ajedrez.controlador;
 
@@ -29,7 +25,16 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-
+/**
+ * Controlador para el formulario de registro de usuario en la aplicación de ajedrez.
+ * Este controlador maneja la validación de los campos de usuario, correo electrónico y contraseña,
+ * la selección de idioma, y los eventos de los botones.
+ * Además, proporciona soporte para atajos de teclado.
+ *
+ * @author Lucas Villa
+ * @version 1.0
+ * @since 1.0
+ */
 public class ControladorRegistro {
     @FXML private ComboBox<String> idioma;
     @FXML private Label lblTitulo, lblValidacionUsuario, lblValidacionEmail, lblValidacionContrasenha, lblRegistroExitoso;

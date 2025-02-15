@@ -1,9 +1,3 @@
-/*
- * @author: Lucas Villa (k4ts0v@protonmail.com)
- * @version 1.0
- * @since 1.0
- */
-
 package org.example.ajedrez.controlador;
 
 import java.io.IOException;
@@ -27,6 +21,19 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * Controlador para el formulario de registro de usuario.
+ * <p>
+ * Esta clase maneja la lógica de la pantalla de registro, permitiendo a los usuarios
+ * registrarse con un nombre de usuario, correo electrónico y contraseña. También
+ * incluye funciones para validar los campos de entrada, cambiar el idioma de la aplicación,
+ * y configurar atajos de teclado.
+ * </p>
+ *
+ * @author: Lucas Villa (k4ts0v@protonmail.com)
+ * @version 1.0
+ * @since 1.0
+ */
 public class ControladorRecuperacionContrasenha {
     @FXML private ComboBox<String> idioma;
     @FXML private Label lblTitulo, lblValidacionContrasenha, lblContrasenhaCambiada, lblContrasenhaNoIdentica;

@@ -2,7 +2,6 @@ package org.example.ajedrez.controlador;
 
 import org.example.ajedrez.modelo.Casilla;
 import org.example.ajedrez.modelo.Tablero;
-
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -10,29 +9,72 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
+/**
+ * Controlador para la interfaz gráfica del tablero de ajedrez.
+ * Maneja la interacción con las piezas y las casillas, permitiendo realizar movimientos de piezas en el tablero.
+ * Además, gestiona el turno de las piezas, mostrando las jugadas realizadas y moviendo las piezas al cementerio cuando se capturan.
+ *
+ * @author Andrews Dos ramos
+ */
 public class ControladorTablero {
 
+    /**
+     * El panel de grid que representa el tablero de ajedrez.
+     */
     @FXML
     private GridPane gridPanel;
 
+    /**
+     * El tablero de ajedrez que contiene la lógica del juego.
+     */
     private Tablero tablero;
-    private ImageView piezaSeleccionada;
-    private Ficha fichaSeleccionada;
-    private boolean turnoBlancas = true; // true: blancas, false: negras
 
+    /**
+     * La pieza actualmente seleccionada.
+     */
+    private ImageView piezaSeleccionada;
+
+    /**
+     * La ficha actualmente seleccionada, que contiene la información de la pieza en el tablero.
+     */
+    private Ficha fichaSeleccionada;
+
+    /**
+     * El estado del turno, true para las blancas y false para las negras.
+     */
+    private boolean turnoBlancas = true;
+
+    /**
+     * Etiqueta para mostrar el movimiento realizado.
+     */
     @FXML
     private Label labelMovimiento;
+
+    /**
+     * Panel que representa el cementerio de las piezas negras.
+     */
     @FXML
     private GridPane cementerioNegras;
+
+    /**
+     * Panel que representa el cementerio de las piezas blancas.
+     */
     @FXML
     private GridPane cementerioBlancas;
 
+    /**
+     * Método de inicialización del controlador. Se encarga de asignar los eventos de interacción con las piezas y casillas.
+     */
     public void initialize() {
         asignarEventosAPiezas();
         asignarEventosACasillas();
         tablero = new Tablero();
     }
 
+    /**
+     * Asigna los eventos de clic a las piezas en el tablero.
+     * Al hacer clic en una pieza, se selecciona y resalta, permitiendo que el jugador realice un movimiento.
+     */
     private void asignarEventosAPiezas() {
         for (Node nodo : gridPanel.getChildren()) {
             if (nodo instanceof Pane) {
@@ -64,6 +106,10 @@ public class ControladorTablero {
         }
     }
 
+    /**
+     * Asigna los eventos de clic a las casillas del tablero.
+     * Al hacer clic en una casilla, se intenta mover la pieza seleccionada a esa casilla, si el movimiento es válido.
+     */
     private void asignarEventosACasillas() {
         for (Node nodo : gridPanel.getChildren()) {
             if (nodo instanceof Pane) {
@@ -75,6 +121,7 @@ public class ControladorTablero {
                         if (filaDestino == null) filaDestino = 0;
                         if (columnaDestino == null) columnaDestino = 0;
 
+                        // Validar y realizar el movimiento
                         if (!tablero.mover(
                                 new Casilla(fichaSeleccionada.getColumna() + 1, 9 - fichaSeleccionada.getFila()),
                                 new Casilla(columnaDestino + 1, 9 - filaDestino))) {
@@ -82,6 +129,7 @@ public class ControladorTablero {
                             return;
                         }
 
+                        // Captura de pieza: moverla al cementerio
                         if (!casilla.getChildren().isEmpty()) {
                             Node piezaEnCasilla = casilla.getChildren().get(0);
                             if (piezaEnCasilla instanceof ImageView) {
@@ -90,6 +138,7 @@ public class ControladorTablero {
                             }
                         }
 
+                        // Mostrar movimiento realizado
                         String movimiento = fichaSeleccionada.getNombre() + ": "
                                 + fichaSeleccionada.getPosicionAjedrez() + " a "
                                 + convertirAjedrez(filaDestino, columnaDestino);
@@ -98,26 +147,35 @@ public class ControladorTablero {
                             labelMovimiento.setText(movimiento);
                         }
 
+                        // Mover la pieza seleccionada al destino
                         Pane origen = (Pane) piezaSeleccionada.getParent();
                         if (origen != null) {
                             origen.getChildren().remove(piezaSeleccionada);
                         }
                         casilla.getChildren().add(piezaSeleccionada);
 
+                        // Actualizar las coordenadas de la ficha
                         fichaSeleccionada.setFila(filaDestino);
                         fichaSeleccionada.setColumna(columnaDestino);
                         fichaSeleccionada.setPosicionAjedrez(convertirAjedrez(filaDestino, columnaDestino));
 
+                        // Deseleccionar la pieza
                         piezaSeleccionada.setStyle(null);
                         piezaSeleccionada = null;
 
-                        turnoBlancas = !turnoBlancas; // Cambiar turno
+                        // Cambiar de turno
+                        turnoBlancas = !turnoBlancas;
                     }
                 });
             }
         }
     }
 
+    /**
+     * Mueve una pieza capturada al cementerio correspondiente.
+     *
+     * @param piezaEnCasilla La pieza que fue capturada.
+     */
     private void moverFichaCementerio(ImageView piezaEnCasilla) {
         String url = piezaEnCasilla.getImage().getUrl();
         boolean esBlanca = url.contains("w");
@@ -134,6 +192,13 @@ public class ControladorTablero {
         }
     }
 
+    /**
+     * Convierte las coordenadas del tablero en notación de ajedrez (por ejemplo, "e4").
+     *
+     * @param fila La fila en el tablero (0-7).
+     * @param columna La columna en el tablero (0-7).
+     * @return La notación de ajedrez correspondiente (por ejemplo, "e4").
+     */
     private String convertirAjedrez(int fila, int columna) {
         char columnaLetra = (char) ('a' + columna);
         int filaNumero = 8 - fila;

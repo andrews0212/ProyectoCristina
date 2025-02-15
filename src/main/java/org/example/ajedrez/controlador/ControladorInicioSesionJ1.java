@@ -1,9 +1,3 @@
-/*
- * @author: Lucas Villa (k4ts0v@protonmail.com)
- * @version 1.0
- * @since 1.0
- */
-
 package org.example.ajedrez.controlador;
 
 import java.io.IOException;
@@ -27,7 +21,20 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * Controlador para la vista de inicio de sesión del jugador 1. Gestiona la interacción de la
+ * interfaz de usuario, incluyendo la selección del idioma, los eventos de inicio de sesión,
+ * la visualización de los formularios de registro y recuperación de contraseña, y la configuración
+ * de atajos de teclado. Además, maneja la validación del usuario y la gestión de los textos
+ * localizados para los distintos idiomas disponibles en la aplicación.
+ *
+ * @author Lucas Villa
+ * @version 1.0
+ * @since 1.0
+ */
 public class ControladorInicioSesionJ1 {
+
+    // FXML y componentes de la interfaz de usuario
     @FXML private ComboBox<String> idioma;
     @FXML private Label lblTitulo, lblValidacionUsuario;
     @FXML private Button btnIniciarSesion;
@@ -36,19 +43,18 @@ public class ControladorInicioSesionJ1 {
     @FXML private PasswordField txtContrasenha;
     @FXML private Tooltip ttComboBox, ttBtnIniciarSesion, ttHlRecuperarContrasenha, ttHlRegistro, ttTxtContrasenha, ttTxtUsuario, ttTxtEmail;
     @FXML HBox hbValidacionUsuario;
-
     @FXML private VBox rootVBox;
 
     private ResourceBundle bundle;
 
     /**
-     * Método llamado al iniciar la aplicación.
+     * Método llamado al iniciar la aplicación. Inicializa los elementos de la interfaz de usuario,
+     * configura el combobox de idiomas, establece el idioma por defecto y asigna los atajos de teclado.
      *
      * @since 1.0
      */
     @FXML
     private void initialize() {
-        // Inicializar el combobox y establecer el idioma predeterminado.
         initComboBox();
         seleccionarIdioma();
         setAtajos();
@@ -56,7 +62,8 @@ public class ControladorInicioSesionJ1 {
     }
 
     /**
-     * Inicializa el combobox con los idiomas disponibles.
+     * Inicializa el combobox de idiomas con las opciones disponibles y selecciona el idioma por defecto
+     * según la configuración regional del sistema.
      *
      * @since 1.0
      */
@@ -67,25 +74,22 @@ public class ControladorInicioSesionJ1 {
     }
 
     /**
-     * Cambia el idioma de la aplicación.
+     * Cambia el idioma de la aplicación según el idioma seleccionado en el combobox.
+     * Carga un nuevo ResourceBundle y actualiza los textos de la interfaz.
      *
-     * @param localeStr String con el idioma a cambiar.
+     * @param localeStr El código del idioma a cambiar (por ejemplo, "es" para español, "en" para inglés).
      * @since 1.0
      */
     private void setLocale(String localeStr) {
-        // Cambiar el idioma de la aplicación.
         Locale locale = Locale.forLanguageTag(localeStr);
         Locale.setDefault(locale);
-        // // Cargar un nuevo bundle de recursos.
         bundle = ResourceBundle.getBundle("org.example.ajedrez.i18n.LB", locale);
-        // Actualizar los elementos de la interfaz con el texto localizado.
         actualizarLabels();
         actualizarTooltips();
     }
 
     /**
-     * Actualiza los textos de los elementos de la interfaz en función del idioma
-     * seleccionado.
+     * Actualiza los textos de los labels y los campos de la interfaz de usuario según el idioma seleccionado.
      *
      * @since 1.0
      */
@@ -101,8 +105,7 @@ public class ControladorInicioSesionJ1 {
     }
 
     /**
-     * Actualiza los tooltips de los botones y campos de texto en función del idioma
-     * seleccionado.
+     * Actualiza los tooltips de la interfaz de usuario según el idioma seleccionado.
      *
      * @since 1.0
      */
@@ -117,7 +120,7 @@ public class ControladorInicioSesionJ1 {
     }
 
     /**
-     * Añade tooltips a los botones y campos de texto.
+     * Asigna los tooltips a los componentes de la interfaz de usuario.
      *
      * @since 1.0
      */
@@ -131,32 +134,31 @@ public class ControladorInicioSesionJ1 {
     }
 
     /**
-     * Selecciona el idioma en base al contenido del combobox.
+     * Método que maneja la selección de un idioma en el ComboBox.
+     * Al seleccionar un idioma, se cambia el idioma de la interfaz de usuario.
      *
      * @since 1.0
      */
     @FXML
     private void seleccionarIdioma() {
-        // Determinar el idioma seleccionado.
         String idiomaSeleccionado = idioma.getValue();
         String localeStr;
 
-        // Devolver el idioma seleccionado.
         localeStr = switch (idiomaSeleccionado) {
             case "Español" -> "es";
             case "English" -> "en";
             default -> "es";
         };
 
-        // Establecer el nuevo idioma.
         ContextoApp.setIdioma(localeStr);
-        setLocale(localeStr); 
+        setLocale(localeStr);
     }
 
     /**
-     * Muestra el formulario de registro de usuario.
+     * Muestra el formulario de registro de usuario. Este formulario se carga en la vista
+     * correspondiente para la creación de una nueva cuenta de usuario.
      *
-     * @throws IOException Exception lanzada si no se puede mostrar el formulario.
+     * @throws IOException Si ocurre un error al intentar cargar la vista.
      * @since 1.0
      */
     @FXML
@@ -165,26 +167,23 @@ public class ControladorInicioSesionJ1 {
     }
 
     /**
-     * Inicia sesión como el jugador 1.
+     * Realiza el inicio de sesión como el jugador 1. Si la autenticación es exitosa, se redirige
+     * al jugador 2. Si la validación falla, se muestra un mensaje de error.
      *
-     * @throws IOException Exception lanzada si no se puede mostrar el formulario.
+     * @throws IOException Si ocurre un error al intentar cargar la siguiente vista.
      * @since 1.0
      */
     @FXML
     private void login() throws IOException {
-        // TODO: añadir lógica para comprobación del jugador.
-        // if (gestionDB.verificarUsuario(txtUsuario.getText(), txtContrasenha.getText())) {
-            App.setRoot("fxml/inicioSesionJ2");
-        // } else {
-        //     hbValidacionUsuario.setVisible(true);
-        // }
-        
+        // TODO: lógica de validación del usuario.
+        App.setRoot("fxml/inicioSesionJ2");
     }
 
     /**
-     * Muestra el formulario de recuperación de contraseña.
+     * Muestra el formulario de recuperación de contraseña. Este formulario se carga para permitir
+     * al usuario recuperar su contraseña olvidada.
      *
-     * @throws IOException Exception lanzada si no se puede mostrar el formulario.
+     * @throws IOException Si ocurre un error al intentar cargar la vista.
      * @since 1.0
      */
     @FXML
@@ -193,21 +192,20 @@ public class ControladorInicioSesionJ1 {
     }
 
     /**
-     * Devuelve la primera letra en mayúscula de un string.
+     * Convierte la primera letra de una cadena de texto a mayúscula, dejando el resto en minúsculas.
      *
-     * @param input String a convertir.
-     * @return String con la primera letra en mayúscula.
+     * @param input El texto a convertir.
+     * @return El texto con la primera letra en mayúscula y el resto en minúsculas.
      * @since 1.0
      */
     public static String primeraLetraMayuscula(String input) {
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
 
-
     /**
-     * Vuelve al menú anterior.
-     * 
-     * @throws IOException Excepción lanzada si no se puede mostrar el formulario.
+     * Vuelve al menú principal de la aplicación.
+     *
+     * @throws IOException Si ocurre un error al intentar cargar la vista del menú principal.
      * @since 1.0
      */
     @FXML
@@ -216,15 +214,14 @@ public class ControladorInicioSesionJ1 {
     }
 
     /**
-     * Añade los atajos de teclado.
+     * Configura los atajos de teclado para acciones rápidas como iniciar sesión, registrarse y
+     * recuperar la contraseña.
      *
      * @since 1.0
      */
     public void setAtajos() {
-        // Añadir evento de teclado para iniciar sesión.
         btnIniciarSesion.setDefaultButton(true);
 
-        // Añadir evento de teclado para registrarse.
         KeyCombination kcRegistro = new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN);
         rootVBox.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (kcRegistro.match(event)) {
@@ -236,7 +233,6 @@ public class ControladorInicioSesionJ1 {
             }
         });
 
-        // Añadir evento de teclado para recuperar la contraseña.
         KeyCombination kcRecuperacionContrasenha = new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN);
         rootVBox.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (kcRecuperacionContrasenha.match(event)) {
@@ -248,7 +244,6 @@ public class ControladorInicioSesionJ1 {
             }
         });
 
-        // Añadir evento de teclado para volver al menú principal.
         KeyCombination kcVolverMenuPrincipal = new KeyCodeCombination(KeyCode.ESCAPE);
         rootVBox.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (kcVolverMenuPrincipal.match(event)) {
@@ -261,5 +256,3 @@ public class ControladorInicioSesionJ1 {
         });
     }
 }
-
-

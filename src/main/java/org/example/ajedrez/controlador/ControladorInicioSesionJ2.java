@@ -1,9 +1,3 @@
-/*
- * @author: Lucas Villa (k4ts0v@protonmail.com)
- * @version 1.0
- * @since 1.0
- */
-
 package org.example.ajedrez.controlador;
 
 import java.io.IOException;
@@ -29,7 +23,18 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
+/**
+ * Controlador para la pantalla de inicio de sesión del jugador 2.
+ * <p>
+ * Esta clase maneja los eventos y acciones del formulario de inicio de sesión para el jugador 2.
+ * Proporciona funcionalidad para verificar las credenciales del jugador 2, manejar la recuperación de contraseña
+ * y otros eventos relacionados con la autenticación.
+ * </p>
+ *
+ * @author: Lucas Villa (k4ts0v@protonmail.com)
+ * @version 1.0
+ * @since 1.0
+ */
 public class ControladorInicioSesionJ2 {
     @FXML private ComboBox<String> idioma;
     @FXML private Label lblTitulo, lblValidacionUsuario;

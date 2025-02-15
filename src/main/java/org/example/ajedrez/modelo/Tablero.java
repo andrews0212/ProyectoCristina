@@ -7,14 +7,40 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * La clase Tablero representa el tablero de ajedrez en el que se juega la partida.
+ * Contiene la lógica para realizar movimientos de las piezas, verificar condiciones de jaque y jaque mate,
+ * y gestionar las piezas en el tablero.
+ *
+ * @author Raul Mora
+ */
 public class Tablero {
-    public static Map<Casilla, Pieza> tablero = new HashMap<Casilla, Pieza>();
+
+    /**
+     * Mapa que asocia una casilla a una pieza en el tablero.
+     */
+    public static Map<Casilla, Pieza> tablero = new HashMap<>();
+
+    /**
+     * El rey blanco.
+     */
     public static Rey reyB;
+
+    /**
+     * El rey negro.
+     */
     public static Rey reyN;
-    public static ArrayList<Rey> reys = new ArrayList<Rey>();
 
+    /**
+     * Lista que contiene ambos reyes.
+     */
+    public static ArrayList<Rey> reys = new ArrayList<>();
+
+    /**
+     * Constructor de la clase Tablero.
+     * Inicializa el tablero con las piezas en sus posiciones iniciales.
+     */
     public Tablero() {
-
         for (int y = 1; y < 9; y++) {
             for (int x = 1; x < 9; x++) {
                 // Fila 1: piezas mayores blancas
@@ -64,6 +90,13 @@ public class Tablero {
         }
     }
 
+    /**
+     * Verifica si es posible un asedio por parte de las piezas de un color.
+     *
+     * @param color El color de las piezas que realizan el asedio (true para negro, false para blanco).
+     * @param objetivo La casilla del objetivo del asedio.
+     * @return true si el asedio es factible, false si no lo es.
+     */
     public static boolean asedio(boolean color, Casilla objetivo) {
         boolean factible = false;
         for (Pieza p : tablero.values()) {
@@ -76,6 +109,14 @@ public class Tablero {
         return factible;
     }
 
+    /**
+     * Intenta mover una pieza en el tablero. Si el movimiento es válido, la pieza se mueve.
+     *
+     * @param origen La casilla de origen de la pieza.
+     * @param destino La casilla de destino de la pieza.
+     * @param mover Si es true, la pieza será movida.
+     * @return true si el movimiento es válido, false si no lo es.
+     */
     public static boolean moverAsedio(Casilla origen, Casilla destino, boolean mover) {
         if (mover && tablero.get(origen) != null) {
             tablero.get(origen).x = destino.x;
@@ -108,7 +149,15 @@ public class Tablero {
         }
     }
 
-    //Con este metodo podemos obtener el booleano sin mover o mover sin evaluar
+    /**
+     * Verifica si el movimiento de una pieza es válido según las reglas del ajedrez.
+     * Si el parámetro "mover" es true, la pieza será movida si el movimiento es válido.
+     *
+     * @param origen La casilla de origen de la pieza.
+     * @param destino La casilla de destino de la pieza.
+     * @param mover Si es true, la pieza será movida.
+     * @return true si el movimiento es válido, false si no lo es.
+     */
     public static boolean mover(Casilla origen, Casilla destino, boolean mover) {
         if (mover && tablero.get(origen) != null) {
             tablero.get(origen).x = destino.x;
@@ -146,6 +195,13 @@ public class Tablero {
         }
     }
 
+    /**
+     * Realiza el movimiento de una pieza de manera estándar, sin realizar ninguna comprobación de validez.
+     *
+     * @param origen La casilla de origen de la pieza.
+     * @param destino La casilla de destino de la pieza.
+     * @return true si el movimiento se realiza con éxito, false si no es posible.
+     */
     public boolean mover(Casilla origen, Casilla destino) {
         System.out.println(tablero.get(origen));
         if (origen.equals(destino)) {
@@ -170,18 +226,15 @@ public class Tablero {
                 }
             }
 
-            //Traslado
+            // Traslado de la pieza
             tablero.get(origen).x = destino.x;
             tablero.get(origen).y = destino.y;
             tablero.put(destino, tablero.get(origen));
             tablero.put(origen, null);
+
+            // Verificar si el rey está en jaque
             if (jaque(obtenerRey(tablero.get(destino).color))) {
-                String color;
-                if (tablero.get(destino).color) {
-                    color = "Negras";
-                } else {
-                    color = "Blancas";
-                }
+                String color = (tablero.get(destino).color) ? "Negras" : "Blancas";
                 System.out.println("Tu rey está en jaque (" + color + ")");
                 tablero.get(destino).x = origen.x;
                 tablero.get(destino).y = origen.y;
@@ -189,19 +242,15 @@ public class Tablero {
                 tablero.put(destino, null);
                 return false;
             }
+
+            // Verificar si el movimiento genera jaque mate
             if (jaque(obtenerRey(!tablero.get(destino).color))) {
-                String color;
-                if (!tablero.get(destino).color) {
-                    color = "negro";
-                } else {
-                    color = "blanco";
-                }
+                String color = (!tablero.get(destino).color) ? "negro" : "blanco";
                 if (jaqueMate(obtenerRey(!tablero.get(destino).color))) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Rey " + color);
                     alert.setHeaderText("Jaque Mate al rey " + color);
                     alert.show();
-
                 } else {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Rey " + color);
@@ -214,6 +263,12 @@ public class Tablero {
         return false;
     }
 
+    /**
+     * Obtiene el rey de un color específico.
+     *
+     * @param color El color del rey a obtener (true para negro, false para blanco).
+     * @return El rey correspondiente al color.
+     */
     public Rey obtenerRey(boolean color) {
         if (color) {
             return reyN;
@@ -222,11 +277,22 @@ public class Tablero {
         }
     }
 
-    //devuelve true si el rey por parametro esta en jaque
+    /**
+     * Verifica si el rey está en jaque.
+     *
+     * @param victima El rey a verificar si está en jaque.
+     * @return true si el rey está en jaque, false si no lo está.
+     */
     public boolean jaque(Rey victima) {
         return asedio(!victima.color, victima.getCasilla());
     }
 
+    /**
+     * Verifica si el rey está en jaque mate.
+     *
+     * @param victima El rey a verificar si está en jaque mate.
+     * @return true si el rey está en jaque mate, false si no lo está.
+     */
     public boolean jaqueMate(Rey victima) {
         boolean colorVictima = victima.color;
         boolean jaqueMate = true;
@@ -260,6 +326,4 @@ public class Tablero {
         }
         return jaqueMate;
     }
-
-
 }
