@@ -10,6 +10,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Controlador para la interfaz gráfica del tablero de ajedrez.
  * Maneja la interacción con las piezas y las casillas, permitiendo realizar movimientos de piezas en el tablero.
@@ -63,7 +66,7 @@ public class ControladorTablero {
     @FXML
     private GridPane cementerioBlancas;
     private boolean bot=true;
-
+    private List<String> movimientos = new ArrayList<>();
     /**
      * Método de inicialización del controlador. Se encarga de asignar los eventos de interacción con las piezas y casillas.
      */
@@ -71,6 +74,7 @@ public class ControladorTablero {
         asignarEventosAPiezas();
         asignarEventosACasillas();
         tablero = new Tablero();
+        DatabaseConnection databaseConnection = new DatabaseConnection();
     }
 
     /**
@@ -145,6 +149,7 @@ public class ControladorTablero {
                                 + fichaSeleccionada.getPosicionAjedrez() + " a "
                                 + convertirAjedrez(filaDestino, columnaDestino);
                         System.out.println(movimiento);
+                        movimientos.add(convertirAjedrez(filaDestino, columnaDestino));
                         if (labelMovimiento != null) {
                             labelMovimiento.setText(movimiento);
                         }
@@ -204,9 +209,12 @@ public class ControladorTablero {
                 + fichaSeleccionada.getPosicionAjedrez() + " a "
                 + convertirAjedrez(movimientoBot.getObjetivo().y, movimientoBot.getObjetivo().x);
         System.out.println(movimiento);
+        movimientos.add(convertirAjedrez(movimientoBot.getObjetivo().y, movimientoBot.getObjetivo().x));
+        imprimirMovimientos();
         if (labelMovimiento != null) {
             labelMovimiento.setText(movimiento);
         }
+
         // Mover la pieza seleccionada al destino
         inicio.getChildren().remove(piezaSeleccionada);
         fin.getChildren().add(piezaSeleccionada);
@@ -246,4 +254,19 @@ public class ControladorTablero {
         int filaNumero = 8 - fila;
         return "" + columnaLetra + filaNumero;
     }
+
+    private void imprimirMovimientos() {
+        System.out.println("\n--- Historial de movimientos ---");
+        for (String mov : movimientos) {
+            System.out.print(mov + " "); // Se imprime en una sola línea
+        }
+    }
+    private void guardarMovimientosEnBD() {
+        DAO dao = new DAO();
+        for (String movimiento : movimientos) {
+            dao.insertarMovimiento(1, movimiento);
+        }
+        System.out.println("Movimientos guardados en la base de datos.");
+    }
+
 }

@@ -37,7 +37,7 @@ public class DatabaseConnection {
         }
     }
     private static void inicializarBaseDeDatos() {
-        try (Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/chess", USER, PASSWORD);
+        try (Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306", USER, PASSWORD);
              Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS chess;");
             stmt.executeUpdate("USE chess;");
@@ -71,7 +71,6 @@ public class DatabaseConnection {
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 partida_id INT NOT NULL,
                 movimiento VARCHAR(10) NOT NULL,
-                turno_blancas BOOLEAN NOT NULL,
                 timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (partida_id) REFERENCES partidas(id) ON DELETE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -82,36 +81,7 @@ public class DatabaseConnection {
             e.printStackTrace();
         }
     }
-    public static int insertarPartida(int idBlancas, int idNegras) {
-        String query = "INSERT INTO partidas (jugador_blancas_id, jugador_negras_id) VALUES (?, ?)";
-        try (Connection con = getConnection();
-             PreparedStatement stmt = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setInt(1, idBlancas);
-            stmt.setInt(2, idNegras);
-            stmt.executeUpdate();
 
-            ResultSet rs = stmt.getGeneratedKeys();
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return -1;
-    }
-
-    public static void insertarMovimiento(int partidaId, String movimiento, boolean turnoBlancas) {
-        String query = "INSERT INTO movimientos (partida_id, movimiento, turno_blancas) VALUES (?, ?, ?)";
-        try (Connection con = getConnection();
-             PreparedStatement stmt = con.prepareStatement(query)) {
-            stmt.setInt(1, partidaId);
-            stmt.setString(2, movimiento);
-            stmt.setBoolean(3, turnoBlancas);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
 
 }
