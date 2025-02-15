@@ -71,7 +71,6 @@ public class DatabaseConnection {
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 partida_id INT NOT NULL,
                 movimiento VARCHAR(10) NOT NULL,
-                turno_blancas BOOLEAN NOT NULL,
                 timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (partida_id) REFERENCES partidas(id) ON DELETE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -75,7 +75,6 @@ public class ControladorTablero {
         asignarEventosACasillas();
         tablero = new Tablero();
         DatabaseConnection databaseConnection = new DatabaseConnection();
-        DAO dao = new DAO();
     }
 
     /**
@@ -215,6 +214,7 @@ public class ControladorTablero {
         if (labelMovimiento != null) {
             labelMovimiento.setText(movimiento);
         }
+
         // Mover la pieza seleccionada al destino
         inicio.getChildren().remove(piezaSeleccionada);
         fin.getChildren().add(piezaSeleccionada);
@@ -260,6 +260,13 @@ public class ControladorTablero {
         for (String mov : movimientos) {
             System.out.print(mov + " "); // Se imprime en una sola línea
         }
+    }
+    private void guardarMovimientosEnBD() {
+        DAO dao = new DAO();
+        for (String movimiento : movimientos) {
+            dao.insertarMovimiento(1, movimiento);
+        }
+        System.out.println("Movimientos guardados en la base de datos.");
     }
 
 }

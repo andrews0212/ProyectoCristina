@@ -34,13 +34,12 @@ public class DAO {
         return -1;
     }
 
-    public static void insertarMovimiento(int partidaId, String movimiento, boolean turnoBlancas) {
-        String query = "INSERT INTO movimientos (partida_id, movimiento, turno_blancas) VALUES (?, ?, ?)";
+    public static void insertarMovimiento(int partidaId, String movimiento) {
+        String query = "INSERT INTO movimientos (partida_id, movimiento) VALUES (?, ?, ?)";
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement stmt = con.prepareStatement(query)) {
             stmt.setInt(1, partidaId);
             stmt.setString(2, movimiento);
-            stmt.setBoolean(3, turnoBlancas);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
