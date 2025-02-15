@@ -1,7 +1,9 @@
 package org.example.ajedrez.controlador;
 
+import javafx.scene.control.Alert;
 import org.example.ajedrez.modelo.Casilla;
 import org.example.ajedrez.modelo.Movimiento;
+import org.example.ajedrez.modelo.Rey;
 import org.example.ajedrez.modelo.Tablero;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -169,8 +171,12 @@ public class ControladorTablero {
                         // Deseleccionar la pieza
                         piezaSeleccionada.setStyle(null);
                         piezaSeleccionada = null;
+// Verificar jaque/jaque mate
+// Suponiendo que puedes determinar el color de la pieza movida (por ejemplo, a partir del URL de la imagen):
 
-                        //Cambiar de turno
+                        verificarJaqueYJaqueMate(fichaSeleccionada.getColor() == "blanco" ? false : true);
+
+// Cambiar de turno
                         turnoBlancas = !turnoBlancas;
                         if(bot){
                             turnoBot();
@@ -183,16 +189,20 @@ public class ControladorTablero {
 
     private void turnoBot() {
         Movimiento movimientoBot = tablero.bot(true);
-        Pane fin= null;
+        Pane fin = null;
         Pane inicio = null;
         for (Node node : gridPanel.getChildren()) {
-            if (GridPane.getColumnIndex(node) != null && GridPane.getRowIndex(node) != null && GridPane.getColumnIndex(node) == movimientoBot.getInicio().x && GridPane.getRowIndex(node) == movimientoBot.getInicio().y) {
+            if (GridPane.getColumnIndex(node) != null && GridPane.getRowIndex(node) != null
+                    && GridPane.getColumnIndex(node) == movimientoBot.getInicio().x
+                    && GridPane.getRowIndex(node) == movimientoBot.getInicio().y) {
                 inicio = (Pane) node;
-                System.out.println(movimientoBot.getInicio()+" "+movimientoBot.getObjetivo());
+                System.out.println(movimientoBot.getInicio() + " " + movimientoBot.getObjetivo());
                 piezaSeleccionada = (ImageView) inicio.getChildren().get(0);
                 fichaSeleccionada = Ficha.crearFichaDesdePanel((Pane) piezaSeleccionada.getParent());
             }
-            if (GridPane.getColumnIndex(node) != null && GridPane.getRowIndex(node) != null && GridPane.getColumnIndex(node) == movimientoBot.getObjetivo().x && GridPane.getRowIndex(node) == movimientoBot.getObjetivo().y) {
+            if (GridPane.getColumnIndex(node) != null && GridPane.getRowIndex(node) != null
+                    && GridPane.getColumnIndex(node) == movimientoBot.getObjetivo().x
+                    && GridPane.getRowIndex(node) == movimientoBot.getObjetivo().y) {
                 fin = (Pane) node;
             }
         }
@@ -218,6 +228,11 @@ public class ControladorTablero {
         // Mover la pieza seleccionada al destino
         inicio.getChildren().remove(piezaSeleccionada);
         fin.getChildren().add(piezaSeleccionada);
+
+        // Verificar jaque/jaque mate: el bot juega con negras (colorMovimiento == true)
+        verificarJaqueYJaqueMate(true);
+
+        // Cambiar de turno
         turnoBlancas = !turnoBlancas;
     }
 
@@ -268,5 +283,25 @@ public class ControladorTablero {
         }
         System.out.println("Movimientos guardados en la base de datos.");
     }
+    private void verificarJaqueYJaqueMate(boolean colorMovimiento) {
+        // colorMovimiento: true si la pieza que se movió es negra, false si es blanca.
+        Rey reyEnemigo = tablero.obtenerRey(!colorMovimiento);
+        if (tablero.jaque(reyEnemigo)) {
+            String colorReyEnemigo = (colorMovimiento) ? "blanco" : "negro";
+            if (tablero.jaqueMate(reyEnemigo)) {
+                mostrarAlerta("Jaque Mate", "El rey " + colorReyEnemigo + " está en Jaque Mate");
+            } else {
+                mostrarAlerta("Jaque", "El rey " + colorReyEnemigo + " está en Jaque");
+            }
+        }
+    }
+
+    private void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(mensaje);
+        alert.show();
+    }
+
 
 }
