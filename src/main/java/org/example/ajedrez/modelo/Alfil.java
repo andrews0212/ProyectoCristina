@@ -72,4 +72,8 @@ public class Alfil extends Pieza {
     public String toString() {
         return super.toString();  // Devuelve la representación en cadena de la pieza Alfil.
     }
+    @Override
+    public int getValor() {
+        return 2;
+    }
 }

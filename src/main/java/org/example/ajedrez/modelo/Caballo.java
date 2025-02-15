@@ -45,4 +45,8 @@ public class Caballo extends Pieza {
 
         return null;  // Si el movimiento no es válido, retorna null.
     }
+    @Override
+    public int getValor() {
+        return 2;
+    }
 }

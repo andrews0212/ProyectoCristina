@@ -151,7 +151,7 @@ public class Tablero {
 
     /**
      * Verifica si el movimiento de una pieza es válido según las reglas del ajedrez.
-     * Si el parámetro "mover" es true, la pieza será movida si el movimiento es válido.
+     * Si el parámetro "mover" es true, la pieza será movida aunque el movimiento no sea válido
      *
      * @param origen La casilla de origen de la pieza.
      * @param destino La casilla de destino de la pieza.
@@ -196,7 +196,7 @@ public class Tablero {
     }
 
     /**
-     * Realiza el movimiento de una pieza de manera estándar, sin realizar ninguna comprobación de validez.
+     * Realiza el movimiento de una pieza de manera estándar
      *
      * @param origen La casilla de origen de la pieza.
      * @param destino La casilla de destino de la pieza.
@@ -325,5 +325,21 @@ public class Tablero {
             }
         }
         return jaqueMate;
+    }
+    public Movimiento bot(boolean color){
+        Movimiento mejorMovimiento= null;
+        for(Pieza pieza : tablero.values()) {
+            if (pieza != null && pieza.color == color) {
+                for (Casilla casilla : tablero.keySet()) {
+                    if(mover(pieza.getCasilla(),casilla,false)) {
+                        Movimiento nuevoMovimiento = new Movimiento(pieza.getCasilla(), casilla);
+                        if (mejorMovimiento == null || nuevoMovimiento.getValor() > mejorMovimiento.getValor()) {
+                            mejorMovimiento = nuevoMovimiento;
+                        }
+                    }
+                }
+            }
+        }
+        return mejorMovimiento;
     }
 }
