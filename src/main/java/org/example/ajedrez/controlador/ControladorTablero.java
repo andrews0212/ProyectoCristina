@@ -278,7 +278,7 @@ public class ControladorTablero {
         // colorMovimiento: true si la pieza que se movió es negra, false si es blanca.
         Rey reyEnemigo = tablero.obtenerRey(!colorMovimiento);
         if (tablero.jaque(reyEnemigo)) {
-            String colorReyEnemigo = (!colorMovimiento) ? "blanco" : "negro";
+            String colorReyEnemigo = (colorMovimiento) ? "blanco" : "negro";
             if (tablero.jaqueMate(reyEnemigo)) {
                 mostrarAlerta("Jaque Mate", "El rey " + colorReyEnemigo + " está en Jaque Mate");
             } else {
