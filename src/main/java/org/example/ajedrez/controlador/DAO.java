@@ -5,8 +5,8 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.sql.*;
 
 public class DAO {
-    public void insertarUsuario(Usuario usuario, String password) throws SQLException, SQLException {
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));  // Hashea la contraseña
+    public void insertarUsuario(Usuario usuario) throws SQLException, SQLException {
+        String hashedPassword = BCrypt.hashpw(usuario.getPassword(), BCrypt.gensalt(12));  // Hashea la contraseña
 
         String sql = "INSERT INTO usuarios (usuario, correo, password) VALUES (?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
