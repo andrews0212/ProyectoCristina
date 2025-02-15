@@ -67,7 +67,7 @@ public class ControladorTablero {
      */
     @FXML
     private GridPane cementerioBlancas;
-    private boolean bot=false;
+    private boolean bot=true;
     private List<String> movimientos = new ArrayList<>();
     /**
      * Método de inicialización del controlador. Se encarga de asignar los eventos de interacción con las piezas y casillas.
@@ -189,16 +189,20 @@ public class ControladorTablero {
 
     private void turnoBot() {
         Movimiento movimientoBot = tablero.bot(true);
-        Pane fin= null;
+        Pane fin = null;
         Pane inicio = null;
         for (Node node : gridPanel.getChildren()) {
-            if (GridPane.getColumnIndex(node) != null && GridPane.getRowIndex(node) != null && GridPane.getColumnIndex(node) == movimientoBot.getInicio().x && GridPane.getRowIndex(node) == movimientoBot.getInicio().y) {
+            if (GridPane.getColumnIndex(node) != null && GridPane.getRowIndex(node) != null
+                    && GridPane.getColumnIndex(node) == movimientoBot.getInicio().x
+                    && GridPane.getRowIndex(node) == movimientoBot.getInicio().y) {
                 inicio = (Pane) node;
-                System.out.println(movimientoBot.getInicio()+" "+movimientoBot.getObjetivo());
+                System.out.println(movimientoBot.getInicio() + " " + movimientoBot.getObjetivo());
                 piezaSeleccionada = (ImageView) inicio.getChildren().get(0);
                 fichaSeleccionada = Ficha.crearFichaDesdePanel((Pane) piezaSeleccionada.getParent());
             }
-            if (GridPane.getColumnIndex(node) != null && GridPane.getRowIndex(node) != null && GridPane.getColumnIndex(node) == movimientoBot.getObjetivo().x && GridPane.getRowIndex(node) == movimientoBot.getObjetivo().y) {
+            if (GridPane.getColumnIndex(node) != null && GridPane.getRowIndex(node) != null
+                    && GridPane.getColumnIndex(node) == movimientoBot.getObjetivo().x
+                    && GridPane.getRowIndex(node) == movimientoBot.getObjetivo().y) {
                 fin = (Pane) node;
             }
         }
@@ -224,6 +228,11 @@ public class ControladorTablero {
         // Mover la pieza seleccionada al destino
         inicio.getChildren().remove(piezaSeleccionada);
         fin.getChildren().add(piezaSeleccionada);
+
+        // Verificar jaque/jaque mate: el bot juega con negras (colorMovimiento == true)
+        verificarJaqueYJaqueMate(true);
+
+        // Cambiar de turno
         turnoBlancas = !turnoBlancas;
     }
 
