@@ -37,7 +37,7 @@ public class DatabaseConnection {
         }
     }
     private static void inicializarBaseDeDatos() {
-        try (Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/chess", USER, PASSWORD);
+        try (Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306", USER, PASSWORD);
              Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS chess;");
             stmt.executeUpdate("USE chess;");
