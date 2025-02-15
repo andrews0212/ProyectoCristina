@@ -71,6 +71,7 @@ public class ControladorTablero {
         asignarEventosAPiezas();
         asignarEventosACasillas();
         tablero = new Tablero();
+        DatabaseConnection databaseConnection = new DatabaseConnection();
     }
 
     /**
