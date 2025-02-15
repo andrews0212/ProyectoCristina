@@ -1,5 +1,7 @@
 package org.example.ajedrez.modelo;
 
+import javafx.scene.control.Alert;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -195,9 +197,16 @@ public class Tablero {
                     color = "blanco";
                 }
                 if (jaqueMate(obtenerRey(!tablero.get(destino).color))) {
-                    System.out.println("Jaque Mate al rey " + color);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Rey " + color);
+                    alert.setHeaderText("Jaque Mate al rey " + color);
+                    alert.show();
+
                 } else {
-                    System.out.println("Jaque al rey " + color);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Rey " + color);
+                    alert.setHeaderText("Jaque al rey " + color);
+                    alert.show();
                 }
             }
             return true;
@@ -252,5 +261,5 @@ public class Tablero {
         return jaqueMate;
     }
 
-}
 
+}
