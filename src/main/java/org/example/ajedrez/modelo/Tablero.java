@@ -243,21 +243,7 @@ public class Tablero {
                 return false;
             }
 
-            // Verificar si el movimiento genera jaque mate
-            if (jaque(obtenerRey(!tablero.get(destino).color))) {
-                String color = (!tablero.get(destino).color) ? "negro" : "blanco";
-                if (jaqueMate(obtenerRey(!tablero.get(destino).color))) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Rey " + color);
-                    alert.setHeaderText("Jaque Mate al rey " + color);
-                    alert.show();
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Rey " + color);
-                    alert.setHeaderText("Jaque al rey " + color);
-                    alert.show();
-                }
-            }
+
             return true;
         }
         return false;

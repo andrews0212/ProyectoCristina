@@ -1,7 +1,9 @@
 package org.example.ajedrez.controlador;
 
+import javafx.scene.control.Alert;
 import org.example.ajedrez.modelo.Casilla;
 import org.example.ajedrez.modelo.Movimiento;
+import org.example.ajedrez.modelo.Rey;
 import org.example.ajedrez.modelo.Tablero;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -65,7 +67,7 @@ public class ControladorTablero {
      */
     @FXML
     private GridPane cementerioBlancas;
-    private boolean bot=true;
+    private boolean bot=false;
     private List<String> movimientos = new ArrayList<>();
     /**
      * Método de inicialización del controlador. Se encarga de asignar los eventos de interacción con las piezas y casillas.
@@ -169,8 +171,12 @@ public class ControladorTablero {
                         // Deseleccionar la pieza
                         piezaSeleccionada.setStyle(null);
                         piezaSeleccionada = null;
+// Verificar jaque/jaque mate
+// Suponiendo que puedes determinar el color de la pieza movida (por ejemplo, a partir del URL de la imagen):
 
-                        //Cambiar de turno
+                        verificarJaqueYJaqueMate(fichaSeleccionada.getColor() == "blanco" ? false : true);
+
+// Cambiar de turno
                         turnoBlancas = !turnoBlancas;
                         if(bot){
                             turnoBot();
@@ -268,5 +274,25 @@ public class ControladorTablero {
         }
         System.out.println("Movimientos guardados en la base de datos.");
     }
+    private void verificarJaqueYJaqueMate(boolean colorMovimiento) {
+        // colorMovimiento: true si la pieza que se movió es negra, false si es blanca.
+        Rey reyEnemigo = tablero.obtenerRey(!colorMovimiento);
+        if (tablero.jaque(reyEnemigo)) {
+            String colorReyEnemigo = (!colorMovimiento) ? "blanco" : "negro";
+            if (tablero.jaqueMate(reyEnemigo)) {
+                mostrarAlerta("Jaque Mate", "El rey " + colorReyEnemigo + " está en Jaque Mate");
+            } else {
+                mostrarAlerta("Jaque", "El rey " + colorReyEnemigo + " está en Jaque");
+            }
+        }
+    }
+
+    private void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(mensaje);
+        alert.show();
+    }
+
 
 }
