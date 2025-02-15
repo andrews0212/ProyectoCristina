@@ -89,4 +89,8 @@ public class Torre extends Pieza {
             return null;
         }
     }
+    @Override
+    public int getValor() {
+        return 2;
+    }
 }

@@ -43,4 +43,8 @@ public class Rey extends Pieza {
         // Si las condiciones no se cumplen, retorna null, indicando que el movimiento no es válido
         return null;
     }
+    @Override
+    public int getValor() {
+        return 3;
+    }
 }
