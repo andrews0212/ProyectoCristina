@@ -77,7 +77,7 @@ public class Torre extends Pieza {
                 }
             }
 
-            // Elimina la última casilla, que es la casilla de destino (la Torre no puede pasar por encima de ella).
+            // Elimina la última casilla, que es la casilla de destino
             if (!lista.isEmpty()) {
                 lista.remove(lista.size() - 1);
             }

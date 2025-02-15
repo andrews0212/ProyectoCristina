@@ -62,6 +62,7 @@ public class ControladorTablero {
      */
     @FXML
     private GridPane cementerioBlancas;
+    private boolean bot=true;
 
     /**
      * Método de inicialización del controlador. Se encarga de asignar los eventos de interacción con las piezas y casillas.
@@ -164,53 +165,52 @@ public class ControladorTablero {
                         piezaSeleccionada.setStyle(null);
                         piezaSeleccionada = null;
 
-                        // Cambiar de turno
-                        //Aqui se podría meter el bot(negras) y no cambiar de turno:
-                        //if(J2==null){
-                        /*Movimiento movimientoBot = tablero.bot(true);
-                        tablero.mover(movimientoBot.getInicio(),movimientoBot.getObjetivo());
-                        //ESTO ES LO QUE NO VA
-                        Pane fin= null;
-                        Pane inicio = null;
-                        for (Node node : gridPanel.getChildren()) {
-                            if (GridPane.getColumnIndex(node) != null && GridPane.getRowIndex(node) != null && GridPane.getColumnIndex(node) == movimientoBot.getObjetivo().x && GridPane.getRowIndex(node) == movimientoBot.getObjetivo().y) {
-                                fin = (Pane) nodo;
-                            }
-                            if (GridPane.getColumnIndex(node) != null && GridPane.getRowIndex(node) != null && GridPane.getColumnIndex(node) == movimientoBot.getInicio().x && GridPane.getRowIndex(node) == movimientoBot.getInicio().y) {
-                                inicio = (Pane) nodo;
-                                piezaSeleccionada = (ImageView) inicio.getChildren().get(0);
-                                fichaSeleccionada = Ficha.crearFichaDesdePanel((Pane) piezaSeleccionada.getParent());
-                            }
-                        }
-                        // Captura de pieza: moverla al cementerio
-                        if (!fin.getChildren().isEmpty()) {
-                            Node piezaEnCasilla = fin.getChildren().get(0);
-                            if (piezaEnCasilla instanceof ImageView) {
-                                moverFichaCementerio((ImageView) piezaEnCasilla);
-                                fin.getChildren().remove(piezaEnCasilla);
-                            }
-                        }
-                        // Mostrar movimiento realizado
-                        String movimientoBotString = fichaSeleccionada.getNombre() + ": "
-                                + fichaSeleccionada.getPosicionAjedrez() + " a "
-                                + convertirAjedrez(filaDestino, columnaDestino);
-                        System.out.println(movimientoBotString);
-                        if (labelMovimiento != null) {
-                            labelMovimiento.setText(movimiento);
-                        }
-                        // Mover la pieza seleccionada al destino
-                        if (inicio != null) {
-                            inicio.getChildren().remove(piezaSeleccionada);
-                        }
-                        fin.getChildren().add(piezaSeleccionada);*/
-
-
-                        //else{
+                        //Cambiar de turno
                         turnoBlancas = !turnoBlancas;
+                        if(bot){
+                            turnoBot();
+                        }
                     }
                 });
             }
         }
+    }
+
+    private void turnoBot() {
+        Movimiento movimientoBot = tablero.bot(true);
+        Pane fin= null;
+        Pane inicio = null;
+        for (Node node : gridPanel.getChildren()) {
+            if (GridPane.getColumnIndex(node) != null && GridPane.getRowIndex(node) != null && GridPane.getColumnIndex(node) == movimientoBot.getInicio().x && GridPane.getRowIndex(node) == movimientoBot.getInicio().y) {
+                inicio = (Pane) node;
+                System.out.println(movimientoBot.getInicio()+" "+movimientoBot.getObjetivo());
+                piezaSeleccionada = (ImageView) inicio.getChildren().get(0);
+                fichaSeleccionada = Ficha.crearFichaDesdePanel((Pane) piezaSeleccionada.getParent());
+            }
+            if (GridPane.getColumnIndex(node) != null && GridPane.getRowIndex(node) != null && GridPane.getColumnIndex(node) == movimientoBot.getObjetivo().x && GridPane.getRowIndex(node) == movimientoBot.getObjetivo().y) {
+                fin = (Pane) node;
+            }
+        }
+        // Captura de pieza: moverla al cementerio
+        if (!fin.getChildren().isEmpty()) {
+            Node piezaEnCasilla = fin.getChildren().get(0);
+            if (piezaEnCasilla instanceof ImageView) {
+                moverFichaCementerio((ImageView) piezaEnCasilla);
+                fin.getChildren().remove(piezaEnCasilla);
+            }
+        }
+        // Mostrar movimiento realizado
+        String movimiento = fichaSeleccionada.getNombre() + ": "
+                + fichaSeleccionada.getPosicionAjedrez() + " a "
+                + convertirAjedrez(movimientoBot.getObjetivo().y, movimientoBot.getObjetivo().x);
+        System.out.println(movimiento);
+        if (labelMovimiento != null) {
+            labelMovimiento.setText(movimiento);
+        }
+        // Mover la pieza seleccionada al destino
+        inicio.getChildren().remove(piezaSeleccionada);
+        fin.getChildren().add(piezaSeleccionada);
+        turnoBlancas = !turnoBlancas;
     }
 
     /**

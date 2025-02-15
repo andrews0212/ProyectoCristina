@@ -23,7 +23,13 @@ public class Movimiento {
         return new Casilla(inicio.x-1, 9-inicio.y);
     }
     public Casilla getObjetivo() {
-        return new Casilla(objetivo.x+1, 9-objetivo.y);
+        return new Casilla(objetivo.x-1, 9-objetivo.y);
+    }
+    public Casilla getInicio(Boolean b) {
+        return inicio;
+    }
+    public Casilla getObjetivo(Boolean b) {
+        return objetivo;
     }
     public int getValor() {
         return valor;

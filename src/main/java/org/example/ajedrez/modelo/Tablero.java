@@ -327,7 +327,7 @@ public class Tablero {
         return jaqueMate;
     }
     public Movimiento bot(boolean color){
-        Movimiento mejorMovimiento= null;
+        Movimiento mejorMovimiento = null;
         for(Pieza pieza : tablero.values()) {
             if (pieza != null && pieza.color == color) {
                 for (Casilla casilla : tablero.keySet()) {
@@ -340,6 +340,7 @@ public class Tablero {
                 }
             }
         }
+        System.out.println(mover(mejorMovimiento.getInicio(true),mejorMovimiento.getObjetivo(true)));
         return mejorMovimiento;
     }
 }
