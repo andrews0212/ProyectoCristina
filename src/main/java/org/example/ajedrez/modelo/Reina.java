@@ -110,4 +110,8 @@ public class Reina extends Pieza {
             return null;
         }
     }
+    @Override
+    public int getValor() {
+        return 3;
+    }
 }

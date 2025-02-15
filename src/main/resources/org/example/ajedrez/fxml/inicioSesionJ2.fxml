@@ -149,12 +149,12 @@
                         <Font name="Poppins Regular" size="13.0" />
                      </font>
                   </TextField>
-                  <Hyperlink fx:id="hlMenuPrincipal" alignment="CENTER" contentDisplay="CENTER" onAction="#volverMenuPrincipal" prefHeight="84.0" prefWidth="193.0" text="%login.hl.menuPrincipal" textFill="#b58863" GridPane.columnSpan="2">
+                  <Hyperlink fx:id="hlMenuPrincipal" alignment="CENTER" contentDisplay="CENTER" onAction="#volverMenuPrincipal" prefHeight="84.0" prefWidth="193.0" text="" textFill="#b58863" GridPane.columnSpan="2">
                      <font>
                         <Font name="Poppins Regular" size="13.0" />
                      </font>
                      <tooltip>
-                        <Tooltip fx:id="ttHlMenuPrincipal" text="%tt.login.hl.menuPrincipal" />
+                        <Tooltip fx:id="ttHlMenuPrincipal" text="" />
                      </tooltip>
                   </Hyperlink>
                </children>

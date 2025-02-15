@@ -75,4 +75,8 @@ public class Peon extends Pieza {
         // Si el movimiento no es válido, devuelve null.
         return null;
     }
+    @Override
+    public int getValor() {
+        return 1;
+    }
 }

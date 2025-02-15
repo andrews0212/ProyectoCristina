@@ -56,4 +56,8 @@ public class Pieza {
     public String toString() {
         return "Pieza{" + "x=" + x + ", y=" + y + ", color=" + color + '}';
     }
+
+    public int getValor() {
+        return 0;
+    }
 }
