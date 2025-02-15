@@ -10,6 +10,9 @@ public class DatabaseConnection {
     private static final String PASSWORD = "";
 
     private static Connection connection;
+    public DatabaseConnection() {
+        inicializarBaseDeDatos();
+    }
 
     public static Connection getConnection() {
         if (connection == null) {
@@ -36,6 +39,9 @@ public class DatabaseConnection {
     private static void inicializarBaseDeDatos() {
         try (Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/chess", USER, PASSWORD);
              Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS chess;");
+            stmt.executeUpdate("USE chess;");
+
 
             // Crear tabla usuarios con el campo usuario
             stmt.executeUpdate("""
@@ -76,40 +82,36 @@ public class DatabaseConnection {
             e.printStackTrace();
         }
     }
-    public static void guardarPartida(int jugadorBlancasId, int jugadorNegrasId, List<String> movimientos) {
-        String insertPartida = "INSERT INTO partidas (jugador_blancas_id, jugador_negras_id) VALUES (?, ?)";
-        String insertMovimiento = "INSERT INTO movimientos (partida_id, movimiento, turno_blancas) VALUES (?, ?, ?)";
+    public static int insertarPartida(int idBlancas, int idNegras) {
+        String query = "INSERT INTO partidas (jugador_blancas_id, jugador_negras_id) VALUES (?, ?)";
+        try (Connection con = getConnection();
+             PreparedStatement stmt = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setInt(1, idBlancas);
+            stmt.setInt(2, idNegras);
+            stmt.executeUpdate();
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement stmtPartida = conn.prepareStatement(insertPartida, Statement.RETURN_GENERATED_KEYS);
-             PreparedStatement stmtMovimiento = conn.prepareStatement(insertMovimiento)) {
-
-            // 1. Guardar partida y obtener su ID
-            stmtPartida.setInt(1, jugadorBlancasId);
-            stmtPartida.setInt(2, jugadorNegrasId);
-            stmtPartida.executeUpdate();
-
-            ResultSet generatedKeys = stmtPartida.getGeneratedKeys();
-            int partidaId = -1;
-            if (generatedKeys.next()) {
-                partidaId = generatedKeys.getInt(1);
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 
-            // 2. Guardar movimientos
-            boolean turnoBlancas = true;  // Asumimos que el primer movimiento es de blancas
-            for (String movimiento : movimientos) {
-                stmtMovimiento.setInt(1, partidaId);
-                stmtMovimiento.setString(2, movimiento);
-                stmtMovimiento.setBoolean(3, turnoBlancas);
-                stmtMovimiento.executeUpdate();
-                turnoBlancas = !turnoBlancas;
-            }
-
-            System.out.println("Partida guardada en la base de datos con ID: " + partidaId);
-
+    public static void insertarMovimiento(int partidaId, String movimiento, boolean turnoBlancas) {
+        String query = "INSERT INTO movimientos (partida_id, movimiento, turno_blancas) VALUES (?, ?, ?)";
+        try (Connection con = getConnection();
+             PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setInt(1, partidaId);
+            stmt.setString(2, movimiento);
+            stmt.setBoolean(3, turnoBlancas);
+            stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
 }
