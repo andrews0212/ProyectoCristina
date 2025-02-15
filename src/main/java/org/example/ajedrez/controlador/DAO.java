@@ -16,7 +16,8 @@ public class DAO {
             stmt.setString(3, hashedPassword);  // Guardamos el hash, no la contraseña en texto plano
             stmt.executeUpdate();
         }
-    }public static int insertarPartida(int idBlancas, int idNegras) {
+    }public int insertarPartida(int idBlancas, int idNegras) {
+        int idGenerado = -1;
         String query = "INSERT INTO partidas (jugador_blancas_id, jugador_negras_id) VALUES (?, ?)";
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement stmt = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -31,11 +32,11 @@ public class DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1;
+        return idGenerado;
     }
 
     public static void insertarMovimiento(int partidaId, String movimiento) {
-        String query = "INSERT INTO movimientos (partida_id, movimiento) VALUES (?, ?, ?)";
+        String query = "INSERT INTO movimientos (partida_id, movimiento) VALUES (?, ?)";
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement stmt = con.prepareStatement(query)) {
             stmt.setInt(1, partidaId);

@@ -48,7 +48,8 @@ public class DatabaseConnection {
             CREATE TABLE IF NOT EXISTS usuarios (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 usuario VARCHAR(50) NOT NULL UNIQUE,
-                correo VARCHAR(255) NOT NULL UNIQUE
+                correo VARCHAR(255) NOT NULL UNIQUE,
+                password VARCHAR(255) NOT NULL UNIQUE
             
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         """);
@@ -70,7 +71,7 @@ public class DatabaseConnection {
             CREATE TABLE IF NOT EXISTS movimientos (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 partida_id INT NOT NULL,
-                movimiento VARCHAR(10) NOT NULL,
+                movimiento VARCHAR(99999999) NOT NULL,
                 timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (partida_id) REFERENCES partidas(id) ON DELETE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
