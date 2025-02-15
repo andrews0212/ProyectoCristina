@@ -11,6 +11,10 @@ public class Peon extends Pieza {
     @Override
     public List<Casilla> validar(Casilla casilla) {
         ArrayList<Casilla> casillas = new ArrayList<>();
+        int filaInicial = color ? 7 : 2;
+        if (!color && (casilla.y == y + 2) && y == filaInicial) {
+            return casillas;
+        }
         if (!color && casilla.y == y + 1) {
             if (Math.abs(casilla.x - x) == 1 && Tablero.tablero.get(casilla)!=null) {
                 return casillas;
