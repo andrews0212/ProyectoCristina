@@ -203,7 +203,6 @@ public class Tablero {
      * @return true si el movimiento se realiza con éxito, false si no es posible.
      */
     public boolean mover(Casilla origen, Casilla destino) {
-        System.out.println(tablero.get(origen));
         if (origen.equals(destino)) {
             return false;
         }
@@ -241,22 +240,6 @@ public class Tablero {
                 tablero.put(origen, tablero.get(destino));
                 tablero.put(destino, null);
                 return false;
-            }
-
-            // Verificar si el movimiento genera jaque mate
-            if (jaque(obtenerRey(!tablero.get(destino).color))) {
-                String color = (!tablero.get(destino).color) ? "negro" : "blanco";
-                if (jaqueMate(obtenerRey(!tablero.get(destino).color))) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Rey " + color);
-                    alert.setHeaderText("Jaque Mate al rey " + color);
-                    alert.show();
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Rey " + color);
-                    alert.setHeaderText("Jaque al rey " + color);
-                    alert.show();
-                }
             }
             return true;
         }
