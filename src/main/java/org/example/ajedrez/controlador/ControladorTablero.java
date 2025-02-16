@@ -97,8 +97,8 @@ public class ControladorTablero {
         dao = new DAO();
         if (bot == true){
             Usuario usuario;
+            dao.insertarUsuario(new Usuario("bot", "12345" ,"bot@gmail.com"));
             if ((usuario = dao.buscar("bot")) == null){
-                dao.insertarUsuario(new Usuario("bot", "12345" ,"bot@gmail.com"));
                 id_userNegro = usuario.getIdUsuario();
             }else{
                 id_userNegro = usuario.getIdUsuario();

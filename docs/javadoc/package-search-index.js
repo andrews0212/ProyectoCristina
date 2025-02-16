@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"org.example.ajedrez","l":"org.example.ajedrez"},{"m":"org.example.ajedrez","l":"org.example.ajedrez.controlador"},{"m":"org.example.ajedrez","l":"org.example.ajedrez.modelo"}];updateSearchResults();

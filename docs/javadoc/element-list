@@ -1,0 +1,4 @@
+module:org.example.ajedrez
+org.example.ajedrez
+org.example.ajedrez.controlador
+org.example.ajedrez.modelo
