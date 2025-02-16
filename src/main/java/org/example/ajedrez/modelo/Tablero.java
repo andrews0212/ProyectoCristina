@@ -332,7 +332,7 @@ public class Tablero {
             if (pieza != null && pieza.color == color) {
                 for (Casilla casilla : tablero.keySet()) {
                     if(mover(pieza.getCasilla(),casilla,false)) {
-                        Movimiento nuevoMovimiento = new Movimiento(pieza.getCasilla(), casilla);
+                        Movimiento nuevoMovimiento = new Movimiento(pieza, casilla);
                         if (mejorMovimiento == null || nuevoMovimiento.getValor() > mejorMovimiento.getValor()) {
                             mejorMovimiento = nuevoMovimiento;
                         }
