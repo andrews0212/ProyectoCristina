@@ -17,6 +17,25 @@ public class Movimiento {
         }
         if(asediado) {
             valor = valor + pieza.getValor();
+        }// Traslado de la pieza provisional
+        tablero.get(origen).x = destino.x;
+        tablero.get(origen).y = destino.y;
+        tablero.put(destino, tablero.get(origen));
+        tablero.put(origen, null);
+
+        // Verificar si el rey está en jaque
+        boolean retorno=true;
+        if (jaque(obtenerRey(tablero.get(destino).color))) {
+            retorno=false;
+        }
+        //Retorno forzado tanto si es jaque o no
+        tablero.get(destino).x = origen.x;
+        tablero.get(destino).y = origen.y;
+        tablero.put(origen, tablero.get(destino));
+        tablero.put(destino, null);
+        //Si era jaque movimiento no valido
+        if(!retorno) {
+            return false;
         }
 
     }
