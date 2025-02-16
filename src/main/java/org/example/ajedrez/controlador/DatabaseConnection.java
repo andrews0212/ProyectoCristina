@@ -14,7 +14,7 @@ public class DatabaseConnection {
     /**
      * Constructor privado que se conecta al SGBD usando los datos proporcionados.
      */
-    private DatabaseConnection() {
+    DatabaseConnection() {
         try {
             Class.forName("org.mariadb.jdbc.Driver");
             conexion = DriverManager.getConnection(URL, USER, PASSWORD);
