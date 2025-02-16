@@ -1,24 +1,27 @@
 package org.example.ajedrez.controlador;
 
-import javafx.scene.control.Alert;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.example.ajedrez.modelo.Casilla;
 import org.example.ajedrez.modelo.Movimiento;
 import org.example.ajedrez.modelo.Rey;
 import org.example.ajedrez.modelo.Tablero;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Controlador para la interfaz gráfica del tablero de ajedrez.
- * Maneja la interacción con las piezas y las casillas, permitiendo realizar movimientos de piezas en el tablero.
- * Además, gestiona el turno de las piezas, mostrando las jugadas realizadas y moviendo las piezas al cementerio cuando se capturan.
+ * Maneja la interacción con las piezas y las casillas, permitiendo realizar
+ * movimientos de piezas en el tablero.
+ * Además, gestiona el turno de las piezas, mostrando las jugadas realizadas y
+ * moviendo las piezas al cementerio cuando se capturan.
  *
  * @author Andrews Dos ramos
  */
@@ -41,7 +44,8 @@ public class ControladorTablero {
     private ImageView piezaSeleccionada;
 
     /**
-     * La ficha actualmente seleccionada, que contiene la información de la pieza en el tablero.
+     * La ficha actualmente seleccionada, que contiene la información de la pieza en
+     * el tablero.
      */
     private Ficha fichaSeleccionada;
 
@@ -67,25 +71,35 @@ public class ControladorTablero {
      */
     @FXML
     private GridPane cementerioBlancas;
-    private boolean bot=true;
+    private static boolean bot = true;
     private List<String> movimientos = new ArrayList<>();
+
     /**
-     * Método de inicialización del controlador. Se encarga de asignar los eventos de interacción con las piezas y casillas.
+     * DAO para la persistencia de las partidas.
+     */
+    private DAO dao;
+
+    /**
+     * Método de inicialización del controlador. Se encarga de asignar los eventos
+     * de interacción con las piezas y casillas.
      */
     public static int id_userBlanco;
     public static int id_userNegro;
-     public void initialize() {
+
+    public void initialize() {
+        id_userBlanco = ContextoApp.getIdUsuario1();
+        id_userNegro = ContextoApp.getIdUsuario2();
         asignarEventosAPiezas();
         asignarEventosACasillas();
         tablero = new Tablero();
-        DatabaseConnection databaseConnection = new DatabaseConnection();
-        DAO dao = new DAO();
+        dao = new DAO();
         dao.insertarPartida(id_userBlanco, id_userNegro);
     }
 
     /**
      * Asigna los eventos de clic a las piezas en el tablero.
-     * Al hacer clic en una pieza, se selecciona y resalta, permitiendo que el jugador realice un movimiento.
+     * Al hacer clic en una pieza, se selecciona y resalta, permitiendo que el
+     * jugador realice un movimiento.
      */
     private void asignarEventosAPiezas() {
         for (Node nodo : gridPanel.getChildren()) {
@@ -120,7 +134,8 @@ public class ControladorTablero {
 
     /**
      * Asigna los eventos de clic a las casillas del tablero.
-     * Al hacer clic en una casilla, se intenta mover la pieza seleccionada a esa casilla, si el movimiento es válido.
+     * Al hacer clic en una casilla, se intenta mover la pieza seleccionada a esa
+     * casilla, si el movimiento es válido.
      */
     private void asignarEventosACasillas() {
         for (Node nodo : gridPanel.getChildren()) {
@@ -130,8 +145,10 @@ public class ControladorTablero {
                     if (piezaSeleccionada != null && fichaSeleccionada != null) {
                         Integer filaDestino = GridPane.getRowIndex(casilla);
                         Integer columnaDestino = GridPane.getColumnIndex(casilla);
-                        if (filaDestino == null) filaDestino = 0;
-                        if (columnaDestino == null) columnaDestino = 0;
+                        if (filaDestino == null)
+                            filaDestino = 0;
+                        if (columnaDestino == null)
+                            columnaDestino = 0;
 
                         // Validar y realizar el movimiento
                         if (!tablero.mover(
@@ -175,14 +192,15 @@ public class ControladorTablero {
                         // Deseleccionar la pieza
                         piezaSeleccionada.setStyle(null);
                         piezaSeleccionada = null;
-// Verificar jaque/jaque mate
-// Suponiendo que puedes determinar el color de la pieza movida (por ejemplo, a partir del URL de la imagen):
+                        // Verificar jaque/jaque mate
+                        // Suponiendo que puedes determinar el color de la pieza movida (por ejemplo, a
+                        // partir del URL de la imagen):
 
                         verificarJaqueYJaqueMate(fichaSeleccionada.getColor() == "blanco" ? false : true);
 
-// Cambiar de turno
+                        // Cambiar de turno
                         turnoBlancas = !turnoBlancas;
-                        if(bot){
+                        if (bot) {
                             turnoBot();
                         }
                     }
@@ -234,7 +252,7 @@ public class ControladorTablero {
         fin.getChildren().add(piezaSeleccionada);
 
         // Verificar jaque/jaque mate: el bot juega con negras (colorMovimiento == true)
-        //verificarJaqueYJaqueMate(true);
+        // verificarJaqueYJaqueMate(true);
 
         // Cambiar de turno
         turnoBlancas = !turnoBlancas;
@@ -262,9 +280,10 @@ public class ControladorTablero {
     }
 
     /**
-     * Convierte las coordenadas del tablero en notación de ajedrez (por ejemplo, "e4").
+     * Convierte las coordenadas del tablero en notación de ajedrez (por ejemplo,
+     * "e4").
      *
-     * @param fila La fila en el tablero (0-7).
+     * @param fila    La fila en el tablero (0-7).
      * @param columna La columna en el tablero (0-7).
      * @return La notación de ajedrez correspondiente (por ejemplo, "e4").
      */
@@ -280,12 +299,13 @@ public class ControladorTablero {
             System.out.print(mov + " "); // Se imprime en una sola línea
         }
     }
+
     private void guardarMovimientosEnBD() {
-        DAO dao = new DAO();
         String movimientosUnidos = String.join(" ", movimientos);
-        dao.insertarMovimiento(1 ,movimientosUnidos);
+        dao.insertarMovimiento(1, movimientosUnidos);
         System.out.println("Movimientos guardados en la base de datos.");
     }
+
     private void verificarJaqueYJaqueMate(boolean colorMovimiento) {
         // colorMovimiento: true si la pieza que se movió es negra, false si es blanca.
         Rey reyEnemigo = tablero.obtenerRey(!colorMovimiento);
@@ -307,5 +327,11 @@ public class ControladorTablero {
         alert.show();
     }
 
+    public static boolean isBot() {
+        return bot;
+    }
 
+    public static void setBot(boolean botVal) {
+        bot = botVal;
+    }
 }
