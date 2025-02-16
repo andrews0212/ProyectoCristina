@@ -186,13 +186,20 @@ public class ControladorTablero {
         Pane fin= null;
         Pane inicio = null;
         for (Node node : gridPanel.getChildren()) {
-            if (GridPane.getColumnIndex(node) != null && GridPane.getRowIndex(node) != null && GridPane.getColumnIndex(node) == movimientoBot.getInicio().x && GridPane.getRowIndex(node) == movimientoBot.getInicio().y) {
+            //No se porque pero cuando getColumnIndex es 0 lo tranforma en null
+            Integer col = (GridPane.getColumnIndex(node) != null) ? GridPane.getColumnIndex(node) : 0;
+            if (col != null && GridPane.getRowIndex(node) != null
+                    && col == movimientoBot.getInicio().x
+                    && GridPane.getRowIndex(node) == movimientoBot.getInicio().y) {
                 inicio = (Pane) node;
-                System.out.println(movimientoBot.getInicio()+" "+movimientoBot.getObjetivo());
+                System.out.println(movimientoBot.getInicio() + " " + movimientoBot.getObjetivo());
                 piezaSeleccionada = (ImageView) inicio.getChildren().get(0);
                 fichaSeleccionada = Ficha.crearFichaDesdePanel((Pane) piezaSeleccionada.getParent());
             }
-            if (GridPane.getColumnIndex(node) != null && GridPane.getRowIndex(node) != null && GridPane.getColumnIndex(node) == movimientoBot.getObjetivo().x && GridPane.getRowIndex(node) == movimientoBot.getObjetivo().y) {
+            System.out.println(GridPane.getColumnIndex(node)+""+GridPane.getRowIndex(node)+" "+movimientoBot.getObjetivo().x+""+movimientoBot.getObjetivo().y);
+            if (col != null && GridPane.getRowIndex(node) != null
+                    && col == movimientoBot.getObjetivo().x
+                    && GridPane.getRowIndex(node) == movimientoBot.getObjetivo().y) {
                 fin = (Pane) node;
             }
         }
