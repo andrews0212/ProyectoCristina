@@ -52,6 +52,7 @@ public class App extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
+        System.out.println("hola");
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/inicioSesionJ1.fxml"));
         scene = new Scene(fxmlLoader.load(), 800, 600);
         scene.getStylesheets().add(getClass().getResource("css/style_tablero.css").toExternalForm());

@@ -72,11 +72,15 @@ public class ControladorTablero {
     /**
      * Método de inicialización del controlador. Se encarga de asignar los eventos de interacción con las piezas y casillas.
      */
-    public void initialize() {
+    public static int id_userBlanco;
+    public static int id_userNegro;
+     public void initialize() {
         asignarEventosAPiezas();
         asignarEventosACasillas();
         tablero = new Tablero();
         DatabaseConnection databaseConnection = new DatabaseConnection();
+        DAO dao = new DAO();
+        dao.insertarPartida(id_userBlanco, id_userNegro);
     }
 
     /**
@@ -278,9 +282,8 @@ public class ControladorTablero {
     }
     private void guardarMovimientosEnBD() {
         DAO dao = new DAO();
-        for (String movimiento : movimientos) {
-            dao.insertarMovimiento(1, movimiento);
-        }
+        String movimientosUnidos = String.join(" ", movimientos);
+        dao.insertarMovimiento(1 ,movimientosUnidos);
         System.out.println("Movimientos guardados en la base de datos.");
     }
     private void verificarJaqueYJaqueMate(boolean colorMovimiento) {
@@ -290,6 +293,7 @@ public class ControladorTablero {
             String colorReyEnemigo = (colorMovimiento) ? "blanco" : "negro";
             if (tablero.jaqueMate(reyEnemigo)) {
                 mostrarAlerta("Jaque Mate", "El rey " + colorReyEnemigo + " está en Jaque Mate");
+                guardarMovimientosEnBD();
             } else {
                 mostrarAlerta("Jaque", "El rey " + colorReyEnemigo + " está en Jaque");
             }
