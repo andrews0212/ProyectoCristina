@@ -147,6 +147,7 @@ public class Tablero {
                     return false;
                 }
             }
+            /*
             // Traslado de la pieza provisional
             tablero.get(origen).x = destino.x;
             tablero.get(origen).y = destino.y;
@@ -166,7 +167,7 @@ public class Tablero {
             //Si era jaque movimiento no valido
             if(!retorno) {
                 return false;
-            }
+            }*/
             return true;
         } else {
             return false;
