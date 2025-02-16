@@ -77,6 +77,34 @@ public class DAO {
     }
 
     /**
+     * Busca el ID de una partida basándose en los IDs de los jugadores.
+     *
+     * @param idBlancas El ID del jugador que juega con las piezas blancas.
+     * @param idNegras  El ID del jugador que juega con las piezas negras.
+     * @return El ID de la partida si existe, o -1 si no se encuentra o hay un
+     *         error.
+     */
+    public int buscarPartidaPorJugadores(int idBlancas, int idNegras) {
+        conn = DatabaseConnection.getConnection();
+        int idPartida = -1;
+        String query = "SELECT id FROM partidas WHERE jugador_blancas_id = ? AND jugador_negras_id = ?";
+
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, idBlancas); // Establecer el ID del jugador con piezas blancas
+            stmt.setInt(2, idNegras); // Establecer el ID del jugador con piezas negras
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    idPartida = rs.getInt("id"); // Obtener el ID de la partida
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return idPartida; // Retornar el ID de la partida o -1 si no se encuentra
+    }
+
+    /**
      * Valida las credenciales de un usuario (nombre de usuario, correo y
      * contraseña).
      *

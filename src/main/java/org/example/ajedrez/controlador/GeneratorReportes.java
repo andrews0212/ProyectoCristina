@@ -22,11 +22,6 @@ public class GeneratorReportes {
 
     // Ruta al archivo .jasper
     private static final String JASPER_FILE = "/org/example/ajedrez/reports/chess.jasper";
-
-    public static void main(String[] args) {
-        GeneratorReportes generatorReportes = new GeneratorReportes();
-        generatorReportes.generarReporte(1);
-    }
     /**
      * Genera un reporte en formato PDF para una partida específica.
      *

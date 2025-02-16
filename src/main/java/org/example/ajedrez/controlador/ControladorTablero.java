@@ -1,8 +1,10 @@
 package org.example.ajedrez.controlador;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.example.ajedrez.App;
 import org.example.ajedrez.modelo.Casilla;
 import org.example.ajedrez.modelo.Movimiento;
 import org.example.ajedrez.modelo.Rey;
@@ -309,7 +311,7 @@ public class ControladorTablero {
         System.out.println("Movimientos guardados en la base de datos.");
     }
 
-    private void verificarJaqueYJaqueMate(boolean colorMovimiento) {
+    private void verificarJaqueYJaqueMate(boolean colorMovimiento) throws IOException {
         // colorMovimiento: true si la pieza que se movió es negra, false si es blanca.
         Rey reyEnemigo = tablero.obtenerRey(!colorMovimiento);
         if (tablero.jaque(reyEnemigo)) {
@@ -317,6 +319,7 @@ public class ControladorTablero {
             if (tablero.jaqueMate(reyEnemigo)) {
                 mostrarAlerta("Jaque Mate", "El rey " + colorReyEnemigo + " está en Jaque Mate");
                 guardarMovimientosEnBD();
+                App.setRoot("fxml/finPartida");
             } else {
                 mostrarAlerta("Jaque", "El rey " + colorReyEnemigo + " está en Jaque");
             }
