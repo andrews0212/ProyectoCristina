@@ -196,7 +196,7 @@ public class ControladorTablero {
                         // Suponiendo que puedes determinar el color de la pieza movida (por ejemplo, a
                         // partir del URL de la imagen):
 
-                        //verificarJaqueYJaqueMate(fichaSeleccionada.getColor() == "blanco" ? false : true);
+                        verificarJaqueYJaqueMate(fichaSeleccionada.getColor() == "blanco" ? false : true);
 
                         // Cambiar de turno
                         turnoBlancas = !turnoBlancas;
@@ -255,7 +255,7 @@ public class ControladorTablero {
         fin.getChildren().add(piezaSeleccionada);
 
         // Verificar jaque/jaque mate: el bot juega con negras (colorMovimiento == true)
-        // verificarJaqueYJaqueMate(true);
+        verificarJaqueYJaqueMate(true);
 
         // Cambiar de turno
         turnoBlancas = !turnoBlancas;

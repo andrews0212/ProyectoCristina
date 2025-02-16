@@ -117,61 +117,31 @@ public class Tablero {
      * @return true si el movimiento es válido, false si no lo es.
      */
     public static boolean mover(Casilla origen, Casilla destino, boolean mover) {
-        if (mover && tablero.get(origen) != null) {
-            tablero.get(origen).x = destino.x;
-            tablero.get(origen).y = destino.y;
-            tablero.put(destino, tablero.get(origen));
+        if (mover) {
+            // Lógica para forzar el movimiento sin validaciones
+            Pieza pieza = tablero.get(origen);
+            if (pieza == null) return false;
+            tablero.put(destino, pieza);
             tablero.put(origen, null);
+            pieza.x = destino.x;
+            pieza.y = destino.y;
             return true;
         }
-        if (origen.equals(new Casilla(0, 0)) || destino.equals(new Casilla(0, 0))) {
-            return false;
-        }
-        if (origen.equals(destino)) {
-            return false;
-        }
-        if (tablero.get(origen) != null) {
-            List<Casilla> obstaculos = tablero.get(origen).validar(destino);
-            //Traslado
 
-            if (obstaculos == null) {
-                return false;
-            }
-            for (Casilla casilla : obstaculos) {
-                if (tablero.get(casilla) != null) {
-                    return false;
-                }
-            }
-            if (tablero.get(destino) != null) {
-                if (tablero.get(origen).color == tablero.get(destino).color) {
-                    return false;
-                }
-            }
-            /*
-            // Traslado de la pieza provisional
-            tablero.get(origen).x = destino.x;
-            tablero.get(origen).y = destino.y;
-            tablero.put(destino, tablero.get(origen));
-            tablero.put(origen, null);
+        // Validación normal del movimiento sin considerar jaque
+        if (origen.equals(destino)) return false;
+        Pieza pieza = tablero.get(origen);
+        if (pieza == null) return false;
 
-            // Verificar si el rey está en jaque
-            boolean retorno=true;
-            if (jaque(obtenerRey(tablero.get(destino).color))) {
-                retorno=false;
-            }
-            //Retorno forzado tanto si es jaque o no
-            tablero.get(destino).x = origen.x;
-            tablero.get(destino).y = origen.y;
-            tablero.put(origen, tablero.get(destino));
-            tablero.put(destino, null);
-            //Si era jaque movimiento no valido
-            if(!retorno) {
-                return false;
-            }*/
-            return true;
-        } else {
-            return false;
+        List<Casilla> obstaculos = pieza.validar(destino);
+        if (obstaculos == null) return false;
+
+        for (Casilla c : obstaculos) {
+            if (tablero.get(c) != null) return false;
         }
+
+        Pieza destinoPieza = tablero.get(destino);
+        return destinoPieza == null || destinoPieza.color != pieza.color;
     }
 
     /**
@@ -258,29 +228,46 @@ public class Tablero {
     public boolean jaqueMate(Rey victima) {
         boolean colorVictima = victima.color;
         boolean jaqueMate = true;
-        for (Pieza pieza : tablero.values()) {
-            if (pieza != null) {
+
+        // Primero, verificar si el rey está en jaque
+        if (!jaque(victima)) {
+            return false; // Si no está en jaque, no puede ser jaque mate
+        }
+
+        // Iterar sobre todas las piezas del color del rey
+        for (Pieza pieza : new ArrayList<>(tablero.values())) { // Usar copia para evitar ConcurrentModification
+            if (pieza != null && pieza.color == colorVictima) {
                 Casilla origen = pieza.getCasilla();
-                if (pieza.color == colorVictima) {
-                    for (Casilla casilla : tablero.keySet()) {
-                        boolean objetivo = false;
-                        if (!casilla.equals(new Casilla(0, 0))) {
-                            if (mover(origen, casilla, false)) {
-                                if (tablero.get(casilla) != null) {
-                                    tablero.put(new Casilla(0, 0), tablero.get(casilla));
-                                    objetivo = true;
-                                }
-                                mover(origen, casilla);
-                                if (!jaque(victima)) {
-                                    System.out.println(pieza + " " + casilla);
-                                    jaqueMate = false;
-                                }
-                                mover(casilla, origen, true);
-                                if (objetivo) {
-                                    tablero.put(casilla, tablero.get(new Casilla(0, 0)));
-                                    tablero.put(new Casilla(0, 0), null);
-                                }
-                            }
+                // Iterar sobre todas las casillas posibles
+                for (Casilla destino : tablero.keySet()) {
+                    if (destino.equals(new Casilla(0, 0))) continue;
+
+                    // Verificar si el movimiento es válido según las reglas de la pieza (sin considerar jaque)
+                    if (mover(origen, destino, false)) {
+                        // Guardar estado original
+                        Pieza piezaDestinoOriginal = tablero.get(destino);
+                        Pieza piezaOrigenOriginal = tablero.get(origen);
+
+                        // Simular el movimiento: mover la pieza
+                        tablero.put(destino, piezaOrigenOriginal);
+                        tablero.put(origen, null);
+                        pieza.x = destino.x;
+                        pieza.y = destino.y;
+
+                        // Verificar si el rey sigue en jaque después del movimiento
+                        if (!jaque(victima)) {
+                            jaqueMate = false;
+                        }
+
+                        // Restaurar el movimiento
+                        pieza.x = origen.x;
+                        pieza.y = origen.y;
+                        tablero.put(origen, piezaOrigenOriginal);
+                        tablero.put(destino, piezaDestinoOriginal);
+
+                        // Si encontramos un movimiento que evita el jaque, salir temprano
+                        if (!jaqueMate) {
+                            return false;
                         }
                     }
                 }
