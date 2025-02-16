@@ -1,16 +1,10 @@
 package org.example.ajedrez.modelo;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * La clase Peon representa un peón en el juego de ajedrez.
- * Implementa la lógica para validar el movimiento del peón en el tablero.
- * El peón se mueve una casilla hacia adelante, o dos casillas en su primer movimiento.
- * También puede capturar piezas en diagonal.
- *
- * @author Raul Mora
- */
 public class Peon extends Pieza {
 
     /**
@@ -42,9 +36,13 @@ public class Peon extends Pieza {
 
         // El peón se puede mover dos casillas hacia adelante en su primer movimiento.
         if (!color && (casilla.y == y + 2) && y == filaInicial && x==casilla.x) {
+            casillas.add(new Casilla(x, y+1));
+            casillas.add(casilla);
             return casillas;  // Movimiento válido.
         }
         if (color && (casilla.y == y - 2) && y == filaInicial && x==casilla.x) {
+            casillas.add(new Casilla(x, y-1));
+            casillas.add(casilla);
             return casillas;  // Movimiento válido.
         }
 

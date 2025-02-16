@@ -55,6 +55,10 @@ public class Torre extends Pieza {
                     lista.add(new Casilla(casilla.x, i));
                 }
             }
+            if (!lista.isEmpty()) {
+                lista.remove(lista.size() - 1);
+
+            }
             return lista;
         }
         // Verifica si la Torre se mueve horizontalmente (misma fila y)
@@ -80,6 +84,7 @@ public class Torre extends Pieza {
             // Elimina la última casilla, que es la casilla de destino
             if (!lista.isEmpty()) {
                 lista.remove(lista.size() - 1);
+
             }
 
             return lista;
