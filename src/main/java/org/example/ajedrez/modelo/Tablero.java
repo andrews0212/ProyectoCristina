@@ -150,6 +150,27 @@ public class Tablero {
                     return false;
                 }
             }
+            /*
+            // Traslado de la pieza provisional
+            tablero.get(origen).x = destino.x;
+            tablero.get(origen).y = destino.y;
+            tablero.put(destino, tablero.get(origen));
+            tablero.put(origen, null);
+
+            // Verificar si el rey está en jaque
+            boolean retorno=true;
+            if (jaque(obtenerRey(tablero.get(destino).color))) {
+                retorno=false;
+            }
+            //Retorno forzado tanto si es jaque o no
+            tablero.get(destino).x = origen.x;
+            tablero.get(destino).y = origen.y;
+            tablero.put(origen, tablero.get(destino));
+            tablero.put(destino, null);
+            //Si era jaque movimiento no valido
+            if(!retorno) {
+                return false;
+            }*/
             return true;
         } else {
             return false;
@@ -230,7 +251,7 @@ public class Tablero {
      * @param color El color del rey a obtener (true para negro, false para blanco).
      * @return El rey correspondiente al color.
      */
-    public Rey obtenerRey(boolean color) {
+    public static Rey obtenerRey(boolean color) {
         if (color) {
             return reyN;
         } else {
@@ -244,7 +265,7 @@ public class Tablero {
      * @param victima El rey a verificar si está en jaque.
      * @return true si el rey está en jaque, false si no lo está.
      */
-    public boolean jaque(Rey victima) {
+    public static boolean jaque(Rey victima) {
         return asedio(!victima.color, victima.getCasilla());
     }
 
