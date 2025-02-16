@@ -95,6 +95,17 @@ public class ControladorTablero {
         asignarEventosACasillas();
         tablero = new Tablero();
         dao = new DAO();
+        if (bot == true){
+            Usuario usuario;
+            if ((usuario = dao.buscar("bot")) == null){
+                dao.insertarUsuario(new Usuario("bot", "12345" ,"bot@gmail.com"));
+                usuario = dao.buscar("bot");
+                id_userNegro = usuario.getIdUsuario();
+            }else{
+                id_userNegro = usuario.getIdUsuario();
+            }
+
+        }
         dao.insertarPartida(id_userBlanco, id_userNegro);
     }
 
