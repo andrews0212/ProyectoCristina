@@ -36,7 +36,7 @@
 			<text><![CDATA[Chess Match Report]]></text>
 		</element>
 		<element kind="image" uuid="1b29e05d-382e-48dd-858e-13fc2fa3f263" x="0" y="0" width="160" height="83">
-			<expression><![CDATA[new java.net.URL(https://en.wikipedia.org/wiki/Chess_piece#/media/File:Chess_pieces_close_up.jpg})]]></expression>
+			<expression><![CDATA[new java.net.URL("https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Chess_pieces_close_up.jpg/1920px-Chess_pieces_close_up.jpg")]]></expression>
 		</element>
 	</title>
 	<pageHeader height="35" splitType="Stretch"/>
