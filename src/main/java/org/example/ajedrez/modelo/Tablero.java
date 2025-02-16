@@ -158,7 +158,7 @@ public class Tablero {
      * @param mover Si es true, la pieza será movida.
      * @return true si el movimiento es válido, false si no lo es.
      */
-    public static boolean mover(Casilla origen, Casilla destino, boolean mover) {
+    public boolean mover(Casilla origen, Casilla destino, boolean mover) {
         if (mover && tablero.get(origen) != null) {
             tablero.get(origen).x = destino.x;
             tablero.get(origen).y = destino.y;
@@ -188,6 +188,27 @@ public class Tablero {
                 if (tablero.get(origen).color == tablero.get(destino).color) {
                     return false;
                 }
+            }
+
+            // Traslado de la pieza provisional
+            tablero.get(origen).x = destino.x;
+            tablero.get(origen).y = destino.y;
+            tablero.put(destino, tablero.get(origen));
+            tablero.put(origen, null);
+
+            // Verificar si el rey está en jaque
+            boolean retorno=true;
+            if (jaque(obtenerRey(tablero.get(destino).color))) {
+                retorno=false;
+            }
+            //Retorno forzado tanto si es jaque o no
+            tablero.get(destino).x = origen.x;
+            tablero.get(destino).y = origen.y;
+            tablero.put(origen, tablero.get(destino));
+            tablero.put(destino, null);
+            //Si era jaque movimiento no valido
+            if(!retorno) {
+                return false;
             }
             return true;
         } else {
