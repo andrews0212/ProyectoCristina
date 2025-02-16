@@ -80,6 +80,14 @@
                         <Insets top="-18.0" />
                      </GridPane.margin>
                   </TextField>
+                  <TextField fx:id="txtEmail" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="180.0" promptText="" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                     <tooltip>
+                        <Tooltip fx:id="ttTxtEmail" text="" />
+                     </tooltip>
+                     <font>
+                        <Font name="Poppins Regular" size="13.0" />
+                     </font>
+                  </TextField>
                   <PasswordField fx:id="txtContrasenha" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="180.0" promptText="" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                      <tooltip>
                         <Tooltip fx:id="ttTxtContrasenha" text="tt.login.txt.contrasenha" />
@@ -141,14 +149,14 @@
                         <Tooltip fx:id="ttHlRegistro" text="" />
                      </tooltip>
                   </Hyperlink>
-                  <TextField fx:id="txtEmail" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="180.0" promptText="" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-                     <tooltip>
-                        <Tooltip fx:id="ttTxtEmail" text="" />
-                     </tooltip>
+                  <Hyperlink fx:id="hlMenuPrincipal" alignment="CENTER" contentDisplay="CENTER" onAction="#volverMenuPrincipal" prefHeight="84.0" prefWidth="193.0" text="" textFill="#b58863" GridPane.columnSpan="2">
                      <font>
                         <Font name="Poppins Regular" size="13.0" />
                      </font>
-                  </TextField>
+                     <tooltip>
+                        <Tooltip fx:id="ttHlMenuPrincipal" text="" />
+                     </tooltip>
+                  </Hyperlink>
                </children>
             </GridPane>
          </children>

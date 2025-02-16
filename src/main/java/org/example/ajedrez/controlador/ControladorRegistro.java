@@ -3,6 +3,7 @@
 package org.example.ajedrez.controlador;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -48,6 +49,7 @@ public class ControladorRegistro {
     @FXML private VBox rootVBox;
 
     private ResourceBundle bundle;
+    private DAO dao;
 
     /**
      * Método llamado al iniciar la aplicación.
@@ -61,6 +63,7 @@ public class ControladorRegistro {
         setAtajos();
         setTooltips();
         validacionesPeriodicas();
+        dao = new DAO();
     }
 
     /**
@@ -167,12 +170,13 @@ public class ControladorRegistro {
      * Muestra el formulario de registro de usuario.
      *
      * @throws IOException Excepción lanzada si no se puede mostrar el formulario.
+     * @throws SQLException 
      * @since 1.0
      */
     @FXML
-    private void registro() throws IOException {
+    private void registro() throws IOException, SQLException {
         if(!hbValidacionUsuario.isVisible() && !hbValidacionEmail.isVisible() && !hbValidacionContrasenha.isVisible()) {
-            //gestionDB.anhadirUsuario(txtUsuario.getText(), txtContrasenha.getText());
+            dao.insertarUsuario(new Usuario(txtUsuario.getText(), txtContrasenha.getText(), txtEmail.getText()));
             hbRegistroExitoso.setVisible(true);
         }
     }

@@ -1,6 +1,7 @@
 package org.example.ajedrez.controlador;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -48,6 +49,7 @@ public class ControladorInicioSesionJ2 {
     @FXML private VBox rootVBox;
 
     private ResourceBundle bundle;
+    private DAO dao;
 
     /**
      * Método llamado al iniciar la aplicación.
@@ -61,6 +63,7 @@ public class ControladorInicioSesionJ2 {
         seleccionarIdioma();
         setAtajos();
         setTooltips();
+        dao = new DAO();
     }
 
     /**
@@ -178,13 +181,13 @@ public class ControladorInicioSesionJ2 {
      * Inicia sesión como el jugador 2, y después, lanza el stage del tablero.
      *
      * @throws IOException Excepción lanzada si no se puede mostrar el formulario.
+     * @throws SQLException 
      * @since 1.0
      */
         @FXML
-    private void login() throws IOException {
-        // TODO: añadir lógica para comprobación del jugador.
-        // if (gestionDB.verificarUsuario(txtUsuario.getText(), txtContrasenha.getText())) {
-        
+    private void login() throws IOException, SQLException {
+        if (dao.validarUsuario(txtUsuario.getText(), txtEmail.getText(), txtContrasenha.getText())) {
+        ContextoApp.setIdUsuario2(dao.obtenerIdUsuarioPorUsername(txtUsuario.getText()));
         FXMLLoader loader = new FXMLLoader(App.class.getResource("fxml/tablero.fxml"));
         Scene scene = new Scene(loader.load(), 1200, 703);
         
@@ -197,9 +200,9 @@ public class ControladorInicioSesionJ2 {
         stage.setHeight(703);
         stage.centerOnScreen();
         
-        // } else {
-        //     hbValidacionUsuario.setVisible(true);
-        // }
+        } else {
+            hbValidacionUsuario.setVisible(true);
+        }
     }
     /**
      * Muestra el formulario de recuperación de contraseña.

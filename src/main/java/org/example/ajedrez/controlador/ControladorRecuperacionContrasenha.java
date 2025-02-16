@@ -47,6 +47,7 @@ public class ControladorRecuperacionContrasenha {
     @FXML private VBox rootVBox;
 
     private ResourceBundle bundle;
+    private DAO dao;
 
     /**
      * Método llamado al iniciar la aplicación.
@@ -60,6 +61,7 @@ public class ControladorRecuperacionContrasenha {
         seleccionarIdioma();
         setAtajos();
         setTooltips();
+        dao = new DAO();
     }
 
     /**
@@ -160,17 +162,6 @@ public class ControladorRecuperacionContrasenha {
     }
 
     /**
-     * Muestra el formulario de registro de usuario.
-     *
-     * @throws IOException Exception lanzada si no se puede mostrar el formulario.
-     * @since 1.0
-     */
-    @FXML
-    private void registro() throws IOException {
-        // App.setRoot("fxml/registroUsuario");
-    }
-
-    /**
      * Inicia sesión como el jugador 1.
      *
      * @throws IOException Exception lanzada si no se puede mostrar el formulario.
@@ -178,7 +169,7 @@ public class ControladorRecuperacionContrasenha {
      */
     @FXML
     private void login() throws IOException {
-        App.setRoot("fxml/iniciarSesionJ1");
+        App.setRoot("fxml/inicioSesionJ1");
     }
 
     /**
@@ -191,6 +182,7 @@ public class ControladorRecuperacionContrasenha {
     private void cambiarContrasenha() throws IOException {
         if (txtContrasenha.getText().matches("[A-z0-9]{6,}")) {
             if (txtContrasenha.getText().equals(txtContrasenhaRep.getText())) {
+                dao.actualizarContrasenhaUsuario(txtUsuario.getText(), txtContrasenha.getText());
                 hbContrasenhaCambiada.setVisible(true);
             } else {
                 hbContrasenhaNoIdentica.setVisible(true);

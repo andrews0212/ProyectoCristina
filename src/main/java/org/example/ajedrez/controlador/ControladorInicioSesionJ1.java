@@ -1,12 +1,15 @@
 package org.example.ajedrez.controlador;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.example.ajedrez.App;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
@@ -20,6 +23,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * Controlador para la vista de inicio de sesión del jugador 1. Gestiona la interacción de la
@@ -38,14 +42,15 @@ public class ControladorInicioSesionJ1 {
     @FXML private ComboBox<String> idioma;
     @FXML private Label lblTitulo, lblValidacionUsuario;
     @FXML private Button btnIniciarSesion;
-    @FXML private Hyperlink hlRecuperarContrasenha, hlRegistro;
+    @FXML private Hyperlink hlRecuperarContrasenha, hlRegistro, hlMenuPrincipal;
     @FXML private TextField txtUsuario, txtEmail;
     @FXML private PasswordField txtContrasenha;
-    @FXML private Tooltip ttComboBox, ttBtnIniciarSesion, ttHlRecuperarContrasenha, ttHlRegistro, ttTxtContrasenha, ttTxtUsuario, ttTxtEmail;
+    @FXML private Tooltip ttComboBox, ttBtnIniciarSesion, ttHlRecuperarContrasenha, ttHlRegistro, ttTxtContrasenha, ttTxtUsuario, ttTxtEmail, ttHlMenuPrincipal;
     @FXML HBox hbValidacionUsuario;
     @FXML private VBox rootVBox;
 
     private ResourceBundle bundle;
+    private DAO dao;
 
     /**
      * Método llamado al iniciar la aplicación. Inicializa los elementos de la interfaz de usuario,
@@ -59,6 +64,7 @@ public class ControladorInicioSesionJ1 {
         seleccionarIdioma();
         setAtajos();
         setTooltips();
+        dao = new DAO();
     }
 
     /**
@@ -102,6 +108,7 @@ public class ControladorInicioSesionJ1 {
         btnIniciarSesion.setText(bundle.getString("login.btn.iniciarSesion"));
         hlRecuperarContrasenha.setText(bundle.getString("login.hl.recuperarContrasenha"));
         lblValidacionUsuario.setText(bundle.getString("login.usuarioInvalido"));
+        hlMenuPrincipal.setText(bundle.getString("login.hl.menuPrincipal"));
     }
 
     /**
@@ -117,6 +124,7 @@ public class ControladorInicioSesionJ1 {
         ttBtnIniciarSesion.setText(bundle.getString("tt.login.btn.iniciarSesion"));
         ttHlRegistro.setText(bundle.getString("tt.login.hl.registro"));
         ttHlRecuperarContrasenha.setText(bundle.getString("tt.login.hl.recuperarContrasenha"));
+        ttHlMenuPrincipal.setText(bundle.getString("tt.login.hl.menuPrincipal"));
     }
 
     /**
@@ -131,6 +139,7 @@ public class ControladorInicioSesionJ1 {
         btnIniciarSesion.setTooltip(ttBtnIniciarSesion);
         hlRegistro.setTooltip(ttHlRegistro);
         hlRecuperarContrasenha.setTooltip(ttHlRecuperarContrasenha);
+        hlMenuPrincipal.setTooltip(ttHlMenuPrincipal);
     }
 
     /**
@@ -171,13 +180,32 @@ public class ControladorInicioSesionJ1 {
      * al jugador 2. Si la validación falla, se muestra un mensaje de error.
      *
      * @throws IOException Si ocurre un error al intentar cargar la siguiente vista.
+     * @throws SQLException 
      * @since 1.0
      */
     @FXML
-    private void login() throws IOException {
-        // TODO: lógica de validación del usuario.
-        App.setRoot("fxml/inicioSesionJ2");
-    }
+    private void login() throws IOException, SQLException {
+        if (dao.validarUsuario(txtUsuario.getText(), txtEmail.getText(), txtContrasenha.getText())) {
+            ContextoApp.setIdUsuario1(dao.obtenerIdUsuarioPorUsername(txtUsuario.getText()));
+            if (ContextoApp.isJugador2() == (false)) {
+                FXMLLoader loader = new FXMLLoader(App.class.getResource("fxml/tablero.fxml"));
+            Scene scene = new Scene(loader.load(), 1200, 703);
+            
+            // Obtener el stage actual
+            Stage stage = (Stage) btnIniciarSesion.getScene().getWindow();
+            
+            // Configurar el nuevo tamaño
+            stage.setScene(scene);
+            stage.setWidth(1200);
+            stage.setHeight(703);
+            stage.centerOnScreen();
+            } else {
+                App.setRoot("fxml/inicioSesionJ2");
+            }
+        } else {
+            hbValidacionUsuario.setVisible(true);
+        }
+}
 
     /**
      * Muestra el formulario de recuperación de contraseña. Este formulario se carga para permitir
@@ -210,7 +238,7 @@ public class ControladorInicioSesionJ1 {
      */
     @FXML
     public void volverMenuPrincipal() throws IOException {
-        App.setRoot("fxml/inicioSesionJ1");
+        App.setRoot("fxml/seleccionJugadores");
     }
 
     /**

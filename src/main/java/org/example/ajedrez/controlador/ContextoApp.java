@@ -10,6 +10,9 @@ package org.example.ajedrez.controlador;
  */
 public class ContextoApp {
     private static String idioma; // Guarda el idioma seleccionado.
+    private static boolean jugador2;
+    private static int idUsuario1;
+    private static int idUsuario2;
 
     /**
      * Obtiene el idioma seleccionado actualmente.
@@ -29,5 +32,29 @@ public class ContextoApp {
      */
     public static void setIdioma(String idioma) {
         ContextoApp.idioma = idioma;
+    }
+
+    public static int getIdUsuario1() {
+        return idUsuario1;
+    }
+
+    public static void setIdUsuario1(int idUsuario1) {
+        ContextoApp.idUsuario1 = idUsuario1;
+    }
+
+    public static int getIdUsuario2() {
+        return idUsuario2;
+    }
+
+    public static void setIdUsuario2(int idUsuario2) {
+        ContextoApp.idUsuario2 = idUsuario2;
+    }
+
+    public static boolean isJugador2() {
+        return jugador2;
+    }
+
+    public static void setJugador2(boolean jugador2Val) {
+        jugador2 = jugador2Val;
     }
 }

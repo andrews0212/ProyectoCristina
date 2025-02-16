@@ -162,7 +162,24 @@
                         <Insets />
                      </opaqueInsets>
                   </HBox>
-                  <Button fx:id="btnRecuperarContrasenha" alignment="CENTER" maxHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="194.0" style="-fx-background-radius: 20; -fx-background-color: #b58863;" text="%recuperacionContrasenha.btn.recuperarContrasenha" textFill="WHITE" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                  <HBox fx:id="hbContrasenhaCambiada" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="207.0" visible="false" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                     <children>
+                        <SVGPath content="M-196-222.1c-13.2,0-23.9-10.7-23.9-23.9c0-13.2,10.7-23.9,23.9-23.9s23.9,10.7,23.9,23.9C-172.1-232.8-182.8-222.1-196-222.1L-196-222.1z M-196-267.3c-11.7,0-21.3,9.6-21.3,21.3s9.6,21.3,21.3,21.3s21.3-9.6,21.3-21.3S-184.3-267.3-196-267.3L-196-267.3z M-197.4-236.1L-194.6-236.1L-194.6-233.3L-197.4-233.3z M-195.2-238.9L-196.8-238.9L-197.4-250.2L-197.4-258.7L-194.6-258.7L-194.6-250.2L-195.2-238.9z" fill="#b58863" scaleX="0.13" scaleY="0.13" translateX="-45.0" translateY="-2.0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </SVGPath>
+                        <Label fx:id="lblContrasenhaCambiada" alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="121.0" text="%r" textFill="#b58863" translateY="-2.0" wrapText="true" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="Poppins Regular" size="9.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="-52.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Button fx:id="btnRecuperarContrasenha" alignment="CENTER" maxHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cambiarContrasenha" prefHeight="30.0" prefWidth="194.0" style="-fx-background-radius: 20; -fx-background-color: #b58863;" text="%recuperacionContrasenha.btn.recuperarContrasenha" textFill="WHITE" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                      <font>
                         <Font name="Poppins Regular" size="13.0" />
                      </font>
@@ -170,7 +187,7 @@
                         <Tooltip fx:id="ttBtnRecuperarContrasenha" text="" />
                      </tooltip>
                   </Button>
-                  <Hyperlink fx:id="hlLogin" alignment="CENTER" contentDisplay="TOP" onAction="#registro" prefHeight="25.0" prefWidth="193.0" text="%login.btn.iniciarSesion" textFill="#b58863" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP">
+                  <Hyperlink fx:id="hlLogin" alignment="CENTER" contentDisplay="TOP" onAction="#login" prefHeight="25.0" prefWidth="193.0" text="%login.btn.iniciarSesion" textFill="#b58863" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP">
                      <font>
                         <Font name="Poppins Regular" size="13.0" />
                      </font>

@@ -82,6 +82,14 @@
                         <Insets top="-18.0" />
                      </GridPane.margin>
                   </TextField>
+                  <TextField fx:id="txtEmail" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="180.0" promptText="%login.email" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                     <tooltip>
+                        <Tooltip fx:id="ttTxtEmail" text="" />
+                     </tooltip>
+                     <font>
+                        <Font name="Poppins Regular" size="13.0" />
+                     </font>
+                  </TextField>
                   <PasswordField fx:id="txtContrasenha" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="180.0" promptText="%login.password" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
                      <tooltip>
                         <Tooltip fx:id="ttTxtContrasenha" text="tt.login.txt.contrasenha" />
@@ -132,14 +140,6 @@
                         <Tooltip fx:id="ttHlLogin" text="%tt.recuperacionContrasenha.hl.login" />
                      </tooltip>
                   </Hyperlink>
-                  <TextField fx:id="txtEmail" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="180.0" promptText="%login.email" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-                     <tooltip>
-                        <Tooltip fx:id="ttTxtEmail" text="" />
-                     </tooltip>
-                     <font>
-                        <Font name="Poppins Regular" size="13.0" />
-                     </font>
-                  </TextField>
                   <HBox fx:id="hbValidacionEmail" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="197.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP">
                      <children>
                         <SVGPath content="M-196-222.1c-13.2,0-23.9-10.7-23.9-23.9c0-13.2,10.7-23.9,23.9-23.9s23.9,10.7,23.9,23.9C-172.1-232.8-182.8-222.1-196-222.1L-196-222.1z M-196-267.3c-11.7,0-21.3,9.6-21.3,21.3s9.6,21.3,21.3,21.3s21.3-9.6,21.3-21.3S-184.3-267.3-196-267.3L-196-267.3z M-197.4-236.1L-194.6-236.1L-194.6-233.3L-197.4-233.3z M-195.2-238.9L-196.8-238.9L-197.4-250.2L-197.4-258.7L-194.6-258.7L-194.6-250.2L-195.2-238.9z" fill="#f50000" scaleX="0.13" scaleY="0.13" translateY="-6.0">
