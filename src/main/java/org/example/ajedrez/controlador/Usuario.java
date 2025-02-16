@@ -1,6 +1,7 @@
 package org.example.ajedrez.controlador;
 
 public class Usuario {
+    private int idUsuario;
    private String usuario;
     private String password;
     private String correo;
@@ -10,7 +11,20 @@ public class Usuario {
         this.correo = correo;
 
     }
-   public Usuario() {}
+
+    public Usuario(int idUsuario, String usuario, String password, String correo) {
+        this.idUsuario = idUsuario;
+        this.usuario = usuario;
+        this.password = password;
+        this.correo = correo;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public Usuario() {}
+
 
     public String getUsuario() {
         return usuario;

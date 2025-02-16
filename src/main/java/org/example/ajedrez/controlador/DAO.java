@@ -28,6 +28,21 @@ public class DAO {
             conn.close();
         }
     }
+    public Usuario buscar(String usuario){
+        conn = DatabaseConnection.getConnection();
+        String sql = "select * from usuarios where usuario = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, usuario);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4) );
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 
     /**
      * Inserta un nuevo usuario en la base de datos.

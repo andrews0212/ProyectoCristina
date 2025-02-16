@@ -95,6 +95,16 @@ public class ControladorTablero {
         asignarEventosACasillas();
         tablero = new Tablero();
         dao = new DAO();
+        if (bot == true){
+            Usuario usuario;
+            if ((usuario = dao.buscar("bot")) == null){
+                dao.insertarUsuario(new Usuario("bot", "12345" ,"bot@gmail.com"));
+                id_userNegro = usuario.getIdUsuario();
+            }else{
+                id_userNegro = usuario.getIdUsuario();
+            }
+
+        }
         dao.insertarPartida(id_userBlanco, id_userNegro);
     }
 
@@ -198,12 +208,22 @@ public class ControladorTablero {
                         // Suponiendo que puedes determinar el color de la pieza movida (por ejemplo, a
                         // partir del URL de la imagen):
 
-                        verificarJaqueYJaqueMate(fichaSeleccionada.getColor() == "blanco" ? false : true);
+
+                        try {
+                            verificarJaqueYJaqueMate(fichaSeleccionada.getColor() == "blanco" ? false : true);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+
 
                         // Cambiar de turno
                         turnoBlancas = !turnoBlancas;
                         if (bot) {
-                            turnoBot();
+                            try {
+                                turnoBot();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                     }
                 });
@@ -211,7 +231,7 @@ public class ControladorTablero {
         }
     }
 
-    private void turnoBot() {
+    private void turnoBot() throws IOException {
         Movimiento movimientoBot = tablero.bot(true);
         Pane fin = null;
         Pane inicio = null;
