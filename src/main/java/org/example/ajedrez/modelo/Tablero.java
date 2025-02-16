@@ -336,6 +336,11 @@ public class Tablero {
                         if (mejorMovimiento == null || nuevoMovimiento.getValor() > mejorMovimiento.getValor()) {
                             mejorMovimiento = nuevoMovimiento;
                         }
+                        if (mejorMovimiento == null || nuevoMovimiento.getValor() == mejorMovimiento.getValor()) {
+                            if(Math.random()<0.5) {
+                                mejorMovimiento = nuevoMovimiento;
+                            }
+                        }
                     }
                 }
             }

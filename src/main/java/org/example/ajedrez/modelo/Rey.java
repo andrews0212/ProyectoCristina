@@ -45,6 +45,6 @@ public class Rey extends Pieza {
     }
     @Override
     public int getValor() {
-        return 3;
+        return 5;
     }
 }
