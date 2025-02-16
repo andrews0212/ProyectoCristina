@@ -7,8 +7,8 @@ public class Movimiento {
     public Movimiento(Pieza pieza, Casilla objetivo) {
         this.inicio = pieza.getCasilla();
         this.objetivo = objetivo;
-        boolean asedio = Tablero.asedio(!Tablero.tablero.get(inicio).color,objetivo);
-        boolean asediado = Tablero.asedio(!Tablero.tablero.get(inicio).color,inicio);
+        boolean asedio = Tablero.asedio(!pieza.color,objetivo);
+        boolean asediado = Tablero.asedio(!pieza.color,inicio);
         if (asedio) {
             valor = valor - pieza.getValor();
         }
@@ -34,5 +34,10 @@ public class Movimiento {
     }
     public int getValor() {
         return valor;
+    }
+
+    @Override
+    public String toString() {
+        return "inicio=" + inicio + ", objetivo=" + objetivo + ", valor=" + valor;
     }
 }

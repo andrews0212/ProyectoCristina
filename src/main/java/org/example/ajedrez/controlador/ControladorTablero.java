@@ -78,9 +78,9 @@ public class ControladorTablero {
         asignarEventosAPiezas();
         asignarEventosACasillas();
         tablero = new Tablero();
-        DatabaseConnection databaseConnection = new DatabaseConnection();
-        DAO dao = new DAO();
-        dao.insertarPartida(id_userBlanco, id_userNegro);
+        /*DatabaseConnection databaseConnection = new DatabaseConnection();
+         DAO dao = new DAO();
+         dao.insertarPartida(id_userBlanco, id_userNegro);*/
     }
 
     /**
@@ -178,7 +178,7 @@ public class ControladorTablero {
 // Verificar jaque/jaque mate
 // Suponiendo que puedes determinar el color de la pieza movida (por ejemplo, a partir del URL de la imagen):
 
-                        verificarJaqueYJaqueMate(fichaSeleccionada.getColor() == "blanco" ? false : true);
+                        //verificarJaqueYJaqueMate(fichaSeleccionada.getColor() == "blanco" ? false : true);
 
 // Cambiar de turno
                         turnoBlancas = !turnoBlancas;
@@ -196,16 +196,19 @@ public class ControladorTablero {
         Pane fin = null;
         Pane inicio = null;
         for (Node node : gridPanel.getChildren()) {
-            if (GridPane.getColumnIndex(node) != null && GridPane.getRowIndex(node) != null
-                    && GridPane.getColumnIndex(node) == movimientoBot.getInicio().x
+            //No se porque pero cuando getColumnIndex es 0 lo tranforma en null
+            Integer col = (GridPane.getColumnIndex(node) != null) ? GridPane.getColumnIndex(node) : 0;
+            if (col != null && GridPane.getRowIndex(node) != null
+                    && col == movimientoBot.getInicio().x
                     && GridPane.getRowIndex(node) == movimientoBot.getInicio().y) {
                 inicio = (Pane) node;
                 System.out.println(movimientoBot.getInicio() + " " + movimientoBot.getObjetivo());
                 piezaSeleccionada = (ImageView) inicio.getChildren().get(0);
                 fichaSeleccionada = Ficha.crearFichaDesdePanel((Pane) piezaSeleccionada.getParent());
             }
-            if (GridPane.getColumnIndex(node) != null && GridPane.getRowIndex(node) != null
-                    && GridPane.getColumnIndex(node) == movimientoBot.getObjetivo().x
+            System.out.println(GridPane.getColumnIndex(node)+""+GridPane.getRowIndex(node)+" "+movimientoBot.getObjetivo().x+""+movimientoBot.getObjetivo().y);
+            if (col != null && GridPane.getRowIndex(node) != null
+                    && col == movimientoBot.getObjetivo().x
                     && GridPane.getRowIndex(node) == movimientoBot.getObjetivo().y) {
                 fin = (Pane) node;
             }

@@ -156,8 +156,6 @@ public class Tablero {
             // Verificar si el rey está en jaque
             boolean retorno=true;
             if (jaque(obtenerRey(tablero.get(destino).color))) {
-                String color = (tablero.get(destino).color) ? "Negras" : "Blancas";
-                System.out.println("Tu rey está en jaque (" + color + ")");
                 retorno=false;
             }
             //Retorno forzado tanto si es jaque o no
@@ -299,11 +297,16 @@ public class Tablero {
                         if (mejorMovimiento == null || nuevoMovimiento.getValor() > mejorMovimiento.getValor()) {
                             mejorMovimiento = nuevoMovimiento;
                         }
+                        if (mejorMovimiento == null || nuevoMovimiento.getValor() == mejorMovimiento.getValor()) {
+                            if(Math.random()<0.5) {
+                                mejorMovimiento = nuevoMovimiento;
+                            }
+                        }
                     }
                 }
             }
         }
-        System.out.println("Valor movimiento bot "+mejorMovimiento.getValor());
+        System.out.println(" Valor movimiento bot "+mejorMovimiento);
         mover(mejorMovimiento.getInicio(true),mejorMovimiento.getObjetivo(true));
         return mejorMovimiento;
     }

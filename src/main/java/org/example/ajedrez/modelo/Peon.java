@@ -47,7 +47,7 @@ public class Peon extends Pieza {
             return casillas;  // Movimiento válido.
         }
         if (color && (casilla.y == y - 2) && y == filaInicial && x==casilla.x) {
-            casillas.add(new Casilla(x, y+1));
+            casillas.add(new Casilla(x, y-1));
             casillas.add(casilla);
             return casillas;  // Movimiento válido.
         }
