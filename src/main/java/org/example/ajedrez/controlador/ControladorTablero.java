@@ -62,7 +62,7 @@ public class ControladorTablero {
      */
     @FXML
     private GridPane cementerioBlancas;
-    private boolean bot=true;
+    private boolean bot=false;
 
     /**
      * Método de inicialización del controlador. Se encarga de asignar los eventos de interacción con las piezas y casillas.

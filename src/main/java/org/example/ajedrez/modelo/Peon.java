@@ -42,9 +42,11 @@ public class Peon extends Pieza {
 
         // El peón se puede mover dos casillas hacia adelante en su primer movimiento.
         if (!color && (casilla.y == y + 2) && y == filaInicial && x==casilla.x) {
+            casillas.add(new Casilla(x, y+1));
             return casillas;  // Movimiento válido.
         }
         if (color && (casilla.y == y - 2) && y == filaInicial && x==casilla.x) {
+            casillas.add(new Casilla(x, y-1));
             return casillas;  // Movimiento válido.
         }
 
