@@ -1,65 +1,73 @@
 package org.example.ajedrez.controlador;
 import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.example.ajedrez.controlador.DatabaseConnection;
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.*;
+import java.sql.DriverManager;
+import java.util.HashMap;
+import java.util.Map;
 
-public class GeneratorReportes{
-    public static void main(String args[]) {
+public class GeneratorReportes {
+
+    public static void main(String[] args) {
+        GeneratorReportes g = new GeneratorReportes();
+        g.generarReporte(1);
     }
-    public static void generarReporte(int partidaId) {
-        Connection conn = DatabaseConnection.getConnection();
-        if (conn == null) {
-            System.out.println("Error de conexión a la base de datos.");
-            return;
-        }
 
+    private static final String JASPER_FILE = "src/main/resources/chess.jasper"; // Cambiar a la ruta real
+
+    public void generarReporte(int partidaId) {
+        DatabaseConnection databaseConnection = new DatabaseConnection();
         try {
-            String sql = """
-                SELECT p.id AS partida_id, u1.usuario AS blancas, u2.usuario AS negras, m.movimiento
-                FROM partidas p
-                JOIN usuarios u1 ON p.jugador_blancas_id = u1.id
-                JOIN usuarios u2 ON p.jugador_negras_id = u2.id
-                JOIN movimientos m ON p.id = m.partida_id
-                WHERE p.id = ?
-                ORDER BY m.timestamp;
-            """;
 
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, partidaId);
-            ResultSet rs = stmt.executeQuery();
 
-            List<Map<String, Object>> datos = new ArrayList<>();
-            String blancas = "";
-            String negras = "";
-            while (rs.next()) {
-                if (blancas.isEmpty()) blancas = rs.getString("blancas");
-                if (negras.isEmpty()) negras = rs.getString("negras");
+            Connection conn = databaseConnection.getConnection();
 
-                Map<String, Object> fila = new HashMap<>();
-                fila.put("movimiento", rs.getString("movimiento"));
-                datos.add(fila);
+            // Parámetros para el reporte
+            Map<String, Object> parametros = new HashMap<>();
+            parametros.put("PARTIDA_ID", partidaId);
+
+            // Llenar el reporte
+            JasperPrint print = JasperFillManager.fillReport(JASPER_FILE, parametros, conn);
+
+            // Selección de la ruta de guardado
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Guardar reporte como");
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            fileChooser.setSelectedFile(new File("reporte_partida_" + partidaId + ".pdf"));
+
+            int userSelection = fileChooser.showSaveDialog(null);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                String outputFilePath = fileToSave.getAbsolutePath();
+
+                // Exportar a PDF
+                JasperExportManager.exportReportToPdfFile(print, outputFilePath);
+                System.out.println("Reporte generado en: " + outputFilePath);
+
+                // Abrir el PDF automáticamente
+                abrirArchivo(outputFilePath);
             }
 
-            rs.close();
-            stmt.close();
+            // Cerrar conexión
             conn.close();
-
-            Map<String, Object> parametros = new HashMap<>();
-            parametros.put("partida_id", partidaId);
-            parametros.put("blancas", blancas);
-            parametros.put("negras", negras);
-
-            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(datos);
-            JasperReport reporte = JasperCompileManager.compileReport("/src/main/resources/chess.jrxml");
-            JasperPrint print = JasperFillManager.fillReport(reporte, parametros, dataSource);
-
-            JasperExportManager.exportReportToPdfFile(print, "reporte_partida_" + partidaId + ".pdf");
-            System.out.println("Informe generado: chess_report_" + partidaId + ".pdf");
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void abrirArchivo(String rutaArchivo) {
+        try {
+            File archivo = new File(rutaArchivo);
+            if (archivo.exists()) {
+                Desktop.getDesktop().open(archivo);
+            } else {
+                System.out.println("El archivo no se encontró.");
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
