@@ -101,52 +101,13 @@ public class Tablero {
         boolean factible = false;
         for (Pieza p : tablero.values()) {
             if (p != null) {
-                if (p.color == color && moverAsedio(p.getCasilla(), objetivo, false)) {
+                if (p.color == color && mover(p.getCasilla(), objetivo, false)) {
+                    System.out.println("La pieza "+p+" amenaza "+objetivo);
                     factible = true;
                 }
             }
         }
         return factible;
-    }
-
-    /**
-     * Intenta mover una pieza en el tablero. Si el movimiento es válido, la pieza se mueve.
-     *
-     * @param origen La casilla de origen de la pieza.
-     * @param destino La casilla de destino de la pieza.
-     * @param mover Si es true, la pieza será movida.
-     * @return true si el movimiento es válido, false si no lo es.
-     */
-    public static boolean moverAsedio(Casilla origen, Casilla destino, boolean mover) {
-        if (mover && tablero.get(origen) != null) {
-            tablero.get(origen).x = destino.x;
-            tablero.get(origen).y = destino.y;
-            tablero.put(destino, tablero.get(origen));
-            tablero.put(origen, null);
-            return true;
-        }
-        if (origen.equals(new Casilla(0, 0)) || destino.equals(new Casilla(0, 0))) {
-            return false;
-        }
-        if (origen.equals(destino)) {
-            return false;
-        }
-        if (tablero.get(origen) != null) {
-            List<Casilla> obstaculos = tablero.get(origen).validar(destino);
-            //Traslado
-
-            if (obstaculos == null) {
-                return false;
-            }
-            for (Casilla casilla : obstaculos) {
-                if (tablero.get(casilla) != null) {
-                    return false;
-                }
-            }
-            return true;
-        } else {
-            return false;
-        }
     }
 
     /**
