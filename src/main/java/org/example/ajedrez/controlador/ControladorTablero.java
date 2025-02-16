@@ -230,7 +230,7 @@ public class ControladorTablero {
         fin.getChildren().add(piezaSeleccionada);
 
         // Verificar jaque/jaque mate: el bot juega con negras (colorMovimiento == true)
-        verificarJaqueYJaqueMate(true);
+        //verificarJaqueYJaqueMate(true);
 
         // Cambiar de turno
         turnoBlancas = !turnoBlancas;
