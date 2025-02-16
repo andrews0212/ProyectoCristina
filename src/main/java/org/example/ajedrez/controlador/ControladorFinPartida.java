@@ -61,6 +61,8 @@ public class ControladorFinPartida {
      */
     @FXML
     private void initialize() {
+        generadorReportes = new GeneratorReportes();
+        dao = new DAO();
         initComboBox();
         seleccionarIdioma();
         setTooltips();

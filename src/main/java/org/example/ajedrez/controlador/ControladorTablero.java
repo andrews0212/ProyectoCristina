@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.example.ajedrez.App;
 import org.example.ajedrez.modelo.Casilla;
 import org.example.ajedrez.modelo.Movimiento;
@@ -338,7 +341,12 @@ public class ControladorTablero {
             if (tablero.jaqueMate(reyEnemigo)) {
                 mostrarAlerta("Jaque Mate", "El rey " + colorReyEnemigo + " está en Jaque Mate");
                 guardarMovimientosEnBD();
-                App.setRoot("fxml/finPartida");
+                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/finPartida.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+                Stage stage = new Stage();
+                stage.setTitle("Ajedrez"); // Título de la ventana
+                stage.setScene(scene); // Establece la escena en el escenario
+                stage.show(); // Muestra la ventana
             } else {
                 mostrarAlerta("Jaque", "El rey " + colorReyEnemigo + " está en Jaque");
             }
@@ -349,7 +357,7 @@ public class ControladorTablero {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
         alert.setHeaderText(mensaje);
-        alert.show();
+        alert.showAndWait();
     }
 
     public static boolean isBot() {
