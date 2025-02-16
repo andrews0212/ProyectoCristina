@@ -7,6 +7,7 @@ module org.example.ajedrez {
     requires java.sql;
     requires jbcrypt;
     requires jasperreports;
+    requires java.desktop;
 
     opens org.example.ajedrez.controlador to javafx.fxml;
     exports org.example.ajedrez;
