@@ -193,7 +193,9 @@ public class ControladorTablero {
                     && GridPane.getRowIndex(node) == movimientoBot.getInicio().y) {
                 inicio = (Pane) node;
                 System.out.println(movimientoBot.getInicio() + " " + movimientoBot.getObjetivo());
-                piezaSeleccionada = (ImageView) inicio.getChildren().get(0);
+                if(!inicio.getChildren().isEmpty()) {
+                    piezaSeleccionada = (ImageView) inicio.getChildren().get(0);
+                }
                 fichaSeleccionada = Ficha.crearFichaDesdePanel((Pane) piezaSeleccionada.getParent());
             }
             System.out.println(GridPane.getColumnIndex(node)+""+GridPane.getRowIndex(node)+" "+movimientoBot.getObjetivo().x+""+movimientoBot.getObjetivo().y);
