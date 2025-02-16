@@ -1,5 +1,7 @@
 package org.example.ajedrez.controlador;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Locale;
@@ -40,12 +42,12 @@ public class ControladorInicioSesionJ1 {
 
     // FXML y componentes de la interfaz de usuario
     @FXML private ComboBox<String> idioma;
-    @FXML private Label lblTitulo, lblValidacionUsuario;
+    @FXML private Label lblTitulo, lblValidacionUsuario, lblAyuda;
     @FXML private Button btnIniciarSesion;
     @FXML private Hyperlink hlRecuperarContrasenha, hlRegistro, hlMenuPrincipal;
     @FXML private TextField txtUsuario, txtEmail;
     @FXML private PasswordField txtContrasenha;
-    @FXML private Tooltip ttComboBox, ttBtnIniciarSesion, ttHlRecuperarContrasenha, ttHlRegistro, ttTxtContrasenha, ttTxtUsuario, ttTxtEmail, ttHlMenuPrincipal;
+    @FXML private Tooltip ttComboBox, ttBtnIniciarSesion, ttHlRecuperarContrasenha, ttHlRegistro, ttTxtContrasenha, ttTxtUsuario, ttTxtEmail, ttHlMenuPrincipal, ttAyuda;
     @FXML HBox hbValidacionUsuario;
     @FXML private VBox rootVBox;
 
@@ -109,6 +111,7 @@ public class ControladorInicioSesionJ1 {
         hlRecuperarContrasenha.setText(bundle.getString("login.hl.recuperarContrasenha"));
         lblValidacionUsuario.setText(bundle.getString("login.usuarioInvalido"));
         hlMenuPrincipal.setText(bundle.getString("login.hl.menuPrincipal"));
+        lblAyuda.setText(bundle.getString("ayuda"));
     }
 
     /**
@@ -125,6 +128,7 @@ public class ControladorInicioSesionJ1 {
         ttHlRegistro.setText(bundle.getString("tt.login.hl.registro"));
         ttHlRecuperarContrasenha.setText(bundle.getString("tt.login.hl.recuperarContrasenha"));
         ttHlMenuPrincipal.setText(bundle.getString("tt.login.hl.menuPrincipal"));
+        ttAyuda.setText(bundle.getString("tt.ayuda"));
     }
 
     /**
@@ -140,6 +144,7 @@ public class ControladorInicioSesionJ1 {
         hlRegistro.setTooltip(ttHlRegistro);
         hlRecuperarContrasenha.setTooltip(ttHlRecuperarContrasenha);
         hlMenuPrincipal.setTooltip(ttHlMenuPrincipal);
+        lblAyuda.setTooltip(ttAyuda);
     }
 
     /**
@@ -239,6 +244,27 @@ public class ControladorInicioSesionJ1 {
     @FXML
     public void volverMenuPrincipal() throws IOException {
         App.setRoot("fxml/seleccionJugadores");
+    }
+
+    /**
+     * Muestra el manual de usuario.
+     * @throws IOException Si ocurre un error al intentar cargar el manual.
+     */
+    public void showDocs() throws IOException {
+        try {
+            // Obtiene la ruta del archivo manualUsuario.html dentro de resources
+            File file = new File("src/main/resources/org/example/ajedrez/html/manualUsuario.html");
+
+            // Verifica si el archivo existe
+            if (file.exists()) {
+                // Abre el archivo en el navegador predeterminado
+                Desktop.getDesktop().browse(file.toURI());
+            } else {
+                System.err.println("El archivo manualUsuario.html no fue encontrado.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

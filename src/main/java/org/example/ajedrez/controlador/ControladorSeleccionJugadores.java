@@ -1,5 +1,7 @@
 package org.example.ajedrez.controlador;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -32,8 +34,8 @@ public class ControladorSeleccionJugadores {
 
     // FXML y componentes de la interfaz de usuario
     @FXML private ComboBox<String> idioma;
-    @FXML private Label lblTitulo, lblInfo, lbl1Jugador, lbl2Jugadores;
-    @FXML private Tooltip ttComboBox;
+    @FXML private Label lblTitulo, lblInfo, lbl1Jugador, lbl2Jugadores, lblAyuda;
+    @FXML private Tooltip ttComboBox, ttAyuda;
     @FXML private VBox rootVBox;
     @FXML private Tooltip ttLbl1Jugador, ttLbl2Jugadores;
     @FXML private BorderPane selJug1, selJug2;
@@ -91,6 +93,7 @@ public class ControladorSeleccionJugadores {
         lblInfo.setText(bundle.getString("selJug.lbl.info"));
         lbl1Jugador.setText(bundle.getString("selJug.lbl.1Jugador"));
         lbl2Jugadores.setText(bundle.getString("selJug.lbl.2Jugadores"));
+        lblAyuda.setText(bundle.getString("ayuda"));
     }
 
     /**
@@ -102,6 +105,7 @@ public class ControladorSeleccionJugadores {
         ttComboBox.setText(bundle.getString("tt.comboBox"));
         ttLbl1Jugador.setText(bundle.getString("tt.selJug.lbl.1Jugador"));
         ttLbl2Jugadores.setText(bundle.getString("tt.selJug.lbl.2Jugadores"));
+        ttAyuda.setText(bundle.getString("tt.ayuda"));
     }
 
     /**
@@ -114,6 +118,7 @@ public class ControladorSeleccionJugadores {
         lblTitulo.setTooltip(ttLbl1Jugador);
         lbl1Jugador.setTooltip(ttLbl1Jugador);
         lbl2Jugadores.setTooltip(ttLbl2Jugadores);
+        lblInfo.setTooltip(ttAyuda);
     }
 
     /**
@@ -168,6 +173,26 @@ public class ControladorSeleccionJugadores {
         App.setRoot("fxml/inicioSesionJ1");
     }
 
+    /**
+     * Muestra el manual de usuario.
+     * @throws IOException Si ocurre un error al intentar cargar el manual.
+     */
+    public void showDocs() throws IOException {
+        try {
+            // Obtiene la ruta del archivo manualUsuario.html dentro de resources
+            File file = new File("src/main/resources/org/example/ajedrez/html/manualUsuario.html");
+
+            // Verifica si el archivo existe
+            if (file.exists()) {
+                // Abre el archivo en el navegador predeterminado
+                Desktop.getDesktop().browse(file.toURI());
+            } else {
+                System.err.println("El archivo manualUsuario.html no fue encontrado.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Convierte la primera letra de una cadena de texto a mayúscula, dejando el resto en minúsculas.
