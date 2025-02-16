@@ -38,6 +38,19 @@
             <artifactId>jasperreports</artifactId>
             <version>7.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.16</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.16</version>
+        </dependency>
+
+
         <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports-javaflow -->
         <dependency>
             <groupId>net.sf.jasperreports</groupId>

@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import org.checkerframework.checker.units.qual.t;
 import org.example.ajedrez.App;
 
 import javafx.fxml.FXML;
