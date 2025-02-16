@@ -22,6 +22,7 @@ public class DAO {
      * Cierra la conexión a la base de datos si está abierta.
      *
      * @throws SQLException Si ocurre un error al cerrar la conexión.
+     * @since 1.0
      */
     public void close() throws SQLException {
         if (conn != null) {
@@ -49,6 +50,7 @@ public class DAO {
      *
      * @param usuario El objeto Usuario que contiene los datos del usuario a
      *                insertar.
+     * @since 1.0
      */
     public void insertarUsuario(Usuario usuario) {
         conn = DatabaseConnection.getConnection();
@@ -71,6 +73,7 @@ public class DAO {
      * @param idBlancas El ID del jugador que juega con las piezas blancas.
      * @param idNegras  El ID del jugador que juega con las piezas negras.
      * @return El ID generado para la partida, o -1 si ocurre un error.
+     * @since 1.0
      */
     public int insertarPartida(int idBlancas, int idNegras) {
         conn = DatabaseConnection.getConnection();
@@ -98,6 +101,7 @@ public class DAO {
      * @param idNegras  El ID del jugador que juega con las piezas negras.
      * @return El ID de la partida si existe, o -1 si no se encuentra o hay un
      *         error.
+     * @since 1.0
      */
     public int buscarPartidaPorJugadores(int idBlancas, int idNegras) {
         conn = DatabaseConnection.getConnection();
@@ -127,6 +131,7 @@ public class DAO {
      * @param correo        El correo electrónico a validar.
      * @param contraseña    La contraseña a validar.
      * @return true si las credenciales son válidas, false en caso contrario.
+     * @since 1.0
      */
     public boolean validarUsuario(String nombreUsuario, String correo, String contraseña) {
         conn = DatabaseConnection.getConnection();
@@ -156,6 +161,7 @@ public class DAO {
      * @param nuevaContrasenha La nueva contraseña a establecer.
      * @return true si la contraseña se actualizó correctamente, false en caso
      *         contrario.
+     * @since 1.0
      */
     public boolean actualizarContrasenhaUsuario(String nombreUsuario, String nuevaContrasenha) {
         // Hashear la nueva contraseña
@@ -186,6 +192,7 @@ public class DAO {
      *
      * @param nombreUsuario El nombre de usuario del usuario.
      * @return El ID del usuario si existe, o -1 si no se encuentra o hay un error.
+     * @since 1.0
      */
     public int obtenerIdUsuarioPorUsername(String nombreUsuario) {
         conn = DatabaseConnection.getConnection();
@@ -210,6 +217,9 @@ public class DAO {
      *
      * @param partidaId  El ID de la partida a la que pertenece el movimiento.
      * @param movimiento El movimiento a insertar.
+     * @return true si el movimiento se insertó correctamente, false en caso
+     * contrario.
+     * @since 1.0
      */
     public void insertarMovimiento(int partidaId, String movimiento) {
         conn = DatabaseConnection.getConnection();

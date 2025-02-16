@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
  * a partir de un panel de la interfaz de usuario.
  *
  * @author Andrews Dos Ramos
+ * @since 1.0
  */
 public class Ficha {
 
@@ -29,6 +30,7 @@ public class Ficha {
      * @param color    El color de la ficha (e.g., "blanco" o "negro").
      * @param fila     La fila de la ficha en el tablero.
      * @param columna  La columna de la ficha en el tablero.
+     * @since 1.0
      */
     public Ficha(ImageView imagen, String nombre, String color, int fila, int columna) {
         this.imagen = imagen;
@@ -45,6 +47,7 @@ public class Ficha {
      * Obtiene la imagen de la ficha.
      *
      * @return La imagen de la ficha.
+     * @since 1.0
      */
     public ImageView getImagen() {
         return imagen;
@@ -54,6 +57,7 @@ public class Ficha {
      * Establece la imagen de la ficha.
      *
      * @param imagen La nueva imagen de la ficha.
+     * @since 1.0
      */
     public void setImagen(ImageView imagen) {
         this.imagen = imagen;
@@ -63,6 +67,7 @@ public class Ficha {
      * Obtiene el nombre de la ficha.
      *
      * @return El nombre de la ficha.
+     * @since 1.0
      */
     public String getNombre() {
         return nombre;
@@ -72,6 +77,7 @@ public class Ficha {
      * Establece el nombre de la ficha.
      *
      * @param nombre El nuevo nombre de la ficha.
+     * @since 1.0
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -81,6 +87,7 @@ public class Ficha {
      * Obtiene el color de la ficha.
      *
      * @return El color de la ficha.
+     * @since 1.0
      */
     public String getColor() {
         return color;
@@ -90,6 +97,7 @@ public class Ficha {
      * Establece el color de la ficha.
      *
      * @param color El nuevo color de la ficha.
+     * @since 1.0
      */
     public void setColor(String color) {
         this.color = color;
@@ -99,6 +107,7 @@ public class Ficha {
      * Obtiene la fila de la ficha en el tablero.
      *
      * @return La fila de la ficha.
+     * @since 1.0
      */
     public int getFila() {
         return fila;
@@ -108,6 +117,7 @@ public class Ficha {
      * Establece la fila de la ficha en el tablero.
      *
      * @param fila La nueva fila de la ficha.
+     * @since 1.0
      */
     public void setFila(int fila) {
         this.fila = fila;
@@ -118,6 +128,7 @@ public class Ficha {
      * Obtiene la columna de la ficha en el tablero.
      *
      * @return La columna de la ficha.
+     * @since 1.0
      */
     public int getColumna() {
         return columna;
@@ -127,6 +138,7 @@ public class Ficha {
      * Establece la columna de la ficha en el tablero.
      *
      * @param columna La nueva columna de la ficha.
+     * @since 1.0
      */
     public void setColumna(int columna) {
         this.columna = columna;
@@ -137,6 +149,7 @@ public class Ficha {
      * Obtiene la posición de la ficha en notación ajedrecística.
      *
      * @return La posición de la ficha en notación ajedrecística (e.g., "a1", "e4").
+     * @since 1.0
      */
     public String getPosicionAjedrez() {
         return posicionAjedrez;
@@ -146,6 +159,7 @@ public class Ficha {
      * Establece la posición de la ficha directamente en notación ajedrecística.
      *
      * @param posicionAjedrez La nueva posición en notación ajedrecística.
+     * @since 1.0
      */
     public void setPosicionAjedrez(String posicionAjedrez) {
         this.posicionAjedrez = posicionAjedrez;
@@ -163,6 +177,7 @@ public class Ficha {
      * @param fila    La fila de la ficha.
      * @param columna La columna de la ficha.
      * @return La posición en notación ajedrecística.
+     * @since 1.0
      */
     private String convertirAjedrez(int fila, int columna) {
         char columnaLetra = (char) ('a' + columna);
@@ -177,6 +192,7 @@ public class Ficha {
      *
      * @param casilla El Pane que contiene la pieza de ajedrez.
      * @return Una nueva Ficha creada desde la casilla, o null si no hay pieza en la casilla.
+     * @since 1.0
      */
     public static Ficha crearFichaDesdePanel(Pane casilla) {
         ImageView imagen = null;
@@ -256,6 +272,11 @@ public class Ficha {
         return new Ficha(imagen, nombreFicha, paneColor, fila, columna);
     }
 
+    /**
+     * Devuelve una representación de la ficha en forma de cadena.
+     * @return Una representación de la ficha en forma de cadena.
+     * @since 1.0
+     */
     @Override
     public String toString() {
         return "Ficha{" +

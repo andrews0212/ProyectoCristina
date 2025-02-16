@@ -167,7 +167,7 @@ public class ControladorRecuperacionContrasenha {
     }
 
     /**
-     * Inicia sesión como el jugador 1.
+     * Muestra el formulario de inicio de sesión del jugador 1.
      *
      * @throws IOException Exception lanzada si no se puede mostrar el formulario.
      * @since 1.0
@@ -178,7 +178,7 @@ public class ControladorRecuperacionContrasenha {
     }
 
     /**
-     * Muestra el formulario de recuperación de contraseña.
+     * Cambia la contraseña del usuario.
      *
      * @throws IOException Exception lanzada si no se puede mostrar el formulario.
      * @since 1.0
@@ -223,6 +223,7 @@ public class ControladorRecuperacionContrasenha {
     /**
      * Muestra el manual de usuario.
      * @throws IOException Si ocurre un error al intentar cargar el manual.
+     * @since 1.0
      */
     public void showDocs() throws IOException {
         try {

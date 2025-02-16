@@ -26,6 +26,8 @@ public class GeneratorReportes {
      * Genera un reporte en formato PDF para una partida específica.
      *
      * @param partidaId El ID de la partida para la cual se generará el reporte.
+     * @throws JRException Si hay algún error al generar el reporte.
+     * @since 1.0
      */
     public void generarReporte(int partidaId) {
         DatabaseConnection databaseConnection = new DatabaseConnection();
@@ -89,6 +91,7 @@ public class GeneratorReportes {
      * Abre un archivo en el visor predeterminado del sistema.
      *
      * @param rutaArchivo La ruta completa del archivo a abrir.
+     * @since 1.0
      */
     private void abrirArchivo(String rutaArchivo) {
         try {

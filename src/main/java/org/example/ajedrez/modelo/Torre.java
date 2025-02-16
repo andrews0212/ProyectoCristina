@@ -8,6 +8,7 @@ import java.util.List;
  * Hereda de la clase Pieza.
  *
  * @author Raul Mora
+ * @version 1.0
  */
 public class Torre extends Pieza {
 
@@ -18,6 +19,7 @@ public class Torre extends Pieza {
      * @param x La posición x de la Torre en el tablero.
      * @param y La posición y de la Torre en el tablero.
      * @param b El color de la pieza (true para blanco, false para negro).
+     * @see Pieza
      */
     public Torre(int x, int y, boolean b) {
         super(x, y, b);
@@ -30,6 +32,9 @@ public class Torre extends Pieza {
      *
      * @param casilla La casilla de destino a la que se quiere mover la Torre.
      * @return Una lista de Casillas que la Torre puede recorrer hasta llegar a la casilla de destino.
+     * @see Pieza#validar(Casilla)
+     * @see Casilla
+     * @since 1.0
      */
     @Override
     public List<Casilla> validar(Casilla casilla) {
@@ -93,6 +98,15 @@ public class Torre extends Pieza {
             return null;
         }
     }
+
+    /**
+     * Método para obtener el valor de la Torre.
+     * El valor de la Torre es 2.
+     *
+     * @return El valor de la Torre.
+     * @see Pieza#getValor()
+     * @since 1.0
+     */
     @Override
     public int getValor() {
         return 2;

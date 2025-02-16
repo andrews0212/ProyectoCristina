@@ -17,6 +17,7 @@ public class Rey extends Pieza {
      * @param x Coordenada X de la casilla inicial del rey.
      * @param y Coordenada Y de la casilla inicial del rey.
      * @param color El color del rey (true para negro, false para blanco).
+     * @since 1.0
      */
     public Rey(int x, int y, boolean color) {
         super(x, y, color);
@@ -29,6 +30,7 @@ public class Rey extends Pieza {
      *
      * @param casilla La casilla destino que se desea validar.
      * @return Una lista de casillas válidas a las que el rey puede moverse, o null si no es válido.
+     * @since 1.0
      */
     @Override
     public List<Casilla> validar(Casilla casilla) {
@@ -43,6 +45,13 @@ public class Rey extends Pieza {
         // Si las condiciones no se cumplen, retorna null, indicando que el movimiento no es válido
         return null;
     }
+
+    /**
+     * Devuelve el valor de la pieza.
+     *
+     * @return 3.
+     * @since 1.0
+     */
     @Override
     public int getValor() {
         return 3;

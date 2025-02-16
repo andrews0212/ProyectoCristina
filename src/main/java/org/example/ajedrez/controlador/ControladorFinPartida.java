@@ -20,13 +20,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * Controlador para la vista de inicio de sesión del jugador 1. Gestiona la
+ * Controlador para la vista de fin de partida. Gestiona la
  * interacción de la
- * interfaz de usuario, incluyendo la selección del idioma, los eventos de
- * inicio de sesión,
- * la visualización de los formularios de registro y recuperación de contraseña,
- * y la configuración
- * de atajos de teclado. Además, maneja la validación del usuario y la gestión
+ * interfaz de usuario, incluyendo la selección del idioma ylos eventos de reinicio de partida y de generación de reporte. Además, maneja la gestión
  * de los textos
  * localizados para los distintos idiomas disponibles en la aplicación.
  *

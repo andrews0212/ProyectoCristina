@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Clase que contiene el método para la conexión a la base de datos y la creación de las tablas.
+ */
 public class DatabaseConnection {
     private static final String USER = "root"; // Usuario de la BD.
     private static final String PASSWORD = ""; // Contraseña del usuario especificado arriba.
@@ -13,6 +16,7 @@ public class DatabaseConnection {
 
     /**
      * Constructor privado que se conecta al SGBD usando los datos proporcionados.
+     * @since 1.0
      */
     DatabaseConnection() {
         try {
@@ -28,6 +32,7 @@ public class DatabaseConnection {
      * Genera una conexión al SGDB.
      *
      * @return Connection - Objeto que permite la conexión a la base de datos.
+     * @since 1.0
      */
     public static synchronized Connection getConnection() {
         if (conexion == null) {
@@ -44,6 +49,7 @@ public class DatabaseConnection {
      *
      * @throws SQLException Excepción lanzada en caso de que no se pueda cerrar la
      *                      conexión.
+     * @since 1.0
      */
     public static void close() throws SQLException {
         if (conexion != null) {
@@ -62,6 +68,7 @@ public class DatabaseConnection {
      * 
      * @throws SQLException Excepción lanzada en caso de que no se pueda inicializar
      *                      la base de datos.
+     * @since 1.0
      */
     private static void inicializarBaseDeDatos() {
         try (Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306", USER, PASSWORD);
