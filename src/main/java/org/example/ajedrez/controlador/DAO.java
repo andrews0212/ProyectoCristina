@@ -86,7 +86,7 @@ public class DAO {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return idGenerado;
     }
