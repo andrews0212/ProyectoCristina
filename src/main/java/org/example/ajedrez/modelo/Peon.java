@@ -10,6 +10,8 @@ import java.util.List;
  * También puede capturar piezas en diagonal.
  *
  * @author Raul Mora
+ * @version 1.0
+ * @since 1.0
  */
 public class Peon extends Pieza {
 
@@ -19,6 +21,8 @@ public class Peon extends Pieza {
      * @param x La posición X inicial del peón en el tablero.
      * @param y La posición Y inicial del peón en el tablero.
      * @param color El color del peón (true para negro, false para blanco).
+     * 
+     * @since 1.0
      */
     public Peon(int x, int y, boolean color) {
         super(x, y, color);
@@ -32,6 +36,7 @@ public class Peon extends Pieza {
      *
      * @param casilla La casilla de destino a la que se quiere mover el peón.
      * @return Una lista de casillas válidas para el movimiento, o null si el movimiento no es válido.
+     * @since 1.0
      */
     @Override
     public List<Casilla> validar(Casilla casilla) {
@@ -79,6 +84,14 @@ public class Peon extends Pieza {
         // Si el movimiento no es válido, devuelve null.
         return null;
     }
+
+    /**
+     * Método que devuelve el valor de la pieza.
+     * El peón tiene un valor de 1.
+     *
+     * @return El valor de la pieza.
+     * @since 1.0
+     */
     @Override
     public int getValor() {
         return 1;

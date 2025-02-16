@@ -306,6 +306,7 @@ public class ControladorRegistro {
     /**
      * Muestra el manual de usuario.
      * @throws IOException Si ocurre un error al intentar cargar el manual.
+     * @since 1.0
      */
     public void showDocs() throws IOException {
         try {

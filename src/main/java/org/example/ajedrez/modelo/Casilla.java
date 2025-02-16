@@ -7,6 +7,7 @@ import java.util.Objects;
  * Cada casilla tiene una posición en el tablero indicada por las coordenadas (x, y).
  *
  * @author Raul Mora
+ * @since 1.0
  */
 public class Casilla {
     // Atributos que representan las coordenadas de la casilla en el tablero.
@@ -17,6 +18,7 @@ public class Casilla {
      *
      * @param x La posición X de la casilla en el tablero.
      * @param y La posición Y de la casilla en el tablero.
+     * @since 1.0
      */
     public Casilla(int x, int y) {
         this.x = x;
@@ -29,6 +31,7 @@ public class Casilla {
      *
      * @param obj El objeto con el que se va a comparar.
      * @return true si las casillas son iguales, false en caso contrario.
+     * @since 1.0
      */
     @Override
     public boolean equals(Object obj) {
@@ -46,6 +49,7 @@ public class Casilla {
      * Este método se usa, por ejemplo, en estructuras de datos como HashMap y HashSet.
      *
      * @return El código hash generado a partir de las coordenadas.
+     * @since 1.0
      */
     @Override
     public int hashCode() {
@@ -56,6 +60,7 @@ public class Casilla {
      * Sobrescribe el método toString para devolver una representación en formato cadena de la casilla.
      *
      * @return Una cadena representando las coordenadas de la casilla.
+     * @since 1.0
      */
     @Override
     public String toString() {

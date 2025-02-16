@@ -73,7 +73,15 @@ public class ControladorTablero {
      */
     @FXML
     private GridPane cementerioBlancas;
+
+    /**
+     * Booleano que indica si hay un bot o no.
+     */
     private static boolean bot = true;
+
+    /**
+     * Lista de movimientos realizados.
+     */
     private List<String> movimientos = new ArrayList<>();
 
     /**
@@ -84,6 +92,7 @@ public class ControladorTablero {
     /**
      * Método de inicialización del controlador. Se encarga de asignar los eventos
      * de interacción con las piezas y casillas.
+     * @since 1.0
      */
     public static int id_userBlanco;
     public static int id_userNegro;
@@ -102,6 +111,8 @@ public class ControladorTablero {
      * Asigna los eventos de clic a las piezas en el tablero.
      * Al hacer clic en una pieza, se selecciona y resalta, permitiendo que el
      * jugador realice un movimiento.
+     * 
+     * @since 1.0
      */
     private void asignarEventosAPiezas() {
         for (Node nodo : gridPanel.getChildren()) {
@@ -138,6 +149,8 @@ public class ControladorTablero {
      * Asigna los eventos de clic a las casillas del tablero.
      * Al hacer clic en una casilla, se intenta mover la pieza seleccionada a esa
      * casilla, si el movimiento es válido.
+     * 
+     * @since 1.0
      */
     private void asignarEventosACasillas() {
         for (Node nodo : gridPanel.getChildren()) {
@@ -198,12 +211,20 @@ public class ControladorTablero {
                         // Suponiendo que puedes determinar el color de la pieza movida (por ejemplo, a
                         // partir del URL de la imagen):
 
-                        verificarJaqueYJaqueMate(fichaSeleccionada.getColor() == "blanco" ? false : true);
+                        try {
+                            verificarJaqueYJaqueMate(fichaSeleccionada.getColor() == "blanco" ? false : true);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
                         // Cambiar de turno
                         turnoBlancas = !turnoBlancas;
                         if (bot) {
-                            turnoBot();
+                            try {
+                                turnoBot();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 });
@@ -211,7 +232,13 @@ public class ControladorTablero {
         }
     }
 
-    private void turnoBot() {
+    /**
+     * Maneja el turno del bot.
+     * @throws IOException Si hay un error al leer la imagen.
+     * 
+     * @since 1.0
+     */
+    private void turnoBot() throws IOException {
         Movimiento movimientoBot = tablero.bot(true);
         Pane fin = null;
         Pane inicio = null;
@@ -267,6 +294,8 @@ public class ControladorTablero {
      * Mueve una pieza capturada al cementerio correspondiente.
      *
      * @param piezaEnCasilla La pieza que fue capturada.
+     * 
+     * @since 1.0
      */
     private void moverFichaCementerio(ImageView piezaEnCasilla) {
         String url = piezaEnCasilla.getImage().getUrl();
@@ -291,6 +320,7 @@ public class ControladorTablero {
      * @param fila    La fila en el tablero (0-7).
      * @param columna La columna en el tablero (0-7).
      * @return La notación de ajedrez correspondiente (por ejemplo, "e4").
+     * @since 1.0
      */
     private String convertirAjedrez(int fila, int columna) {
         char columnaLetra = (char) ('a' + columna);
@@ -298,6 +328,11 @@ public class ControladorTablero {
         return "" + columnaLetra + filaNumero;
     }
 
+    /**
+     * Imprime el historial de movimientos.
+     * @since 1.0
+     *
+     */
     private void imprimirMovimientos() {
         System.out.println("\n--- Historial de movimientos ---");
         for (String mov : movimientos) {
@@ -305,12 +340,23 @@ public class ControladorTablero {
         }
     }
 
+    /**
+     * Guarda los movimientos en la base de datos.
+     * @since 1.0
+     *
+     */
     private void guardarMovimientosEnBD() {
         String movimientosUnidos = String.join(" ", movimientos);
         dao.insertarMovimiento(1, movimientosUnidos);
         System.out.println("Movimientos guardados en la base de datos.");
     }
 
+    /**
+     * Verifica si el rey que se movió está en jaque o jaque mate.
+     * @param colorMovimiento true si la pieza que se movió es negra, false si es blanca.
+     * @throws IOException Si hay un error al leer la imagen.
+     * @since 1.0
+     * */
     private void verificarJaqueYJaqueMate(boolean colorMovimiento) throws IOException {
         // colorMovimiento: true si la pieza que se movió es negra, false si es blanca.
         Rey reyEnemigo = tablero.obtenerRey(!colorMovimiento);
@@ -326,6 +372,12 @@ public class ControladorTablero {
         }
     }
 
+    /**
+     * Muestra una alerta.
+     * @param titulo Título de la alerta.
+     * @param mensaje Mensaje de la alerta.
+     * @since 1.0
+     */
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
@@ -333,10 +385,18 @@ public class ControladorTablero {
         alert.show();
     }
 
+    /**
+     * Indica si el juego se está jugando con un bot.
+     * @return true si el juego se está jugando con un bot, false si no.
+     */
     public static boolean isBot() {
         return bot;
     }
 
+    /**
+     * Permite indicar si el juego se está jugando con un bot.
+     * @param botVal true si el juego se está jugando con un bot, false si no.
+     */
     public static void setBot(boolean botVal) {
         bot = botVal;
     }

@@ -20,9 +20,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Controlador para la vista de inicio de sesión del jugador 1. Gestiona la interacción de la
- * interfaz de usuario, incluyendo la selección del idioma, los eventos de inicio de sesión,
- * la visualización de los formularios de registro y recuperación de contraseña, y la configuración
+ * Controlador para la la selección de jugadores. Gestiona la interacción de la
+ * interfaz de usuario, incluyendo la selección del idioma, los eventos de selección de jugadores y la configuración
  * de atajos de teclado. Además, maneja la validación del usuario y la gestión de los textos
  * localizados para los distintos idiomas disponibles en la aplicación.
  *
@@ -155,6 +154,7 @@ public class ControladorSeleccionJugadores {
         System.out.println("Se ha seleccionado 1 jugador");
         ContextoApp.setJugador2(false);
         ControladorTablero.setBot(true);
+        ContextoApp.setIdUsuario2(0);
         App.setRoot("fxml/inicioSesionJ1");
      
     }
@@ -176,6 +176,7 @@ public class ControladorSeleccionJugadores {
     /**
      * Muestra el manual de usuario.
      * @throws IOException Si ocurre un error al intentar cargar el manual.
+     * @since 1.0
      */
     public void showDocs() throws IOException {
         try {

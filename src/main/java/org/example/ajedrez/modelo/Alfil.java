@@ -17,6 +17,7 @@ public class Alfil extends Pieza {
      * @param x La posición X de la pieza Alfil en el tablero.
      * @param y La posición Y de la pieza Alfil en el tablero.
      * @param b El color de la pieza (true para blanca, false para negra).
+     * @since 1.0
      */
     public Alfil(int x, int y, boolean b) {
         super(x, y, b);
@@ -30,6 +31,7 @@ public class Alfil extends Pieza {
      * @param casilla La casilla a la que se desea mover el Alfil.
      * @return Una lista con las casillas que el Alfil recorrería si el movimiento es válido.
      *         Si el movimiento no es válido, retorna null.
+     * @since 1.0
      */
     @Override
     public List<Casilla> validar(Casilla casilla) {
@@ -68,10 +70,23 @@ public class Alfil extends Pieza {
         return null;
     }
 
+    /**
+     * Sobrescribe el método toString para devolver la representación en cadena de la pieza Alfil.
+     *
+     * @return La representación en cadena de la pieza Alfil.
+     *
+     */
     @Override
     public String toString() {
         return super.toString();  // Devuelve la representación en cadena de la pieza Alfil.
     }
+
+    /**
+     * Sobrescribe el método getValor para devolver el valor de la pieza Alfil.
+     * @see org.example.ajedrez.modelo.Pieza#getValor()
+     * @return El valor de la pieza Alfil.
+     *
+     */
     @Override
     public int getValor() {
         return 2;

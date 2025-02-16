@@ -9,6 +9,7 @@ import java.util.List;
  * como diagonalmente, a cualquier distancia en esas direcciones.
  *
  * @author Raul Mora
+ * @version 1.0
  */
 public class Reina extends Pieza {
 
@@ -18,6 +19,8 @@ public class Reina extends Pieza {
      * @param x Coordenada X de la casilla inicial de la reina.
      * @param y Coordenada Y de la casilla inicial de la reina.
      * @param b El color de la reina (true para negro, false para blanco).
+     * @see Pieza
+     * @since 1.0
      */
     public Reina(int x, int y, boolean b) {
         super(x, y, b);
@@ -30,6 +33,7 @@ public class Reina extends Pieza {
      *
      * @param casilla La casilla destino que se desea validar.
      * @return Una lista de casillas válidas a las que la reina puede moverse, o null si no es válido.
+     * @see Pieza#validar(Casilla)
      */
     @Override
     public List<Casilla> validar(Casilla casilla) {
@@ -110,6 +114,14 @@ public class Reina extends Pieza {
             return null;
         }
     }
+
+    /**
+     * Devuelve el valor de la reina.
+     *
+     * @return El valor de la reina es 3.
+     * @see Pieza#getValor()
+     * @since 1.0
+     */
     @Override
     public int getValor() {
         return 3;
