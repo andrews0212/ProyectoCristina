@@ -326,7 +326,7 @@ public class ControladorTablero {
 
     private void guardarMovimientosEnBD() {
         String movimientosUnidos = String.join(" ", movimientos);
-        dao.insertarMovimiento(1, movimientosUnidos);
+        dao.insertarMovimiento(dao.buscarPartidaPorJugadoresUltima(id_userBlanco,id_userNegro), movimientosUnidos);
         System.out.println("Movimientos guardados en la base de datos.");
     }
 

@@ -123,6 +123,28 @@ public class DAO {
         return idPartida; // Retornar el ID de la partida o -1 si no se encuentra
     }
 
+    public int buscarPartidaPorJugadoresUltima(int idBlancas, int idNegras) {
+        conn = DatabaseConnection.getConnection();
+        int idPartida = -1;
+        String query = "SELECT id FROM partidas WHERE jugador_blancas_id = ? AND jugador_negras_id = ? order by id DESC LIMIT 1";
+
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, idBlancas); // Establecer el ID del jugador con piezas blancas
+            stmt.setInt(2, idNegras); // Establecer el ID del jugador con piezas negras
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    idPartida = rs.getInt("id"); // Obtener el ID de la partida
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return idPartida; // Retornar el ID de la partida o -1 si no se encuentra
+    }
+
+
+
     /**
      * Valida las credenciales de un usuario (nombre de usuario, correo y
      * contraseña).
