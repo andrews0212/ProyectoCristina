@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import javafx.scene.image.Image;
 import org.example.ajedrez.App;
 
 import javafx.fxml.FXML;
@@ -207,7 +208,8 @@ public class ControladorFinPartida {
         
         // Obtener el stage actual
         Stage stage = (Stage) btnGenerarReporte.getScene().getWindow();
-        
+        stage.getIcons().add(new Image(App.class.getResource("images/icono.png").toExternalForm()));
+
         // Configurar el nuevo tamaño
         stage.setScene(scene);
         stage.setWidth(1200);

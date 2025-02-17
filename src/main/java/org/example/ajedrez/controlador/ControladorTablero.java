@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.example.ajedrez.App;
 import org.example.ajedrez.modelo.Casilla;
@@ -354,6 +355,7 @@ public class ControladorTablero {
                 ventanaTablero.close();
                 Stage stage = new Stage();
                 stage.setTitle("Ajedrez"); // Título de la ventana
+                stage.getIcons().add(new Image(App.class.getResource("images/icono.png").toExternalForm()));
                 stage.setScene(scene); // Establece la escena en el escenario
                 stage.show(); // Muestra la ventana
             } else {

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import javafx.scene.image.Image;
 import org.example.ajedrez.controlador.ContextoApp;
 
 import javafx.application.Application;
@@ -55,6 +56,7 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/seleccionJugadores.fxml"));
         scene = new Scene(fxmlLoader.load(), 800, 600);
         scene.getStylesheets().add(getClass().getResource("css/style_tablero.css").toExternalForm());
+        stage.getIcons().add(new Image(getClass().getResource("images/icono.png").toExternalForm()));
         stage.setTitle("Ajedrez"); // Título de la ventana
         stage.setScene(scene); // Establece la escena en el escenario
         stage.show(); // Muestra la ventana
