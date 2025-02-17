@@ -339,10 +339,19 @@ public class ControladorTablero {
         if (tablero.jaque(reyEnemigo)) {
             String colorReyEnemigo = (colorMovimiento) ? "blanco" : "negro";
             if (tablero.jaqueMate(reyEnemigo)) {
+
                 mostrarAlerta("Jaque Mate", "El rey " + colorReyEnemigo + " está en Jaque Mate");
                 guardarMovimientosEnBD();
+
+
                 FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/finPartida.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+                ControladorFinPartida controladorTablero = fxmlLoader.getController();
+                controladorTablero.idBlancas = id_userBlanco;
+                controladorTablero.idNegras = id_userNegro;
+                // Cerrar la ventana actual del tablero
+                Stage ventanaTablero = (Stage) gridPanel.getScene().getWindow();
+                ventanaTablero.close();
                 Stage stage = new Stage();
                 stage.setTitle("Ajedrez"); // Título de la ventana
                 stage.setScene(scene); // Establece la escena en el escenario
@@ -358,6 +367,7 @@ public class ControladorTablero {
         alert.setTitle(titulo);
         alert.setHeaderText(mensaje);
         alert.showAndWait();
+
     }
 
     public static boolean isBot() {

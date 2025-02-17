@@ -76,7 +76,10 @@ public class DAO {
      * @since 1.0
      */
     public int insertarPartida(int idBlancas, int idNegras) {
-        conn = DatabaseConnection.getConnection();
+        if (conn == null) {
+            conn = DatabaseConnection.getConnection();
+        }
+
         int idGenerado = -1;
         String query = "INSERT INTO partidas (jugador_blancas_id, jugador_negras_id) VALUES (?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -104,9 +107,11 @@ public class DAO {
      * @since 1.0
      */
     public int buscarPartidaPorJugadores(int idBlancas, int idNegras) {
-        conn = DatabaseConnection.getConnection();
+        if (conn == null) {
+            conn = DatabaseConnection.getConnection();
+        }
         int idPartida = -1;
-        String query = "SELECT id FROM partidas WHERE jugador_blancas_id = ? AND jugador_negras_id = ?";
+        String query = "SELECT id FROM partidas WHERE jugador_blancas_id = ? AND jugador_negras_id = ? order by id DESC LIMIT 1";
 
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, idBlancas); // Establecer el ID del jugador con piezas blancas
@@ -124,7 +129,10 @@ public class DAO {
     }
 
     public int buscarPartidaPorJugadoresUltima(int idBlancas, int idNegras) {
-        conn = DatabaseConnection.getConnection();
+        if (conn == null) {
+            conn = DatabaseConnection.getConnection();
+        }
+
         int idPartida = -1;
         String query = "SELECT id FROM partidas WHERE jugador_blancas_id = ? AND jugador_negras_id = ? order by id DESC LIMIT 1";
 
@@ -244,7 +252,10 @@ public class DAO {
      * @since 1.0
      */
     public void insertarMovimiento(int partidaId, String movimiento) {
-        conn = DatabaseConnection.getConnection();
+        if(conn == null){
+            conn = DatabaseConnection.getConnection();
+        }
+
         String query = "INSERT INTO movimientos (partida_id, movimiento) VALUES (?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, partidaId);

@@ -51,6 +51,9 @@ public class ControladorFinPartida {
     private GeneratorReportes generadorReportes;
     private Scene scene;
 
+    public static int idBlancas;
+    public static int idNegras;
+
     /**
      * Método llamado al iniciar la aplicación. Inicializa los elementos de la
      * interfaz de usuario,

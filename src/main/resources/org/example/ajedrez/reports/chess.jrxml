@@ -3,8 +3,17 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="chess"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="PARTIDA_ID" class="java.lang.Integer"/>
-	<query language="sql"><![CDATA[SELECT p.id AS id_partida, u1.usuario AS jugador_blanco, u2.usuario AS jugador_negro, m.movimiento AS movimientos, p.fecha AS fecha_partida FROM partidas p JOIN usuarios u1 ON p.jugador_blancas_id = u1.id JOIN usuarios u2 ON p.jugador_negras_id = u2.id JOIN movimientos m ON p.id = m.partida_id WHERE
-	 p.id= $P{PARTIDA_ID}]]></query>
+	<query language="sql"><![CDATA[SELECT 
+    p.id AS id_partida, 
+    u1.usuario AS jugador_blanco, 
+    u2.usuario AS jugador_negro, 
+    m.movimiento AS movimientos, 
+    p.fecha AS fecha_partida 
+FROM partidas p 
+JOIN usuarios u1 ON p.jugador_blancas_id = u1.id 
+JOIN usuarios u2 ON p.jugador_negras_id = u2.id 
+LEFT JOIN movimientos m ON p.id = m.partida_id 
+WHERE p.id = $P{PARTIDA_ID}]]></query>
 	<field name="id_partida" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="id"/>
 		<property name="com.jaspersoft.studio.field.label" value="id_partida"/>
@@ -43,7 +52,7 @@
 	<columnHeader height="30" splitType="Stretch">
 		<element kind="frame" uuid="cb97da83-c646-4c77-9ba5-1e321b0e774a" x="-10" y="0" width="550" height="30">
 			<element kind="frame" uuid="fa097ff7-f433-494a-a9c8-f8f8de2b1cf8" x="0" y="0" width="550" height="30">
-				<element kind="staticText" uuid="ae75e99c-ed8b-4b2c-be39-06af153f8355" x="0" y="0" width="90" height="30" fontSize="12.0" bold="true" underline="true" hTextAlign="Center" vTextAlign="Middle">
+				<element kind="staticText" uuid="ae75e99c-ed8b-4b2c-be39-06af153f8355" x="0" y="0" width="90" height="30" fontSize="12.0" underline="true" bold="true" hTextAlign="Center" vTextAlign="Middle">
 					<text><![CDATA[ID Partida]]></text>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="897a0842-aff7-4328-bb1d-3ee3feee764e"/>
 					<box>
@@ -54,7 +63,7 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 				</element>
-				<element kind="staticText" uuid="8a230a5e-86fa-4496-b25e-57f046651aed" x="90" y="0" width="110" height="30" fontSize="12.0" bold="true" underline="true" hTextAlign="Center" vTextAlign="Middle">
+				<element kind="staticText" uuid="8a230a5e-86fa-4496-b25e-57f046651aed" x="90" y="0" width="110" height="30" fontSize="12.0" underline="true" bold="true" hTextAlign="Center" vTextAlign="Middle">
 					<text><![CDATA[Jugador Blanco]]></text>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5f8ea3af-ccbd-42e0-86a4-2b5247c203f6"/>
 					<box>
@@ -65,7 +74,7 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 				</element>
-				<element kind="staticText" uuid="9b45e5e2-82e0-4e94-b02b-58b0f2550b1b" x="200" y="0" width="110" height="30" fontSize="12.0" bold="true" underline="true" hTextAlign="Center" vTextAlign="Middle">
+				<element kind="staticText" uuid="9b45e5e2-82e0-4e94-b02b-58b0f2550b1b" x="200" y="0" width="110" height="30" fontSize="12.0" underline="true" bold="true" hTextAlign="Center" vTextAlign="Middle">
 					<text><![CDATA[Jugador Negro]]></text>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ab6882d3-ec78-4a37-b7fb-c2cb115b9885"/>
 					<box>
@@ -76,7 +85,7 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 				</element>
-				<element kind="staticText" uuid="845547fd-4b9a-46c3-b89b-d7b09c766652" x="310" y="0" width="140" height="30" fontSize="12.0" bold="true" underline="true" hTextAlign="Center" vTextAlign="Middle">
+				<element kind="staticText" uuid="845547fd-4b9a-46c3-b89b-d7b09c766652" x="310" y="0" width="140" height="30" fontSize="12.0" underline="true" bold="true" hTextAlign="Center" vTextAlign="Middle">
 					<text><![CDATA[Movimientos]]></text>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6b0b2fd0-33e3-4116-b3e0-29a5c48e2260"/>
 					<box>
@@ -87,7 +96,7 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 				</element>
-				<element kind="staticText" uuid="ace4a681-2958-4143-83a5-814b9df0ca84" x="450" y="0" width="100" height="30" fontSize="12.0" bold="true" underline="true" hTextAlign="Center" vTextAlign="Middle">
+				<element kind="staticText" uuid="ace4a681-2958-4143-83a5-814b9df0ca84" x="450" y="0" width="100" height="30" fontSize="12.0" underline="true" bold="true" hTextAlign="Center" vTextAlign="Middle">
 					<text><![CDATA[Fecha Partida]]></text>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9b98ae55-4e61-4baf-a601-44c73c8eeffb"/>
 					<box>
