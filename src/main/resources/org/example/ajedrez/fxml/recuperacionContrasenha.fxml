@@ -162,7 +162,24 @@
                         <Insets />
                      </opaqueInsets>
                   </HBox>
-                  <Button fx:id="btnRecuperarContrasenha" alignment="CENTER" maxHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="194.0" style="-fx-background-radius: 20; -fx-background-color: #b58863;" text="%recuperacionContrasenha.btn.recuperarContrasenha" textFill="WHITE" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                  <HBox fx:id="hbContrasenhaCambiada" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="207.0" visible="false" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                     <children>
+                        <SVGPath content="M-196-222.1c-13.2,0-23.9-10.7-23.9-23.9c0-13.2,10.7-23.9,23.9-23.9s23.9,10.7,23.9,23.9C-172.1-232.8-182.8-222.1-196-222.1L-196-222.1z M-196-267.3c-11.7,0-21.3,9.6-21.3,21.3s9.6,21.3,21.3,21.3s21.3-9.6,21.3-21.3S-184.3-267.3-196-267.3L-196-267.3z M-197.4-236.1L-194.6-236.1L-194.6-233.3L-197.4-233.3z M-195.2-238.9L-196.8-238.9L-197.4-250.2L-197.4-258.7L-194.6-258.7L-194.6-250.2L-195.2-238.9z" fill="#b58863" scaleX="0.13" scaleY="0.13" translateX="-45.0" translateY="-2.0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </SVGPath>
+                        <Label fx:id="lblContrasenhaCambiada" alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="121.0" text="" textFill="#b58863" translateY="-2.0" wrapText="true" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="Poppins Regular" size="9.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="-52.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Button fx:id="btnRecuperarContrasenha" alignment="CENTER" maxHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cambiarContrasenha" prefHeight="30.0" prefWidth="194.0" style="-fx-background-radius: 20; -fx-background-color: #b58863;" text="%recuperacionContrasenha.btn.recuperarContrasenha" textFill="WHITE" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                      <font>
                         <Font name="Poppins Regular" size="13.0" />
                      </font>
@@ -170,7 +187,7 @@
                         <Tooltip fx:id="ttBtnRecuperarContrasenha" text="" />
                      </tooltip>
                   </Button>
-                  <Hyperlink fx:id="hlLogin" alignment="CENTER" contentDisplay="TOP" onAction="#registro" prefHeight="25.0" prefWidth="193.0" text="%login.btn.iniciarSesion" textFill="#b58863" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP">
+                  <Hyperlink fx:id="hlLogin" alignment="CENTER" contentDisplay="TOP" onAction="#login" prefHeight="25.0" prefWidth="193.0" text="%login.btn.iniciarSesion" textFill="#b58863" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP">
                      <font>
                         <Font name="Poppins Regular" size="13.0" />
                      </font>
@@ -186,6 +203,25 @@
                         <Tooltip fx:id="ttHlMenuPrincipal" text="%tt.login.hl.menuPrincipal" />
                      </tooltip>
                   </Hyperlink>
+                  <HBox fx:id="hbValidacionUsuario1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" onMouseClicked="#showDocs" prefHeight="40.0" prefWidth="197.0" GridPane.rowIndex="6">
+                     <children>
+                        <SVGPath content="M12,23 C5.92486775,23 1,18.0751322 1,12 C1,5.92486775 5.92486775,1 12,1 C18.0751322,1 23,5.92486775 23,12 C23,18.0751322 18.0751322,23 12,23 Z M12,21 C16.9705627,21 21,16.9705627 21,12 C21,7.02943725 16.9705627,3 12,3 C7.02943725,3 3,7.02943725 3,12 C3,16.9705627 7.02943725,21 12,21 Z M12.0003283,16.9983464 C11.4478622,16.9983464 11,16.5506311 11,15.9983464 C11,15.4460616 11.4478622,14.9983464 12.0003283,14.9983464 C12.5527943,14.9983464 13.0006565,15.4460616 13.0006565,15.9983464 C13.0006565,16.5506311 12.5527943,16.9983464 12.0003283,16.9983464 Z M13,14 L11,14 C11,12.2983529 11.6245803,11.5696759 13.0527864,10.8555728 C13.8745803,10.4446759 14,10.2983529 14,9.5 C14,8.556407 13.2771608,8 12,8 C10.8954305,8 10,8.8954305 10,10 L8,10 C8,7.790861 9.790861,6 12,6 C14.2843464,6 16,7.32062807 16,9.5 C16,11.2016471 15.3754197,11.9303241 13.9472136,12.6444272 C13.1254197,13.0553241 13,13.2016471 13,14 Z" fill="#b58863" scaleX="0.4" scaleY="0.4" stroke="#b58863" translateY="4.0" />
+                        <Label fx:id="lblAyuda" contentDisplay="CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="159.0" textFill="#b58863" translateX="-10.0" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="Poppins Regular" size="9.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" top="7.0" />
+                           </HBox.margin>
+                           <tooltip>
+                              <Tooltip fx:id="ttAyuda" />
+                           </tooltip>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
                </children>
             </GridPane>
          </children>

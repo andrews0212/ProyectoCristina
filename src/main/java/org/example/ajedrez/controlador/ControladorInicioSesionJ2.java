@@ -1,6 +1,9 @@
 package org.example.ajedrez.controlador;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -37,17 +40,18 @@ import javafx.stage.Stage;
  */
 public class ControladorInicioSesionJ2 {
     @FXML private ComboBox<String> idioma;
-    @FXML private Label lblTitulo, lblValidacionUsuario;
+    @FXML private Label lblTitulo, lblValidacionUsuario, lblAyuda;
     @FXML private Button btnIniciarSesion;
     @FXML private Hyperlink hlRecuperarContrasenha, hlRegistro, hlMenuPrincipal;
     @FXML private TextField txtUsuario, txtEmail;
     @FXML private PasswordField txtContrasenha;
-    @FXML private Tooltip ttComboBox, ttBtnIniciarSesion, ttHlRecuperarContrasenha, ttHlRegistro, ttTxtContrasenha, ttTxtUsuario, ttTxtEmail, ttHlMenuPrincipal;
+    @FXML private Tooltip ttComboBox, ttBtnIniciarSesion, ttHlRecuperarContrasenha, ttHlRegistro, ttTxtContrasenha, ttTxtUsuario, ttTxtEmail, ttHlMenuPrincipal, ttAyuda;
     @FXML HBox hbValidacionUsuario;
 
     @FXML private VBox rootVBox;
 
     private ResourceBundle bundle;
+    private DAO dao;
 
     /**
      * Método llamado al iniciar la aplicación.
@@ -61,6 +65,7 @@ public class ControladorInicioSesionJ2 {
         seleccionarIdioma();
         setAtajos();
         setTooltips();
+        dao = new DAO();
     }
 
     /**
@@ -107,6 +112,7 @@ public class ControladorInicioSesionJ2 {
         hlRecuperarContrasenha.setText(bundle.getString("login.hl.recuperarContrasenha"));
         lblValidacionUsuario.setText(bundle.getString("login.usuarioInvalido"));
         hlMenuPrincipal.setText(bundle.getString("login.hl.menuPrincipal"));
+        lblAyuda.setText(bundle.getString("ayuda"));
     }
 
     /**
@@ -124,6 +130,7 @@ public class ControladorInicioSesionJ2 {
         ttHlRegistro.setText(bundle.getString("tt.login.hl.registro"));
         ttHlRecuperarContrasenha.setText(bundle.getString("tt.login.hl.recuperarContrasenha"));
         ttHlMenuPrincipal.setText(bundle.getString("tt.login.hl.menuPrincipal"));
+        ttAyuda.setText(bundle.getString("tt.ayuda"));
     }
 
     /**
@@ -138,6 +145,7 @@ public class ControladorInicioSesionJ2 {
         btnIniciarSesion.setTooltip(ttBtnIniciarSesion);
         hlRegistro.setTooltip(ttHlRegistro);
         hlRecuperarContrasenha.setTooltip(ttHlRecuperarContrasenha);
+        lblAyuda.setTooltip(ttAyuda);
     }
 
     /**
@@ -178,13 +186,13 @@ public class ControladorInicioSesionJ2 {
      * Inicia sesión como el jugador 2, y después, lanza el stage del tablero.
      *
      * @throws IOException Excepción lanzada si no se puede mostrar el formulario.
+     * @throws SQLException 
      * @since 1.0
      */
         @FXML
-    private void login() throws IOException {
-        // TODO: añadir lógica para comprobación del jugador.
-        // if (gestionDB.verificarUsuario(txtUsuario.getText(), txtContrasenha.getText())) {
-        
+    private void login() throws IOException, SQLException {
+        if (dao.validarUsuario(txtUsuario.getText(), txtEmail.getText(), txtContrasenha.getText())) {
+        ContextoApp.setIdUsuario2(dao.obtenerIdUsuarioPorUsername(txtUsuario.getText()));
         FXMLLoader loader = new FXMLLoader(App.class.getResource("fxml/tablero.fxml"));
         Scene scene = new Scene(loader.load(), 1200, 703);
         
@@ -197,9 +205,9 @@ public class ControladorInicioSesionJ2 {
         stage.setHeight(703);
         stage.centerOnScreen();
         
-        // } else {
-        //     hbValidacionUsuario.setVisible(true);
-        // }
+        } else {
+            hbValidacionUsuario.setVisible(true);
+        }
     }
     /**
      * Muestra el formulario de recuperación de contraseña.
@@ -233,6 +241,27 @@ public class ControladorInicioSesionJ2 {
     @FXML
     public void volverMenuPrincipal() throws IOException {
         App.setRoot("fxml/inicioSesionJ1");
+    }
+
+    /**
+     * Muestra el manual de usuario.
+     * @throws IOException Si ocurre un error al intentar cargar el manual.
+     */
+    public void showDocs() throws IOException {
+        try {
+            // Obtiene la ruta del archivo manualUsuario.html dentro de resources
+            File file = new File("src/main/resources/org/example/ajedrez/html/manualUsuario.html");
+
+            // Verifica si el archivo existe
+            if (file.exists()) {
+                // Abre el archivo en el navegador predeterminado
+                Desktop.getDesktop().browse(file.toURI());
+            } else {
+                System.err.println("El archivo manualUsuario.html no fue encontrado.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

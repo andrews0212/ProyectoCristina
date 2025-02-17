@@ -1,5 +1,7 @@
 package org.example.ajedrez.controlador;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -36,17 +38,18 @@ import javafx.scene.layout.VBox;
  */
 public class ControladorRecuperacionContrasenha {
     @FXML private ComboBox<String> idioma;
-    @FXML private Label lblTitulo, lblValidacionContrasenha, lblContrasenhaCambiada, lblContrasenhaNoIdentica;
+    @FXML private Label lblTitulo, lblValidacionContrasenha, lblContrasenhaCambiada, lblContrasenhaNoIdentica, lblAyuda;
     @FXML private Button btnRecuperarContrasenha;
     @FXML private Hyperlink hlLogin, hlMenuPrincipal;
     @FXML private TextField txtUsuario;
     @FXML private PasswordField txtContrasenha, txtContrasenhaRep;
-    @FXML private Tooltip ttComboBox, ttBtnRecuperarContrasenha, ttHlLogin, ttTxtContrasenha, ttTxtUsuario, ttTxtContrasenhaRep;
+    @FXML private Tooltip ttComboBox, ttBtnRecuperarContrasenha, ttHlLogin, ttTxtContrasenha, ttTxtUsuario, ttTxtContrasenhaRep, ttAyuda;
     @FXML HBox hbContrasenhaInvalida, hbContrasenhaNoIdentica, hbContrasenhaCambiada;
 
     @FXML private VBox rootVBox;
 
     private ResourceBundle bundle;
+    private DAO dao;
 
     /**
      * Método llamado al iniciar la aplicación.
@@ -60,6 +63,7 @@ public class ControladorRecuperacionContrasenha {
         seleccionarIdioma();
         setAtajos();
         setTooltips();
+        dao = new DAO();
     }
 
     /**
@@ -106,6 +110,7 @@ public class ControladorRecuperacionContrasenha {
         lblValidacionContrasenha.setText(bundle.getString("recuperacionContrasenha.contrasenhaInvalida"));
         lblContrasenhaNoIdentica.setText(bundle.getString("recuperacionContrasenha.contrasenhaNoIdentica"));
         lblContrasenhaCambiada.setText(bundle.getString("recuperacionContrasenha.contrasenhaCambiada"));
+        lblAyuda.setText(bundle.getString("ayuda"));
     }
 
     /**
@@ -121,6 +126,7 @@ public class ControladorRecuperacionContrasenha {
         ttTxtContrasenhaRep.setText(bundle.getString("tt.recuperacionContrasenha.txt.contrasenhaRep"));
         ttBtnRecuperarContrasenha.setText(bundle.getString("tt.recuperacionContrasenha.btn.recuperarContrasenha"));
         ttHlLogin.setText(bundle.getString("tt.recuperacionContrasenha.hl.login"));
+        ttAyuda.setText(bundle.getString("tt.ayuda"));
     }
 
     /**
@@ -134,6 +140,7 @@ public class ControladorRecuperacionContrasenha {
         txtContrasenha.setTooltip(ttTxtContrasenha);
         btnRecuperarContrasenha.setTooltip(ttBtnRecuperarContrasenha);
         hlLogin.setTooltip(ttHlLogin);
+        lblAyuda.setTooltip(ttAyuda);
     }
 
     /**
@@ -160,17 +167,6 @@ public class ControladorRecuperacionContrasenha {
     }
 
     /**
-     * Muestra el formulario de registro de usuario.
-     *
-     * @throws IOException Exception lanzada si no se puede mostrar el formulario.
-     * @since 1.0
-     */
-    @FXML
-    private void registro() throws IOException {
-        // App.setRoot("fxml/registroUsuario");
-    }
-
-    /**
      * Inicia sesión como el jugador 1.
      *
      * @throws IOException Exception lanzada si no se puede mostrar el formulario.
@@ -178,7 +174,7 @@ public class ControladorRecuperacionContrasenha {
      */
     @FXML
     private void login() throws IOException {
-        App.setRoot("fxml/iniciarSesionJ1");
+        App.setRoot("fxml/inicioSesionJ1");
     }
 
     /**
@@ -191,6 +187,7 @@ public class ControladorRecuperacionContrasenha {
     private void cambiarContrasenha() throws IOException {
         if (txtContrasenha.getText().matches("[A-z0-9]{6,}")) {
             if (txtContrasenha.getText().equals(txtContrasenhaRep.getText())) {
+                dao.actualizarContrasenhaUsuario(txtUsuario.getText(), txtContrasenha.getText());
                 hbContrasenhaCambiada.setVisible(true);
             } else {
                 hbContrasenhaNoIdentica.setVisible(true);
@@ -221,6 +218,27 @@ public class ControladorRecuperacionContrasenha {
     @FXML
     public void volverMenuPrincipal() throws IOException {
         App.setRoot("fxml/inicioSesionJ1");
+    }
+
+    /**
+     * Muestra el manual de usuario.
+     * @throws IOException Si ocurre un error al intentar cargar el manual.
+     */
+    public void showDocs() throws IOException {
+        try {
+            // Obtiene la ruta del archivo manualUsuario.html dentro de resources
+            File file = new File("src/main/resources/org/example/ajedrez/html/manualUsuario.html");
+
+            // Verifica si el archivo existe
+            if (file.exists()) {
+                // Abre el archivo en el navegador predeterminado
+                Desktop.getDesktop().browse(file.toURI());
+            } else {
+                System.err.println("El archivo manualUsuario.html no fue encontrado.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

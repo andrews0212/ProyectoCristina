@@ -2,7 +2,10 @@
 
 package org.example.ajedrez.controlador;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -37,17 +40,18 @@ import javafx.util.Duration;
  */
 public class ControladorRegistro {
     @FXML private ComboBox<String> idioma;
-    @FXML private Label lblTitulo, lblValidacionUsuario, lblValidacionEmail, lblValidacionContrasenha, lblRegistroExitoso;
+    @FXML private Label lblTitulo, lblValidacionUsuario, lblValidacionEmail, lblValidacionContrasenha, lblRegistroExitoso, lblAyuda;
     @FXML private Button btnRegistro;
     @FXML private Hyperlink hlLogin, hlMenuPrincipal;
     @FXML private TextField txtUsuario, txtEmail;
     @FXML private PasswordField txtContrasenha;
-    @FXML private Tooltip ttComboBox, ttBtnIniciarSesion, ttHlRecuperarContrasenha, ttHlLogin, ttTxtContrasenha, ttTxtUsuario, ttTxtEmail, ttHlMenuPrincipal;
+    @FXML private Tooltip ttComboBox, ttBtnIniciarSesion, ttHlRecuperarContrasenha, ttHlLogin, ttTxtContrasenha, ttTxtUsuario, ttTxtEmail, ttHlMenuPrincipal, ttAyuda;
     @FXML HBox hbValidacionUsuario, hbValidacionEmail, hbValidacionContrasenha, hbRegistroExitoso;
 
     @FXML private VBox rootVBox;
 
     private ResourceBundle bundle;
+    private DAO dao;
 
     /**
      * Método llamado al iniciar la aplicación.
@@ -61,6 +65,7 @@ public class ControladorRegistro {
         setAtajos();
         setTooltips();
         validacionesPeriodicas();
+        dao = new DAO();
     }
 
     /**
@@ -109,6 +114,7 @@ public class ControladorRegistro {
         lblValidacionContrasenha.setText(bundle.getString("registro.validacionContrasenha"));
         hlMenuPrincipal.setText(bundle.getString("login.hl.menuPrincipal"));
         lblRegistroExitoso.setText(bundle.getString("registro.lbl.registroExitoso"));
+        lblAyuda.setText(bundle.getString("ayuda"));
     }
 
     /**
@@ -125,6 +131,7 @@ public class ControladorRegistro {
         ttBtnIniciarSesion.setText(bundle.getString("tt.login.btn.iniciarSesion"));
         ttHlLogin.setText(bundle.getString("tt.recuperacionContrasenha.hl.login"));
         ttHlMenuPrincipal.setText(bundle.getString("tt.login.hl.menuPrincipal"));
+        ttAyuda.setText(bundle.getString("tt.ayuda"));
     }
 
     /**
@@ -138,6 +145,7 @@ public class ControladorRegistro {
         txtContrasenha.setTooltip(ttTxtContrasenha);
         btnRegistro.setTooltip(ttBtnIniciarSesion);
         hlLogin.setTooltip(ttHlLogin);
+        lblAyuda.setTooltip(ttAyuda);
     }
 
     /**
@@ -167,12 +175,13 @@ public class ControladorRegistro {
      * Muestra el formulario de registro de usuario.
      *
      * @throws IOException Excepción lanzada si no se puede mostrar el formulario.
+     * @throws SQLException 
      * @since 1.0
      */
     @FXML
-    private void registro() throws IOException {
+    private void registro() throws IOException, SQLException {
         if(!hbValidacionUsuario.isVisible() && !hbValidacionEmail.isVisible() && !hbValidacionContrasenha.isVisible()) {
-            //gestionDB.anhadirUsuario(txtUsuario.getText(), txtContrasenha.getText());
+            dao.insertarUsuario(new Usuario(txtUsuario.getText(), txtContrasenha.getText(), txtEmail.getText()));
             hbRegistroExitoso.setVisible(true);
         }
     }
@@ -292,6 +301,27 @@ public class ControladorRegistro {
      */
     public static String primeraLetraMayuscula(String input) {
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+    }
+
+    /**
+     * Muestra el manual de usuario.
+     * @throws IOException Si ocurre un error al intentar cargar el manual.
+     */
+    public void showDocs() throws IOException {
+        try {
+            // Obtiene la ruta del archivo manualUsuario.html dentro de resources
+            File file = new File("src/main/resources/org/example/ajedrez/html/manualUsuario.html");
+
+            // Verifica si el archivo existe
+            if (file.exists()) {
+                // Abre el archivo en el navegador predeterminado
+                Desktop.getDesktop().browse(file.toURI());
+            } else {
+                System.err.println("El archivo manualUsuario.html no fue encontrado.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
