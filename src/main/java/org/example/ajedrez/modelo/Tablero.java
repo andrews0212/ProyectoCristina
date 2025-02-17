@@ -2,11 +2,7 @@ package org.example.ajedrez.modelo;
 
 import javafx.scene.control.Alert;
 
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * La clase Tablero representa el tablero de ajedrez en el que se juega la partida.
@@ -33,6 +29,11 @@ public class Tablero {
      * El rey negro.
      */
     public static Rey reyN;
+
+    /**
+     * Lista que contiene ambos reyes.
+     */
+    public static ArrayList<Rey> reys = new ArrayList<>();
 
     /**
      * Constructor de la clase Tablero.
@@ -122,31 +123,40 @@ public class Tablero {
      * @since 1.0
      */
     public static boolean mover(Casilla origen, Casilla destino, boolean mover) {
-        if (mover) {
-            // Lógica para forzar el movimiento sin validaciones
-            Pieza pieza = tablero.get(origen);
-            if (pieza == null) return false;
-            tablero.put(destino, pieza);
+        if (mover && tablero.get(origen) != null) {
+            tablero.get(origen).x = destino.x;
+            tablero.get(origen).y = destino.y;
+            tablero.put(destino, tablero.get(origen));
             tablero.put(origen, null);
-            pieza.x = destino.x;
-            pieza.y = destino.y;
             return true;
         }
-
-        // Validación normal del movimiento sin considerar jaque
-        if (origen.equals(destino)) return false;
-        Pieza pieza = tablero.get(origen);
-        if (pieza == null) return false;
-
-        List<Casilla> obstaculos = pieza.validar(destino);
-        if (obstaculos == null) return false;
-
-        for (Casilla c : obstaculos) {
-            if (tablero.get(c) != null) return false;
+        if (origen.equals(new Casilla(0, 0)) || destino.equals(new Casilla(0, 0))) {
+            return false;
         }
+        if (origen.equals(destino)) {
+            return false;
+        }
+        if (tablero.get(origen) != null) {
+            List<Casilla> obstaculos = tablero.get(origen).validar(destino);
+            //Traslado
 
-        Pieza destinoPieza = tablero.get(destino);
-        return destinoPieza == null || destinoPieza.color != pieza.color;
+            if (obstaculos == null) {
+                return false;
+            }
+            for (Casilla casilla : obstaculos) {
+                if (tablero.get(casilla) != null) {
+                    return false;
+                }
+            }
+            if (tablero.get(destino) != null) {
+                if (tablero.get(origen).color == tablero.get(destino).color) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -181,6 +191,8 @@ public class Tablero {
             }
 
             // Traslado de la pieza
+            //Apartamos la pieza en objetivo por si hay que devolverla
+            tablero.put(new Casilla(0, 0), tablero.get(destino));
             tablero.get(origen).x = destino.x;
             tablero.get(origen).y = destino.y;
             tablero.put(destino, tablero.get(origen));
@@ -193,7 +205,8 @@ public class Tablero {
                 tablero.get(destino).x = origen.x;
                 tablero.get(destino).y = origen.y;
                 tablero.put(origen, tablero.get(destino));
-                tablero.put(destino, null);
+                //Recuperamos la pieza de destino de 0,0
+                tablero.put(destino, tablero.get(new Casilla(0, 0)));
                 return false;
             }
             return true;
@@ -223,7 +236,7 @@ public class Tablero {
      * @return true si el rey está en jaque, false si no lo está.
      * @since 1.0
      */
-    public static boolean jaque(Rey victima) {
+    public boolean jaque(Rey victima) {
         return asedio(!victima.color, victima.getCasilla());
     }
 
@@ -284,7 +297,8 @@ public class Tablero {
         }
         return jaqueMate;
     }
-
+    //Los movimientos son teóricos de cada pieza no consideran el contexto del tablero
+    ArrayList<Movimiento> movimientosPosibles = new ArrayList<>();
     /**
      * Realiza el movimiento del bot de una pieza en el tablero.
      * @param color
@@ -296,22 +310,29 @@ public class Tablero {
         for(Pieza pieza : tablero.values()) {
             if (pieza != null && pieza.color == color) {
                 for (Casilla casilla : tablero.keySet()) {
-                    if(mover(pieza.getCasilla(),casilla,false)) {
+                    if(mover(pieza.getCasilla(),casilla,false)){
                         Movimiento nuevoMovimiento = new Movimiento(pieza, casilla);
-                        if (mejorMovimiento == null || nuevoMovimiento.getValor() > mejorMovimiento.getValor()) {
-                            mejorMovimiento = nuevoMovimiento;
-                        }
-                        if (mejorMovimiento == null || nuevoMovimiento.getValor() == mejorMovimiento.getValor()) {
-                            if(Math.random()<0.5) {
-                                mejorMovimiento = nuevoMovimiento;
-                            }
-                        }
+                        movimientosPosibles.add(nuevoMovimiento);
                     }
                 }
             }
         }
-        System.out.println(" Valor movimiento bot "+mejorMovimiento);
-        mover(mejorMovimiento.getInicio(true),mejorMovimiento.getObjetivo(true));
-        return mejorMovimiento;
+        movimientosPosibles.sort(new Comparator<Movimiento>() {
+            @Override
+            public int compare(Movimiento o1, Movimiento o2) {
+                if(o1.getValor()==o2.getValor()){
+                    return Math.random()>0.5?1:-1;
+                }
+                return o2.getValor()-o1.getValor();
+            }
+        });
+        System.out.println(movimientosPosibles.toString());
+        for(Movimiento movimiento : movimientosPosibles) {
+            if (mover(movimiento.getInicio(true), movimiento.getObjetivo(true))) {
+                movimientosPosibles.clear();
+                return movimiento;
+            }
+        }
+        return null;
     }
 }
