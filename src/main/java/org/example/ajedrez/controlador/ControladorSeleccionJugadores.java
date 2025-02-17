@@ -154,7 +154,7 @@ public class ControladorSeleccionJugadores {
     private void loginJugador1() throws IOException {
         System.out.println("Se ha seleccionado 1 jugador");
         ContextoApp.setJugador2(false);
-        ControladorTablero.setBot(true);
+        ControladorTablero.bot=true;
         App.setRoot("fxml/inicioSesionJ1");
      
     }
@@ -169,7 +169,7 @@ public class ControladorSeleccionJugadores {
     private void loginJugador2() throws IOException {
         System.out.println("Se han seleccionado 2 jugadores");
         ContextoApp.setJugador2(true);
-        ControladorTablero.setBot(false);
+        ControladorTablero.bot=false;
         App.setRoot("fxml/inicioSesionJ1");
     }
 

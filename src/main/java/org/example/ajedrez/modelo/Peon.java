@@ -43,17 +43,19 @@ public class Peon extends Pieza {
         // El peón se puede mover dos casillas hacia adelante en su primer movimiento.
         if (!color && (casilla.y == y + 2) && y == filaInicial && x==casilla.x) {
             casillas.add(new Casilla(x, y+1));
+            casillas.add(new Casilla(x, y+2));
             return casillas;  // Movimiento válido.
         }
         if (color && (casilla.y == y - 2) && y == filaInicial && x==casilla.x) {
             casillas.add(new Casilla(x, y-1));
+            casillas.add(new Casilla(x, y-2));
             return casillas;  // Movimiento válido.
         }
 
         // Movimiento normal de una casilla hacia adelante (captura o movimiento recto).
         if (!color && casilla.y == y + 1) {
             // Movimiento en diagonal para capturar una pieza.
-            if (Math.abs(casilla.x - x) == 1 && Tablero.tablero.get(casilla) != null) {
+            if (Math.abs(casilla.x - x) == 1 && Tablero.tablero.get(casilla) != null && Tablero.tablero.get(casilla).color != color) {
                 return casillas;  // Captura válida.
             }
             // Movimiento recto hacia adelante (sin captura).
@@ -64,7 +66,7 @@ public class Peon extends Pieza {
         }
         if (color && casilla.y == y - 1) {
             // Movimiento en diagonal para capturar una pieza.
-            if (Math.abs(casilla.x - x) == 1 && Tablero.tablero.get(casilla) != null) {
+            if (Math.abs(casilla.x - x) == 1 && Tablero.tablero.get(casilla) != null && Tablero.tablero.get(casilla).color != color) {
                 return casillas;  // Captura válida.
             }
             // Movimiento recto hacia adelante (sin captura).

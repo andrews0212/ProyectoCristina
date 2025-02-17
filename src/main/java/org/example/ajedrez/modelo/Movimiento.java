@@ -1,23 +1,36 @@
 package org.example.ajedrez.modelo;
 
 public class Movimiento {
+    private  boolean huir;
     private Casilla inicio;
     private Casilla objetivo;
+    private boolean asedio;
     private int valor=0;
-    public Movimiento(Pieza pieza, Casilla objetivo) {
-        this.inicio = pieza.getCasilla();
+
+    @Override
+    public String toString() {
+        return "Movimiento{" +
+                "inicio=" + inicio +
+                ", objetivo=" + objetivo +
+                ", valor=" + valor +
+                '}';
+    }
+
+    public Movimiento(Casilla inicio, Casilla objetivo) {
+        this.inicio = inicio;
         this.objetivo = objetivo;
-        boolean asedio = Tablero.asedio(!pieza.color,objetivo);
-        boolean asediado = Tablero.asedio(!pieza.color,inicio);
+        this.asedio = Tablero.asedio(!Tablero.tablero.get(inicio).color,objetivo);
+        this.huir = Tablero.asedio(!Tablero.tablero.get(inicio).color,inicio);
         if (asedio) {
-            valor = valor - pieza.getValor();
+            valor = valor-Tablero.tablero.get(inicio).getValor();
         }
         if (Tablero.tablero.get(objetivo)!=null) {
             valor = valor + Tablero.tablero.get(objetivo).getValor();
         }
-        if(asediado) {
-            valor = valor + pieza.getValor();
+        if(huir){
+            valor = valor + Tablero.tablero.get(inicio).getValor();
         }
+
     }
     public Casilla getInicio() {
         return new Casilla(inicio.x-1, 9-inicio.y);
@@ -33,10 +46,5 @@ public class Movimiento {
     }
     public int getValor() {
         return valor;
-    }
-
-    @Override
-    public String toString() {
-        return "inicio=" + inicio + ", objetivo=" + objetivo + ", valor=" + valor;
     }
 }

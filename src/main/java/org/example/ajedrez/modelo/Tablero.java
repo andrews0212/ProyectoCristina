@@ -2,11 +2,7 @@ package org.example.ajedrez.modelo;
 
 import javafx.scene.control.Alert;
 
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * La clase Tablero representa el tablero de ajedrez en el que se juega la partida.
@@ -31,6 +27,11 @@ public class Tablero {
      * El rey negro.
      */
     public static Rey reyN;
+
+    /**
+     * Lista que contiene ambos reyes.
+     */
+    public static ArrayList<Rey> reys = new ArrayList<>();
 
     /**
      * Constructor de la clase Tablero.
@@ -106,7 +107,6 @@ public class Tablero {
         return factible;
     }
 
-
     /**
      * Verifica si el movimiento de una pieza es válido según las reglas del ajedrez.
      * Si el parámetro "mover" es true, la pieza será movida aunque el movimiento no sea válido
@@ -147,27 +147,6 @@ public class Tablero {
                     return false;
                 }
             }
-            /*
-            // Traslado de la pieza provisional
-            tablero.get(origen).x = destino.x;
-            tablero.get(origen).y = destino.y;
-            tablero.put(destino, tablero.get(origen));
-            tablero.put(origen, null);
-
-            // Verificar si el rey está en jaque
-            boolean retorno=true;
-            if (jaque(obtenerRey(tablero.get(destino).color))) {
-                retorno=false;
-            }
-            //Retorno forzado tanto si es jaque o no
-            tablero.get(destino).x = origen.x;
-            tablero.get(destino).y = origen.y;
-            tablero.put(origen, tablero.get(destino));
-            tablero.put(destino, null);
-            //Si era jaque movimiento no valido
-            if(!retorno) {
-                return false;
-            }*/
             return true;
         } else {
             return false;
@@ -182,6 +161,7 @@ public class Tablero {
      * @return true si el movimiento se realiza con éxito, false si no es posible.
      */
     public boolean mover(Casilla origen, Casilla destino) {
+        System.out.println(tablero.get(origen));
         if (origen.equals(destino)) {
             return false;
         }
@@ -205,6 +185,8 @@ public class Tablero {
             }
 
             // Traslado de la pieza
+            //Apartamos la pieza en objetivo por si hay que devolverla
+            tablero.put(new Casilla(0, 0), tablero.get(destino));
             tablero.get(origen).x = destino.x;
             tablero.get(origen).y = destino.y;
             tablero.put(destino, tablero.get(origen));
@@ -217,8 +199,25 @@ public class Tablero {
                 tablero.get(destino).x = origen.x;
                 tablero.get(destino).y = origen.y;
                 tablero.put(origen, tablero.get(destino));
-                tablero.put(destino, null);
+                //Recuperamos la pieza de destino de 0,0
+                tablero.put(destino, tablero.get(new Casilla(0, 0)));
                 return false;
+            }
+
+            // Verificar si el movimiento genera jaque mate
+            if (jaque(obtenerRey(!tablero.get(destino).color))) {
+                String color = (!tablero.get(destino).color) ? "negro" : "blanco";
+                if (jaqueMate(obtenerRey(!tablero.get(destino).color))) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Rey " + color);
+                    alert.setHeaderText("Jaque Mate al rey " + color);
+                    alert.show();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Rey " + color);
+                    alert.setHeaderText("Jaque al rey " + color);
+                    alert.show();
+                }
             }
             return true;
         }
@@ -245,7 +244,7 @@ public class Tablero {
      * @param victima El rey a verificar si está en jaque.
      * @return true si el rey está en jaque, false si no lo está.
      */
-    public static boolean jaque(Rey victima) {
+    public boolean jaque(Rey victima) {
         return asedio(!victima.color, victima.getCasilla());
     }
 
@@ -288,27 +287,35 @@ public class Tablero {
         }
         return jaqueMate;
     }
+    //Los movimientos son teóricos de cada pieza no consideran el contexto del tablero
+    ArrayList<Movimiento> movimientosPosibles = new ArrayList<>();
     public Movimiento bot(boolean color){
-        Movimiento mejorMovimiento = null;
         for(Pieza pieza : tablero.values()) {
             if (pieza != null && pieza.color == color) {
                 for (Casilla casilla : tablero.keySet()) {
-                    if(mover(pieza.getCasilla(),casilla,false)) {
-                        Movimiento nuevoMovimiento = new Movimiento(pieza, casilla);
-                        if (mejorMovimiento == null || nuevoMovimiento.getValor() > mejorMovimiento.getValor()) {
-                            mejorMovimiento = nuevoMovimiento;
-                        }
-                        if (mejorMovimiento == null || nuevoMovimiento.getValor() == mejorMovimiento.getValor()) {
-                            if(Math.random()<0.5) {
-                                mejorMovimiento = nuevoMovimiento;
-                            }
-                        }
+                    if(mover(pieza.getCasilla(),casilla,false)){
+                        Movimiento nuevoMovimiento = new Movimiento(pieza.getCasilla(), casilla);
+                        movimientosPosibles.add(nuevoMovimiento);
                     }
                 }
             }
         }
-        System.out.println(" Valor movimiento bot "+mejorMovimiento);
-        mover(mejorMovimiento.getInicio(true),mejorMovimiento.getObjetivo(true));
-        return mejorMovimiento;
+        movimientosPosibles.sort(new Comparator<Movimiento>() {
+            @Override
+            public int compare(Movimiento o1, Movimiento o2) {
+                if(o1.getValor()==o2.getValor()){
+                    return Math.random()>0.5?1:-1;
+                }
+                return o2.getValor()-o1.getValor();
+            }
+        });
+        System.out.println(movimientosPosibles.toString());
+        for(Movimiento movimiento : movimientosPosibles) {
+            if (mover(movimiento.getInicio(true), movimiento.getObjetivo(true))) {
+                movimientosPosibles.clear();
+                return movimiento;
+            }
+        }
+        return null;
     }
 }
